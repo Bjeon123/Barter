@@ -1,5 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
+import '../../styles/login_signup.css'
+import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component {
     constructor(props){
@@ -49,24 +51,33 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <input 
-                        type='text'
-                        value={this.state.email}
-                        onChange={this.update('email')}
-                        />
-                        <input 
-                        type='password'
-                        value={this.state.password}
-                        onChange={this.update('password')}
-                        />
-                        <button>Login</button>
-                        {this.renderErrors()}
-                    </div>
-                </form>
+            <div className="background">
+                <div className="login-form">
+                    <form onSubmit={this.handleSubmit}>
+                            <h1>Welcome back!</h1>
+                            <p>Email</p>
+                            <input 
+                            type='text'
+                            value={this.state.email}
+                            onChange={this.update('email')}
+                            />
+                            <p>Password</p>
+                            <input 
+                            type='password'
+                            value={this.state.password}
+                            onChange={this.update('password')}
+                            />
+                            <button>Login</button>
+                            <button>Demo User</button>
+                            <p>Need an account? <Link to='/signup'>Register</Link></p>
+                            {this.renderErrors()}
+                    </form>
+                </div>
+                <div className="side">
+                        <h1>Barter</h1>
+                </div>
             </div>
+            
         )
     }
 }

@@ -1,0 +1,115 @@
+.background {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    /* grid-template-columns: repeat(12, 1fr); */
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    /* grid-column: 2/7; */
+    margin-left: auto;
+    /* margin-right: auto; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    width: 25%;
+    height: 30%;
+    border-radius: 5px;
+}
+
+.login-form form {
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.login-form p {
+    margin-bottom: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.login-form input {
+    display: block;
+    margin-bottom: 3%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    text-indent: 3px;
+    height: 8%;
+    border: 0.5px solid black
+}
+
+.login-form h1 {
+    font-size: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    margin-top: 5%;
+}
+
+.login-form button {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 2%;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 10%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.side {
+    /* grid-column: 7/-1; */
+    border: 1px solid black;
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    border-radius: 5px;
+    border-left: none;
+    background-color: black;
+    color: white;
+}
+
+.signup-form {
+    /* grid-column: 2/7; */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid black;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    width: 25%;
+    height: 50%;
+    border: none;
+    
+}
+
+.signup-form form {
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.signup-form p {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+
