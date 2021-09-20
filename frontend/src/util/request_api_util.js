@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getRequests = () => {
-    return axios.get('/api/tweets')
+    return axios.get('/api/requests')
 }
 
 export const getUserRequests = id => {
