@@ -9,6 +9,7 @@ class Profile extends React.Component{
             userId: this.props.user.id,
             posts: null
         }
+        console.log(this.props)
     }
     
     componentDidMount(){

@@ -19,12 +19,12 @@ class NavBar extends React.Component {
     render() {
         const navRight = this.props.session.isAuthenticated ?
             <div className="navbar-right">
-                <button>Sell</button>
+                <button><Link to={"/sell"}>Sell</Link></button>
                 <Link to={'/home'}><button onClick={this.props.logout}>Sign out</button></Link>
                 <Link to ={'/profile'}><i className="fas fa-user"></i></Link>
             </div> :
             <div className="navbar-right">
-                <button>Buy</button>
+                <button>Shop</button>
                 <button>Sell</button>
                 <Link to={'/login'}><button>Login</button></Link>
                 <Link to={'/signup'}><button>Sign Up</button></Link>

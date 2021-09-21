@@ -6,6 +6,7 @@
     scroll-snap-type: x mandatory;
     border-bottom: 1px solid black;
     -webkit-overflow-scrolling: touch;
+    padding-top: 3%;
 }
 
 .slide {
@@ -33,12 +34,17 @@
     background-color: black;
     color: white;
     height: 40px;
-    width: 80px;
+    width: 50%;
     border: none;
+    font-weight: bold;
 }
 
 .slide img {
     margin-right: 8%;
+    max-width: 33%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
 }
 
 .description h1 {
@@ -49,3 +55,20 @@
 .description p {
     font-size: 20px;
 }
+
+.featured {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.featured img {
+    margin-right: 8%;
+    max-width: 33%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+}
+
