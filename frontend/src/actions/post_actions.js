@@ -30,6 +30,11 @@ export const fetchPosts = () => dispatch => (
         .then(Posts => dispatch(receivePosts(Posts)))
 );
 
+export const fetchUserPosts = (userId) => dispatch =>(
+    PostApiUtil.fetchUserPosts(userId)
+        .then(Posts => dispatch(receivePosts(Posts)))
+)
+
 export const fetchPost = postId => dispatch => (
     PostApiUtil.fetchPost(postId)
         .then(post => dispatch(receivePost(post)))
