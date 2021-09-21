@@ -5,6 +5,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     border-bottom: 1px solid black;
+    -webkit-overflow-scrolling: touch;
 }
 
 .slide {
