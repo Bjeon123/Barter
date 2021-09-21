@@ -1,0 +1,24 @@
+.profile{
+    padding-top: 7%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12%;
+    margin-right: 12%;
+}
+
+.profile-post-lists{
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    display: flex;
+}
+
+.profile-post-item{
+    padding-left: 2%;
+    width: 200px;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    border: 1px solid black;
+    border-radius: 3px;
+}

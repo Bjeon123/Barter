@@ -8,6 +8,6 @@ export const searchPosts = search => axios.get(`/api/posts/search`, { params: se
 
 export const createPost = post => axios.post(`/api/posts/create`, post);
 
-export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`, post);
+export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`);
 
 export const deletePost = postId => axios.delete(`/api/posts/delete/${postId}`);
