@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../../models/Post");
 const validatePost = require("../../validation/posts");
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
+// const passport = require('passport');
+// const jwt = require('jsonwebtoken');
 
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });

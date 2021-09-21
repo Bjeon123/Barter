@@ -27,12 +27,17 @@ export const receivePostErrors = errors => ({
 
 export const fetchPosts = () => dispatch => (
     PostApiUtil.fetchPosts()
-        .then(Posts => dispatch(receivePosts(Posts)))
+        .then(posts => dispatch(receivePosts(posts)))
 );
 
 export const fetchPost = postId => dispatch => (
     PostApiUtil.fetchPost(postId)
         .then(post => dispatch(receivePost(post)))
+);
+
+export const searchPosts = search => dispatch => (
+    PostApiUtil.searchPosts(search)
+        .then(posts => dispatch(receivePosts(posts)))
 );
 
 export const createPost = post => dispatch => (
