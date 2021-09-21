@@ -46,6 +46,7 @@ class Profile extends React.Component{
                         {postslis}
                     </div>
                     <h2>Your Offers</h2>
+                    <button>Account Settings</button>
                 </div>
             </div>
         )
