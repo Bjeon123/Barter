@@ -5,7 +5,7 @@ const postsReducer = (state = {}, action) => {
     let nextState = Object.assign({}, state)
     switch (action.type) {
         case RECEIVE_POSTS:
-            return action.posts
+            return action.offers
         case RECEIVE_POST:
             return Object.assign(nextState, { [action.post.id]: action.post })
         default:
