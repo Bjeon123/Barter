@@ -28,7 +28,6 @@ router.post('/', (req, res) => {
     if (!isValid){
         return res.status(400).json(errors);
     }
-
     const newOffer = new Offer({
         user: req.body.user,
         text: req.body.text,
@@ -37,6 +36,9 @@ router.post('/', (req, res) => {
         items: req.body.items,
         postId: req.body.postId
     })
+    newOffer.save().then(offer=>
+        res.json(offer)
+    )
 })
 
 module.exports = router;
