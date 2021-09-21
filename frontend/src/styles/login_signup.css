@@ -14,17 +14,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: none;
+    border: 1.5px solid black;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     width: 25%;
-    height: 30%;
+    height: 40%;
     border-radius: 5px;
 }
 
 .login-form form {
-    width: 80%;
+    width: 100%;
     height: 100%;
-    border: 1px solid black;
 }
 
 .login-form p {
@@ -52,7 +51,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 60%;
-    margin-top: 5%;
 }
 
 .login-form button {
@@ -74,7 +72,7 @@
     /* grid-column: 7/-1; */
     border: 1px solid black;
     width: 30%;
-    height: 30%;
+    height: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,20 +93,57 @@
     border: 1.5px solid black;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     width: 25%;
-    height: 50%;
-    border: none;
+    height: 48%;
+    border: 1px solid black;
     
 }
 
 .signup-form form {
-    width: 80%;
+    width: 100%;
     height: 100%;
-    border: 1px solid black;
 }
 
 .signup-form p {
-    margin-right: auto;
+    margin-bottom: 2%;
     margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.signup-form input {
+    display: block;
+    margin-bottom: 3%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    text-indent: 3px;
+    height: 5%;
+    border: 0.5px solid black
+}
+
+.signup-form button {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 2%;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 8%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.signup-form h1 {
+    font-size: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    margin-top: 5%;
 }
 
 

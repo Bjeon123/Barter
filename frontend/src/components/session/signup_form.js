@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -59,6 +59,7 @@ class SignupForm extends React.Component {
       <div className="background">
           <div className="signup-form">
                <form onSubmit={this.handleSubmit}>
+                   <h1>Create an account</h1>
                     <p>Email</p>
                     <input type="text"
                         value={this.state.email}
@@ -84,6 +85,7 @@ class SignupForm extends React.Component {
                         placeholder="Confirm Password"
                     />
                     <button>Register</button>
+                    <p>Already have an account? <Link to="/login">Login</Link></p>
                     {this.renderErrors()}
             </form>
           </div>
