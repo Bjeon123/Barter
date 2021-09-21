@@ -14,11 +14,13 @@ class NavBar extends React.Component {
                 <Link><i class="fas fa-user"></i></Link>
             </div> :
             <div className="navbar-right">
+                <button>Buy</button>
+                <button>Sell</button>
                 <Link to={'/login'}><button>Login</button></Link>
                 <Link to={'/signup'}><button>Sign Up</button></Link>
             </div>
         return (
-            <div>
+           
                 <nav className="navbar">
                     <div className="navbar-left">
                         <h1>Barter</h1>
@@ -26,7 +28,7 @@ class NavBar extends React.Component {
                     </div>
                     {navRight}
                 </nav>
-            </div>
+            
         )
     }
 }

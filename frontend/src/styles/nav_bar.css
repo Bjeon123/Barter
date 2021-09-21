@@ -4,6 +4,7 @@
     align-items: center;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    grid-row: 1/2;
 }
 
 .navbar-left{
@@ -45,3 +46,7 @@
     background-color: rgb(233, 229, 229);
 }
 
+.nav {
+    height: 6%;
+    grid-row: 1/2;
+}
