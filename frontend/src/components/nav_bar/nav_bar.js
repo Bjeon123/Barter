@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 class NavBar extends React.Component {
     constructor(props) {
         super(props)
+        console.log(this.props)
     }
 
     render() {
-        const navRight = this.props.session.user ?
+        const navRight = this.props.session.isAuthenticated ?
             <div className="navbar-right">
-                <Link><button onClick={this.props.logout}>Sign out</button></Link>
+                <Link to={'/home'}><button onClick={this.props.logout}>Sign out</button></Link>
                 <Link><i class="fas fa-user"></i></Link>
             </div> :
             <div className="navbar-right">
