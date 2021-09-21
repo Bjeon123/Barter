@@ -1,4 +1,4 @@
-import * as OfferApiUtil from '../util/offer_api_util;
+import * as OfferApiUtil from '../util/offer_api_util';
 
 export const RECEIVE_OFFER = "RECEIVE_OFFER";
 export const RECEIVE_OFFERS = "RECEIVE_OFFERS";
@@ -27,28 +27,16 @@ export const fetchOffers = () => dispatch => (
 
 export const fetchUserOffers = (userId) => dispatch => (
     OfferApiUtil.fetchUserOffers(userId)
-        .then(Offers => dispatch(receiveOffers(Offers))
+        .then(Offers => dispatch(receiveOffers(Offers)))
 );
 
 export const fetchOffer = offerId => dispatch => (
-    OffertApiUtil.fetchPost(offerId)
+    OfferApiUtil.fetchOffer(offerId)
         .then(offer => dispatch(receiveOffer(offer)))
 );
 
 export const createOffer = offer => dispatch => (
-    OfferApiUtil.createPost(offer)
+    OfferApiUtil.createOffer(offer)
         .then(offer => dispatch(receiveOffer(offer)))
         .catch(error => dispatch(receiveOfferErrors(error.response.data)))
 );
-
-// export const updatePost = postId => dispatch => (
-//     PostApiUtil.updatePost(postId)
-//         .then(post => dispatch(receivePost(post)))
-//         .catch((error) => dispatch(receiveOfferErrors(error.response.data)))
-
-// );
-
-// export const deletePost = postId => dispatch => (
-//     PostApiUtil.deletePost(postId)
-//         .then(() => dispatch(removePost(postId)))
-// );

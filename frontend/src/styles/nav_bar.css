@@ -5,6 +5,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    background-color: white;
     align-items: center;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);

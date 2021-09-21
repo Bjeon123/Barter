@@ -5,7 +5,7 @@ import { signup, login, logout } from '../../actions/session_actions';
 //need to import fetchOffer from offer_actions
 
 const mapStateToProps = (state, ownProps) => ({
-    post: state.entities.posts[ownProps.match.params.postId],
+    post: state.posts[ownProps.match.params.postId],
     currentUser: state.session.user,
 });
 

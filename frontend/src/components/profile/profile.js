@@ -7,7 +7,8 @@ class Profile extends React.Component{
         super(props)
         this.state={
             userId: this.props.user.id,
-            posts: null
+            posts: null,
+            offers: null
         }
     }
     
@@ -17,16 +18,30 @@ class Profile extends React.Component{
             posts =>{
                 this.setState({posts: posts.posts.data})
             }
+        ).then(
+            this.props.fetchUserOffers(userId).then(
+                offers=>{
+                    this.setState({offers: offers.offers.data})
+                }
+            )
         )
     }
 
+    changePassword(){
+
+    }
+
+    deleteAccount(){
+
+    }
+
     render(){
-        const {posts} = this.state
-        if(posts === null){
+        const {posts,offers} = this.state
+        if(posts === null || offers === null){
             return null
         }
-        console.log(this.props)
         let postslis = [];
+        console.log(this.state)
         for (let i = 0; i < posts.length; i++){
             postslis.push(
                 <div className="profile-post-item">
@@ -35,6 +50,18 @@ class Profile extends React.Component{
                     <h3>{(posts[i].description).replace(/^"(.*)"$/, '$1')}</h3>
                 </div>
             )
+        }
+        let offerlis = [];
+        if(offers.length !== 0){
+            for (let i = 0; i < offers.length; i++) {
+                offerlis.push(
+                    <div className="profile-post-item">
+                        <h3>{(offers[i].items)}</h3>
+                        <h3>{numToDollars.format(offers[i].price)}</h3>
+                        <h3>{(offers[i].text).replace(/^"(.*)"$/, '$1')}</h3>
+                    </div>
+                )
+            }
         }
         return(
             <div>
@@ -45,8 +72,13 @@ class Profile extends React.Component{
                     <div className="profile-post-lists">
                         {postslis}
                     </div>
-                    <h2>Your Offers</h2>
-                    <button>Account Settings</button>
+                    <h2>Offers Made</h2>
+                    <div className= "profile-post-lists">
+                       {offerlis}
+                    </div>
+                    <a>Change Username</a>
+                    <a>Change Password</a>
+                    <button className="profile-settings-btn">Delete Account</button>
                 </div>
             </div>
         )
