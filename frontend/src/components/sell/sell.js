@@ -7,7 +7,7 @@ class SellPage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            category: "",
+            category: "Games",
             itemName: "",
             price: 0,
             description: "",
@@ -73,10 +73,10 @@ class SellPage extends React.Component {
                             onChange={this.handleChange("price")}
                         />
                         <p>Category</p>
-                        <select>
-                            <option onClick={() => this.setState({ category: 'Games'})}>Game</option>
-                            <option onClick={() => this.setState({ category: 'Shoes'})}>Shoes</option>
-                            <option onClick={() => this.setState({ category: 'Books'})}>Books</option>
+                        <select value={this.state.category} onChange={this.handleChange("category")}>
+                            <option value="Games">Games</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Books">Books</option>
                         </select>
                         <div className="sell-buttons">
                             <input type="file" onChange={(e)=>this.setState({postImage: e.target})}></input>

@@ -10,6 +10,10 @@ class MainPage extends React.Component {
         return (
             <div className="grid">
                 <NavBar/>
+                <div className="about">
+                    <h1>Trade items for items</h1>
+                    <p>Barter is a place where users can trade unwanted items for <br/>cash or other items. Check out our featured selections below!</p>
+                </div>
                 <div className="slider">
                     <div className="slide" id="slide-1">
                         <div className="description">

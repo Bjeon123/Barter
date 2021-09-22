@@ -5,9 +5,10 @@ import MainPageContainer from './main/main_page_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import ProfilePageContainer from './profile/profile_container';
-import PostShow from './post/post_show_container'
+import PostShow from './post/post_show_container';
 import SellContainer from './sell/sell_container';
 import { Route } from 'react-router';
+import PostIndex from './post/post_index';
 
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
     <Route path='/home' component={MainPageContainer} />
     <Route path='/sell' component={SellContainer} />
     <Route path='/posts/:postid' component={PostShow} />
+    <Route path='/posts' component={PostIndex} />
   </Switch>
 )
 
