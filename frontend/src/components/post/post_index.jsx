@@ -4,19 +4,27 @@ import React from 'react';
 class PostIndex extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props);
+        this.state = { posts: null};
+    }
+
+    componentDidMount(){
+        this.props.fetchPosts()
+            .then(posts => this.setState({posts: posts}))
     }
 
     render() {
-        const allPosts = Object.values(this.props.posts).map((post, idx) => {(
-            // <div>
-            //     <PostShow post={ post } updatePost={this.props.updatePost} deletePost={this.props.deletePost} key={ idx }/>
-            // </div>
+        if(this.state.posts === null) {
+            return null;
+        }
+        console.log("Page");
+        const allPosts = this.state.posts.map((post, idx) => {(
             <ul>
-                <li>{ post.userId }</li>
-                <li>{ post.category }</li>
-                <li>{ post.itemName }</li>
-                <li>{ post.price }</li>
-                <li>{ post.description }</li>
+                <li key={idx}>{ post.userId }</li>
+                <li key={idx}>{ post.category }</li>
+                <li key={idx}>{ post.itemName }</li>
+                <li key={idx}>{ post.price }</li>
+                <li key={idx}>{ post.description }</li>
             </ul>
         )});
 
