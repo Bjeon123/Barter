@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../nav_bar/nav_bar_container'
 import {numToDollars} from '../../util/number_api_util'
+import {Link} from 'react-router-dom'
 
 class Profile extends React.Component{
     constructor(props){
@@ -45,12 +46,13 @@ class Profile extends React.Component{
         console.log(this.state)
         for (let i = 0; i < posts.length; i++){
             postslis.push(
-                <div className="profile-post-item">
-                    <h3>{(posts[i].itemName).replace(/^"(.*)"$/, '$1')}</h3>
-                    <h3>{numToDollars.format(posts[i].price)}</h3>
-                    <h3>{(posts[i].description).replace(/^"(.*)"$/, '$1')}</h3>
-                    <img src={`${posts[i].postImage}`} alt="not working"></img>
-                </div>
+                <Link to={`posts/${posts[i]._id}`}>
+                    <div className="profile-post-item">
+                        <h3>{(posts[i].itemName).replace(/^"(.*)"$/, '$1')}</h3>
+                        <h3>{numToDollars.format(posts[i].price)}</h3>
+                        <img src={`${posts[i].postImage}`} alt="not working"></img>
+                    </div>
+                </Link>
             )
         }
         let offerlis = [];
@@ -78,8 +80,10 @@ class Profile extends React.Component{
                     <div className= "profile-post-lists">
                        {offerlis}
                     </div>
-                    <a>Change Username</a>
-                    <a>Change Password</a>
+                    <div className="user-options">
+                        <a>Change Username</a>
+                        <a>Change Password</a>
+                    </div>
                     <button className="profile-settings-btn">Delete Account</button>
                 </div>
             </div>
