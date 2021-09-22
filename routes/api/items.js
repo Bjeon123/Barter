@@ -35,8 +35,8 @@ router.get('/user/:userId', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-router.get('/post/:postId', (req, res) => {
-    Item.find({ postId: req.params.postId })
+router.get('/offer/:offerId', (req, res) => {
+    Item.find({ offerId: req.params.offerId })
         .then(items => res.json(items))
         .catch(err => res.status(400).json(err));
 });

@@ -9,7 +9,7 @@ module.exports = function validateItem(item) {
     }
 
     if (Validator.isEmpty(item.postId)) {
-        errors.postId = "Post ID is required";
+        errors.offerId = "Offer ID is required";
     }
 
     if (Validator.isEmpty(item.category)) {
