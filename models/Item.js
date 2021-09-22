@@ -8,9 +8,9 @@ const ItemSchema = new Schema({
         required: true
     },
 
-    postId: {
+    OfferId: {
         type: Schema.Types.ObjectId,
-        ref: 'posts',
+        ref: 'offers',
         required: true
     },
 
