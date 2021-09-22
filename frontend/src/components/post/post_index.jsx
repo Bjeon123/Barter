@@ -2,6 +2,9 @@ import React from 'react';
 // import PostShow from './post_show';
 
 class PostIndex extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const allPosts = Object.values(this.props.posts).map((post, idx) => {(
