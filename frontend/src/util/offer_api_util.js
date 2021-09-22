@@ -6,7 +6,7 @@ export const fetchOffers = () => axios.get(`/api/offers`);
 
 export const fetchUserOffers= (userId) => axios.get(`/api/offers/user/${userId}`);
 
-export const createOffer = offer => axios.post(`/api/posts/create`, offer);
+export const createOffer = offer => axios.post(`/api/offers/create`, offer);
 
 // export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`);
 
