@@ -11,7 +11,7 @@ class MainPage extends React.Component {
             <div className="grid">
                 <NavBar/>
                 <div className="slider">
-                    <div class="slide" id="slide-1">
+                    <div className="slide" id="slide-1">
                         <div className="description">
                             <h1>Popular Item</h1>
                             <p>Mario</p>
