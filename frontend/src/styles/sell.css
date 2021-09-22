@@ -53,6 +53,10 @@
     font-size: 1.6em;
 }
 
+.sell-buttons input{
+    position: absolute;
+}
+
 .upload:hover {
     background-color: black;
     color: white;

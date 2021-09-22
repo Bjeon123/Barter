@@ -49,6 +49,7 @@ class Profile extends React.Component{
                     <h3>{(posts[i].itemName).replace(/^"(.*)"$/, '$1')}</h3>
                     <h3>{numToDollars.format(posts[i].price)}</h3>
                     <h3>{(posts[i].description).replace(/^"(.*)"$/, '$1')}</h3>
+                    <img src={`${posts[i].postImage}`} alt="not working"></img>
                 </div>
             )
         }

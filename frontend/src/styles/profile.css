@@ -23,6 +23,10 @@
     border-radius: 3px;
 }
 
+.profile-post-item img{
+    width: 150px;
+}
+
 .profile-settings-btn{
     color: white;
     background-color: black;

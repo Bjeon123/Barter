@@ -2,8 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../../models/Post");
 const validatePost = require("../../validation/posts");
+const multer = require('multer')
 // const passport = require('passport');
 // const jwt = require('jsonwebtoken');
+
+const randomVal = ()=> Math.floor(1000 + Math.random() * 9000);
+
+const storage = multer.diskStorage({
+    destination: (req,file,cb) =>{
+        cb(null, './uploads/')
+    },
+    filename: (req,file,cb)=> {
+        cb(null, randomVal().toString() + file.originalname )
+    }
+})
+
+const upload = multer({storage: storage});
 
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
@@ -27,7 +41,8 @@ router.get('/show/:id', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', upload.single("postImage"),(req, res) => {
+    console.log(req.file);
     const { errors, isValid } = validatePost(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -37,7 +52,8 @@ router.post('/create', (req, res) => {
         category: req.body.category,
         itemName: req.body.itemName,
         price: req.body.price,
-        description: req.body.description
+        description: req.body.description,
+        postImage: req.file.path
     });
     newPost.save().then(post => res.json(post));
 });

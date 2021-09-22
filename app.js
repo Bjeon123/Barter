@@ -14,8 +14,6 @@ mongoose
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log(err));
 
-
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
   app.get('/', (req, res) => {
@@ -26,6 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

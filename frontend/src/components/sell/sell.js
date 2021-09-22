@@ -10,7 +10,8 @@ class SellPage extends React.Component {
             category: "",
             itemName: "",
             price: 0,
-            description: ""
+            description: "",
+            postImage: null
         }
         console.log(this.props)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,7 +31,8 @@ class SellPage extends React.Component {
             category: this.state.category,
             itemName: this.state.itemName,
             price: this.state.price,
-            description: this.state.description
+            description: this.state.description,
+            postImage: this.state.postImage
             }
             console.log(post)
         this.props.createPost(post)
@@ -38,12 +40,14 @@ class SellPage extends React.Component {
             category: "",
             itemName: "",
             price: "",
-            description: ""
+            description: "",
+            postImage: null
         })
         this.props.history.push("/home")
     }
 
     render(){
+        console.log(this.state)
         return (
             <div>
                 <NavBar/>
@@ -75,7 +79,7 @@ class SellPage extends React.Component {
                             <option onClick={() => this.setState({ category: 'Books'})}>Books</option>
                         </select>
                         <div className="sell-buttons">
-                            <button className="upload">Upload Image</button>
+                            <input type="file" onChange={(e)=>this.setState({postImage: e.target})}></input>
                             <button className="create">Create Listing</button>
                         </div>
                     </form>
