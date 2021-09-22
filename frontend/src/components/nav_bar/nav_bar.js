@@ -42,7 +42,7 @@ class NavBar extends React.Component {
            
                 <nav className="navbar">
                     <div className="navbar-left">
-                        <Link style={{ textDecoration: 'none' }} to={'./home'}><h1>Barter</h1></Link>
+                        <Link style={{ textDecoration: 'none' }} to={'/home'}><h1>Barter</h1></Link>
                         <p onClick={this.handleClick}>Categories<i className="fas fa-chevron-down"></i></p>
                         {this.state.openedCategories ? categories : null }
                         <input placeholder="search"></input>
