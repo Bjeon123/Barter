@@ -10,6 +10,7 @@ class Profile extends React.Component{
             posts: null,
             offers: null
         }
+        console.log(this.props)
     }
     
     componentDidMount(){

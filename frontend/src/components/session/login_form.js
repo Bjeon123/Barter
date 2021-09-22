@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import '../../styles/login_signup.css'
 import '../../styles/nav_bar.css'
 import '../../styles/profile.css'
+import '../../styles/post_page.css'
 import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component {

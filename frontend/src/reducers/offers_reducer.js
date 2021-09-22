@@ -1,6 +1,6 @@
 import { RECEIVE_OFFERS,RECEIVE_OFFER} from "../actions/offer_actions";
 
-const postsReducer = (state = {}, action) => {
+const offersReducer = (state = {}, action) => {
     let nextState = Object.assign({}, state)
     switch (action.type) {
         case RECEIVE_OFFERS:
@@ -12,4 +12,4 @@ const postsReducer = (state = {}, action) => {
     }
 }
 
-export default postsReducer;
+export default offersReducer;

@@ -1,0 +1,64 @@
+.sell-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.sell-page form{
+    margin-top: 10%;
+    width: 50%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    box-shadow: 10px 10px;
+}
+
+.sell-page input {
+    width: 50%;
+    height: 5%;
+}
+
+.sell-page select {
+    width: 50%;
+    height: 5%;
+}
+
+.sell-page button {
+    width: 33%;
+    margin-top: 5%;
+    margin-right: 2%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+}
+
+.sell-page label {
+    display: block;
+}
+.sell-page p {
+    width: 50%;
+}
+
+.sell-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+.upload:hover {
+    background-color: black;
+    color: white;
+}
+
+.create:hover {
+    background-color: #3ba45d;
+    color: white;
+}

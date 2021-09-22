@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../nav_bar/nav_bar_container'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -6,7 +7,8 @@ class PostShow extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchPost(this.props.match.params.postId)
+        const id = this.props.match.params.postid;
+        this.props.fetchPost(id)
     }
 
     handleOfferSubmit(e){
@@ -15,25 +17,25 @@ class PostShow extends React.Component {
 
     render() {
         if (!this.props.post) {
-            return (
-                <div>Loading..</div>
-            )
+            return null;
         }
         return (
             <div>
-                <div className="post-pic-container">
-                    {this.props.post.photoUrls.map((photoUrl, idx) => (
+                <NavBar/>
+                <div className="post-container">
+                    <div className="post-pic-container">
+                        {/* {this.props.post.data.photoUrls.map((photoUrl, idx) => (
                         <img className="post-pic" key={idx} src={ photoUrl } alt="post-picture"/>
-                    ))}
+                    ))} */}
+                    </div>
+                    <div className="post-info">
+                        <p>{this.props.post.data.category}</p>
+                        <p>{this.props.post.data.itemName}</p>
+                        <p>{this.props.post.data.price}</p>
+                        <p>{this.props.post.data.description}</p>
+                    </div>
+                    <button onClick={() => this.handleOfferSubmit}>Make an Offer</button>
                 </div>
-                        
-                <div className="post-info">
-                    <p>{this.props.post.category}</p>
-                    <p>{this.props.post.itemName}</p>
-                    <p>{this.props.post.price}</p>
-                    <p>{this.props.post.description}</p>
-                </div>
-                <button onClick={() => this.handleOfferSubmit}>Make an Offer</button>
             </div>
         )
     }
