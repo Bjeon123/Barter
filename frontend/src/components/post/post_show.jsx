@@ -23,16 +23,16 @@ class PostShow extends React.Component {
             <div>
                 <NavBar/>
                 <div className="post-container">
-                    <div className="post-pic-container">
-                        {/* {this.props.post.data.photoUrls.map((photoUrl, idx) => (
+                    {/* <div className="post-pic-container">
+                        {this.props.post.data.photoUrls.map((photoUrl, idx) => (
                         <img className="post-pic" key={idx} src={ photoUrl } alt="post-picture"/>
-                    ))} */}
-                    </div>
+                    ))}
+                    </div> */}
                     <div className="post-info">
-                        <p>{this.props.post.data.category}</p>
-                        <p>{this.props.post.data.itemName}</p>
-                        <p>{this.props.post.data.price}</p>
-                        <p>{this.props.post.data.description}</p>
+                        <p>Category: {this.props.post.data.category}</p>
+                        <p>Name: {this.props.post.data.itemName}</p>
+                        <p>Price: {this.props.post.data.price}</p>
+                        <p>Description: {this.props.post.data.description}</p>
                     </div>
                     <button onClick={() => this.handleOfferSubmit}>Make an Offer</button>
                 </div>
