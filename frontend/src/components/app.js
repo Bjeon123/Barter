@@ -8,7 +8,7 @@ import ProfilePageContainer from './profile/profile_container';
 import PostShow from './post/post_show_container';
 import SellContainer from './sell/sell_container';
 import { Route } from 'react-router';
-import PostIndex from './post/post_index';
+import PostIndex from './post/post_index_container';
 
 
 const App = () => (

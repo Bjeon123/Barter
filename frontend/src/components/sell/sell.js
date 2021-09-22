@@ -79,7 +79,7 @@ class SellPage extends React.Component {
                             <option value="Books">Books</option>
                         </select>
                         <div className="sell-buttons">
-                            <input type="file" onChange={(e)=>this.setState({postImage: e.target})}></input>
+                            <input type="file" onChange={(e) => this.setState({ postImage: e.target.files[0]})}></input>
                             <button className="create">Create Listing</button>
                         </div>
                     </form>

@@ -45,11 +45,13 @@ export const searchPosts = search => dispatch => (
         .then(posts => dispatch(receivePosts(posts)))
 );
 
-export const createPost = post => dispatch => (
-    PostApiUtil.createPost(post)
-        .then(post => dispatch(receivePost(post)))
-        .catch(error => dispatch(receivePostErrors(error.response.data)))
-);
+export const createPost = post => dispatch => {
+    return(
+        PostApiUtil.createPost(post)
+            .then(post => dispatch(receivePost(post)))
+            .catch(error => dispatch(receivePostErrors(error.response.data)))
+    )
+}
 
 export const updatePost = postId => dispatch => (
     PostApiUtil.updatePost(postId)
