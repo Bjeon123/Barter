@@ -15,26 +15,42 @@ class PostIndex extends React.Component {
 
     render() {
         if(this.state.posts === null) {
-            return null;
+            return <p>Null</p>;
         }
         console.log("Page");
-        console.log(this.state.posts.posts['data'])
-        const allPosts = this.state.posts.posts.data.map((post, idx) => {(
-            <div>
-                <p key={idx}>{post.userId}</p>
-                <p key={idx}>{post.category}</p>
-                <p key={idx}>{post.itemName}</p>
-                <p key={idx}>{post.price}</p>
-                <p key={idx}>{post.description}</p>
-            </div>
-        )});
-
+        console.log(this.state.posts);
         return(
             <div>
-                <h1>Index Page</h1>
-                <div>{allPosts}</div>
+                {
+                    this.state.posts.posts.data.map((post, idx) => (
+                        <div>
+                            <p key={idx}>{post.userId}</p>
+                            <p key={idx}>{post.category}</p>
+                            <p key={idx}>{post.itemName}</p>
+                            <p key={idx}>{post.price}</p>
+                            <p key={idx}>{post.description}</p>
+                        </div>
+                    ))
+                }
             </div>
-        )
+        );
+
+        // const allPosts = this.state.posts.posts.data.map((post, idx) => {(
+        //     <div>
+        //         <p key={idx}>{post.userId}</p>
+        //         <p key={idx}>{post.category}</p>
+        //         <p key={idx}>{post.itemName}</p>
+        //         <p key={idx}>{post.price}</p>
+        //         <p key={idx}>{post.description}</p>
+        //     </div>
+        // )});
+
+        // return(
+        //     <div>
+        //         <h1>Index Page</h1>
+        //         <div>{allPosts}</div>
+        //     </div>
+        // )
     }
 }
 
