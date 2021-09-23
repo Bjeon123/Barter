@@ -12,16 +12,16 @@ module.exports = function validateItem(item) {
         errors.offerId = "Offer ID is required";
     }
 
-    if (Validator.isEmpty(item.category)) {
-        errors.category = "Category is required";
-    }
-
     if (Validator.isEmpty(item.name)) {
         errors.name = "Item Name is required";
     }
 
     if (Validator.isEmpty(item.description)) {
         errors.description = "Description is required";
+    }
+
+    if (Validator.isEmpty(item.imageUrl)) {
+        errors.description = "Image is required";
     }
 
     return {

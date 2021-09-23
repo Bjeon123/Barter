@@ -19,9 +19,6 @@ const OfferSchema = new Schema({
     price: {
         type: Number
     },
-    items: {
-        type: Array
-    },
     postId: {
         type: Schema.Types.ObjectId,
         ref: 'posts',
