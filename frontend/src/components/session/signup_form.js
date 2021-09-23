@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import NavBar from '../nav_bar/nav_bar_container';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="background">
+          <NavBar />
           <div className="signup-form">
                <form onSubmit={this.handleSubmit}>
                    <h1>Create an account</h1>
