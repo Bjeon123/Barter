@@ -48,7 +48,6 @@ router.get('/show/:id', (req, res) => {
 });
 
 router.post('/create', upload.single("itemImage"), (req, res) => {
-    console.log(req.file);
     const { errors, isValid } = validateItem(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
