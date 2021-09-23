@@ -12,7 +12,6 @@ class Profile extends React.Component{
         super(props)
         this.state={
             userId: this.props.user.id,
-            username: "",
             posts: null,
             offers: null,
             postdrop: false,
@@ -20,7 +19,6 @@ class Profile extends React.Component{
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
     }
     
     componentDidMount(){
@@ -43,16 +41,6 @@ class Profile extends React.Component{
             e.preventDefault();
             this.setState({ [field]: e.currentTarget.value })
         }
-    }
-
-    handleUpdate(e){
-        e.preventDefault();
-        let user = {
-            username: this.state.username,
-            password: this.props.user.password,
-            email: this.props.user.email
-        }
-        this.props.updateUser(user)
     }
 
     handlePostDrop() {
@@ -123,18 +111,9 @@ class Profile extends React.Component{
                        {offerlis}
                     </div>
                     <div className="user-options">
-                        <button className="profile-settings-btn">Change Password</button>
                         <button className="profile-settings-btn">Delete Account</button>
                     </div>
                 </div>
-                <form onSubmit={this.handleUpdate}>
-                    <input 
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.handleChange('username')}
-                    />
-                    <button>Submit</button>
-                </form>
             </div>
         )
     }

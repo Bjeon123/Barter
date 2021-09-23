@@ -17,6 +17,7 @@ class LoginForm extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
+        this.handleDemoUser = this.handleDemoUser.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
@@ -38,6 +39,12 @@ class LoginForm extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
+        this.props.login(user)
+    }
+
+    handleDemoUser(e) {
+        e.preventDefault()
+        let user = {email: "demo@email.com", password: "password"}
         this.props.login(user)
     }
 
@@ -73,7 +80,7 @@ class LoginForm extends React.Component {
                             onChange={this.update('password')}
                             />
                             <button>Login</button>
-                            <button>Demo User</button>
+                            <button onClick={this.handleDemoUser}>Demo User</button>
                             <p>Need an account? <Link to='/signup'>Register</Link></p>
                             {this.renderErrors()}
                     </form>
