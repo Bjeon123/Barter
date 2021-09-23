@@ -101,7 +101,6 @@
     margin-top: 3%;
 }
 
-<<<<<<< HEAD
 .offer {
     border-bottom: 1px solid gray;
 }
@@ -140,21 +139,4 @@
 
 .block h3 {
     margin-left: 2%;
-=======
-textarea{
-    resize: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-.offer-item-container{
-    display: flex;
-    width: 200px;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.cash-offer{
-    margin-top: 10px;
->>>>>>> 9f836091900e3b1b18c489ddd90cfa7d736ed884
 }
