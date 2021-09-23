@@ -5,6 +5,7 @@ import '../../styles/nav_bar.css'
 import '../../styles/profile.css'
 import '../../styles/post_page.css'
 import { Link } from 'react-router-dom';
+import NavBar from "../nav_bar/nav_bar_container";
 
 class LoginForm extends React.Component {
     constructor(props){
@@ -55,6 +56,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div className="background">
+                <NavBar />
                 <div className="login-form">
                     <form onSubmit={this.handleSubmit}>
                             <h1>Welcome back!</h1>
