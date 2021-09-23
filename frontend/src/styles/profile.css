@@ -6,19 +6,30 @@
     margin-right: 12%;
 }
 
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
 .profile-post-lists{
     border: 2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
+    border-radius: 3px;
+    margin-right: 2%;
+    margin-bottom: 2%;
     display: flex;
 }
 
 .profile-post-item{
     padding-left: 2%;
     width: 200px;
-    margin-top: 1%;
-    margin-left: 2%;
+    margin-left: 10px;
+    margin-top: 2%;
     margin-right: 2%;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
     border: 1px solid black;
     border-radius: 3px;
 }
@@ -43,12 +54,11 @@
     color: white;
 }
 
-.profile a{
-    margin-top: 15px;
-    width: 13%;
+.user-options a{
+    margin-top: 1%;
+    display: block;
 }
 
 a:hover{
     cursor: pointer;
-    color: blue;
 }
