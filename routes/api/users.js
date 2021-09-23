@@ -93,6 +93,17 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.put("/:userId", passport.authenticate('jwt', { session: false }), async(req, res) => {
+    const { errors, isValid } = validateUserInput(req.body);
+    if (!isValid) {
+        return res.status(400).json({errors});
+    }
+    const user = await User.findOneAndUpdate({id: req.params.userId}, req.body)
+    const newUser = await User.findById(req.params.userId);
+    newUser.save()
+    res.json(newUser)
+})
+
 
 
 module.exports = router;

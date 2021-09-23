@@ -2,6 +2,7 @@ import Profile from './profile'
 import {connect} from 'react-redux'
 import {fetchUserPosts} from '../../actions/post_actions'
 import {fetchUserOffers} from '../../actions/offer_actions'
+import { editUser } from '../../actions/user_actions'
 
 const mSTP = state =>(
     {
@@ -14,7 +15,9 @@ const mSTP = state =>(
 const mDTP = dispatch =>(
     {
         fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
-        fetchUserOffers: (userId) => dispatch(fetchUserOffers(userId))
+        fetchUserOffers: (userId) => dispatch(fetchUserOffers(userId)),
+        editUser: user => dispatch(editUser(user))
+
     }
 )
 
