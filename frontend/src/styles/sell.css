@@ -30,9 +30,10 @@
 
 .sell-page button {
     width: 33%;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-right: 2%;
-    height: 100%;
+    margin-bottom: 2%;
+    height: 8%;
     border: none;
     border-radius: 5px;
 }
@@ -48,9 +49,13 @@
     display: flex;
     flex-direction: row;
     width: 50%;
-    justify-content: center;
+    /* justify-content: center; */
     font-weight: bold;
     font-size: 1.6em;
+}
+
+select {
+    margin-bottom: 2%;
 }
 
 .sell-buttons input{
@@ -66,3 +71,20 @@
     background-color: #3ba45d;
     color: white;
 }
+
+
+.custom {
+    margin-right: 20%;
+}
+
+input[type="file"] {
+    width: 200px;
+    height: 25px;
+}
+
+.sell-buttons label {
+    width: 200px;
+    height: 25px;
+}
+
+
