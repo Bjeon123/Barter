@@ -41,7 +41,7 @@ router.post('/create', (req, res) => {
     const newItem = new Item({
         name: req.body.name,
         userId: req.body.userId,
-        postId: req.body.postId,
+        offerId: req.body.postId,
         description: req.body.description,
         imageUrl: req.body.imageUrl
     })
@@ -56,6 +56,7 @@ router.patch('/update/:id', (req, res) => {
     const updatedItem = {
         name: req.body.name,
         postId: req.body.postId,
+        offerId: req.body.postId,
         description: req.body.description,
         itemUrl: req.file.path
     }

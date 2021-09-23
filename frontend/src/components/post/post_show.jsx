@@ -55,9 +55,13 @@ class PostShow extends React.Component {
                 for (let i = 0; i < this.state.items.length; i++) {
                     const item = this.state.items[0];
                     const itemFormatted = {
-                        userId: this.props.currentUser.id
+                        userId: this.props.currentUser.id,
+                        offerId: this.state.offerId,
+                        name: item.name,
+                        description: item.description,
+                        imageUrl: item.imageUrl
                     }
-                    console.log("fjirfi")
+                    createItem(itemFormatted)
                 }
             }
         )
