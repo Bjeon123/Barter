@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../nav_bar/nav_bar_container';
 // import PostShow from './post_show';
 
 class PostIndex extends React.Component {
@@ -20,18 +21,32 @@ class PostIndex extends React.Component {
         console.log("Page");
         console.log(this.state.posts);
         return(
-            <div>
+            <div className="post-index">
+                <NavBar />
+                <h1>All Listings</h1>
+                <div className="posts-container">
                 {
                     this.state.posts.posts.data.map((post, idx) => (
-                        <div>
-                            <p key={idx}>{post.userId}</p>
-                            <p key={idx}>{post.category}</p>
-                            <p key={idx}>{post.itemName}</p>
-                            <p key={idx}>{post.price}</p>
-                            <p key={idx}>{post.description}</p>
+                        <div className="offer" >
+                            <div className="block"> 
+                                <h3>Name: </h3><p key={idx}>{post.userId}</p>
+                            </div>
+                            <div className="block"> 
+                                <h3>Category: </h3><p key={idx}>{post.category}</p>
+                            </div>
+                            <div className="block"> 
+                                <h3>Item: </h3><p key={idx}>{post.itemName}</p>
+                            </div>
+                            <div className="block"> 
+                                <h3>Price: </h3><p key={idx}>${post.price}</p>
+                            </div>
+                            <div className="block"> 
+                                <h3>Description: </h3><p key={idx}>{post.description}</p>
+                            </div>
                         </div>
                     ))
                 }
+                </div>
             </div>
         );
 
