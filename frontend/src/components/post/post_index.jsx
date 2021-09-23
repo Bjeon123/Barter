@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container';
+import {Image} from 'cloudinary-react'
 // import PostShow from './post_show';
 
 class PostIndex extends React.Component {
@@ -28,6 +29,7 @@ class PostIndex extends React.Component {
                 {
                     this.state.posts.posts.data.map((post, idx) => (
                         <div className="offer" >
+                            <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`} />
                             <div className="block"> 
                                 <h3>Name: </h3><p key={idx}>{post.userId}</p>
                             </div>
