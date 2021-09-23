@@ -19,11 +19,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/search', (req, res) => {
-    Post.find({ category: req.params.category })
-        .then(posts => res.json(posts))
-        .catch(err => res.status(400).json(err));
+router.get('/search', async (req, res) => {
+    const categoryResults = await Post.find({ category: { $regex: req.params.term, $options: "i" } });
+    const nameResults = await Post.find({ itemName: { $regex: req.params.term, $options: "i" } });
+    const results = [...categoryResults, ...nameResults];
+    const resultMap = {};
+    results.forEach(post => {
+        const postId = post._id;
+        resultMap[postId] = post;
+    });
+    res.json(Object.values(resultMap));
 });
+
+// router.get('/search', (req, res) => {
+//     Post.find({category: req.params.category})
+//         .then(posts => res.json(posts))
+//         .catch(err => res.status(400).json(err));
+// });
 
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
@@ -86,75 +98,6 @@ router.delete('/delete/:id', (req, res) => {
         .catch((err) => (res.status(400).json({err})));
 });
 
-// router.patch('/:id/update',
-//     passport.authenticate('jwt', { session: false }),
-//     (req, res) => {
-//         const { errors, isValid } = validatePost(req.body);
-
-//         if (!isValid) {
-//             return res.status(400).json(errors);
-//         }
-
-//         Post.findByIdAndUpdate(
-//             req.params.id,
-//             {
-//                 // userId: req.body.userId,
-//                 category: req.body.category,
-//                 itemName: req.body.itemName,
-//                 price: req.body.price,
-//                 description: req.body.description
-//             },
-//             { new: true },
-//             function (err, success) {
-//                 if (err) {
-//                     console.log(err);
-//                 } else {
-//                     return success;
-//                 }
-//             }
-//         ).then(updatedPost => {
-//             User.findOneAndUpdate(
-//                 { _id: req.user.id },
-//                 {
-//                     $set: {
-//                         'posts.$[el].category': updatedPost.category,
-//                         'posts.$[el].itemName': updatedPost.itemName,
-//                         'posts.$[el].price': updatedPost.price,
-//                         'posts.$[el].description': updatedPost.description
-//                     }
-//                 },
-//                 { arrayFilters: [{ "el._id": updatedPost._id }], new: true }
-//             )
-//                 .then(complete => res.json(complete))
-//         })
-//     }
-// );
-
-// router.delete('/delete/:id',
-//     passport.authenticate('jwt', { session: false }),
-//     (req, res) => {
-//         const postId = req.params.id
-
-//         Post.findById(postId)
-//             .then(post => User.updateOne(
-//                 { _id: req.user.id },
-//                 {
-//                     $pull: {
-//                         'posts': { _id: post._id }
-//                     }
-//                 }
-//             ).then(() => Post.findByIdAndDelete(
-//                 postId,
-//                 (err, post) => {
-//                     if (err) {
-//                         return res.json(err)
-//                     }
-//                 }
-//             ).then(() => res.json({ msg: 'Post successfully deleted' }))
-//                 .catch(err => console.log(err))
-//             ))
-//     }
-// );
 
 
 module.exports = router;

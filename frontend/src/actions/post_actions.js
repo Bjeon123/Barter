@@ -40,8 +40,8 @@ export const fetchPost = postId => dispatch => (
         .then(post => dispatch(receivePost(post)))
 );
 
-export const searchPosts = search => dispatch => (
-    PostApiUtil.searchPosts(search)
+export const searchPosts = searchContent => dispatch => (
+    PostApiUtil.searchPosts(searchContent)
         .then(posts => dispatch(receivePosts(posts)))
 );
 

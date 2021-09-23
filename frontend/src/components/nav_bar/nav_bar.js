@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import SearchBar from '../search_bar/search_bar';
+// import SearchBar from '../search_bar/search_bar';
+import SearchBarContainer from '../search_bar/search_bar_container';
 
 class NavBar extends React.Component {
     constructor(props){
@@ -47,7 +48,8 @@ class NavBar extends React.Component {
                         {/* <p onClick={this.handleClick}>Categories<i className="fas fa-chevron-down"></i></p>
                         {this.state.openedCategories ? categories : null }
                         <input placeholder="search"></input> */}
-                        <SearchBar searchPosts={this.props.searchPosts}/>
+                        {/* <SearchBar searchPosts={this.props.searchPosts}/> */}
+                        <SearchBarContainer/>
                     </div>
                     {navRight}
                 </nav>
