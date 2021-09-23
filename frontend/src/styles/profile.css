@@ -17,6 +17,7 @@ a:hover{
 
 .profile-post-lists{
     border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: black;
     border-radius: 3px;
     margin-right: 2%;
     margin-bottom: 2%;
@@ -24,6 +25,7 @@ a:hover{
 }
 
 .profile-post-item{
+    background-color: white;
     padding-left: 2%;
     width: 200px;
     margin-left: 10px;
@@ -32,6 +34,10 @@ a:hover{
     margin-bottom: 2%;
     border: 1px solid black;
     border-radius: 3px;
+}
+
+.profile-post-item:hover{
+    border: 1px solid red;
 }
 
 .profile-post-item img{
