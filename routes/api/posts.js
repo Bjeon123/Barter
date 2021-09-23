@@ -5,28 +5,6 @@ const validatePost = require("../../validation/posts");
 // const passport = require('passport');
 // const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
-const randomVal = ()=> Math.floor(1000 + Math.random() * 9000);
-
-const storage = multer.diskStorage({
-    destination: (req,file,cb) =>{
-        cb(null, './uploads/')
-    },
-    filename: (req,file,cb)=> {
-        cb(null, randomVal().toString() + file.originalname )
-    }
-})
-
-const upload = multer({storage: storage});
-
-router.get('/search', (req, res) => {
-    Post.find({ category: req.params.category })
-        .then(posts => res.json(posts))
-        .catch(err => res.status(400).json(err));
-});
-
-=======
->>>>>>> create-photos
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
 });
