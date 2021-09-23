@@ -123,7 +123,7 @@ class Profile extends React.Component{
                         <button className="profile-settings-btn">Delete Account</button>
                     </div>
                 </div>
-                <form>
+                {/* <form>
                     Username 
                     <input 
                         type="text"
@@ -131,7 +131,7 @@ class Profile extends React.Component{
                         onChange={this.handleChange("username")}
                     />
                     <button onClick={this.handleSubmit}></button>
-                </form>
+                </form> */}
             </div>
         )
     }
