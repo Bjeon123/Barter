@@ -77,10 +77,18 @@ class PostShow extends React.Component {
                         </div>
                         <form onSubmit={this.handleOfferSubmit}>
                             <h1>Make An Offer</h1>
-                            <input
-                                type="text"
-                                
-                            />
+                            <p><i class="fas fa-plus"></i> Add An Item</p>
+                            <div className="offer-item-container">
+                                <input type="text" placeholder="item name"></input>
+                                <textarea placeholder="description"></textarea>
+                                <input type="file"></input>
+                            </div>
+                            <div className="cash-offer">
+                                <label> Cash
+                                    <input type="number" placeholder="$0" />
+                                </label>
+                            </div>
+
                         </form>
                     </div>
                 </div>

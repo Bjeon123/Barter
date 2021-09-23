@@ -5,6 +5,7 @@ import '../../styles/nav_bar.css'
 import '../../styles/profile.css'
 import '../../styles/post_page.css'
 import { Link } from 'react-router-dom';
+import NavBar from "../nav_bar/nav_bar_container";
 
 class LoginForm extends React.Component {
     constructor(props){
@@ -16,6 +17,7 @@ class LoginForm extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
+        this.handleDemoUser = this.handleDemoUser.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
@@ -40,6 +42,12 @@ class LoginForm extends React.Component {
         this.props.login(user)
     }
 
+    handleDemoUser(e) {
+        e.preventDefault()
+        let user = {email: "demo@email.com", password: "password"}
+        this.props.login(user)
+    }
+
     renderErrors() {
         return (
             <ul>
@@ -55,6 +63,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div className="background">
+                <NavBar />
                 <div className="login-form">
                     <form onSubmit={this.handleSubmit}>
                             <h1>Welcome back!</h1>
@@ -71,7 +80,7 @@ class LoginForm extends React.Component {
                             onChange={this.update('password')}
                             />
                             <button>Login</button>
-                            <button>Demo User</button>
+                            <button onClick={this.handleDemoUser}>Demo User</button>
                             <p>Need an account? <Link to='/signup'>Register</Link></p>
                             {this.renderErrors()}
                     </form>

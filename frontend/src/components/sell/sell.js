@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/sell.css";
+import {randomInt} from '../../util/number_api_util'
 import NavBar from "../nav_bar/nav_bar_container";
+import axios from 'axios';
 
 class SellPage extends React.Component {
     constructor(props){
@@ -11,9 +13,8 @@ class SellPage extends React.Component {
             itemName: "",
             price: 0,
             description: "",
-            postImage: null
+            image: null
         }
-        console.log(this.props)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -26,28 +27,42 @@ class SellPage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const post = {
-            userId: this.props.userId, 
+
+        let post = {
+            userId: this.props.userId,
             category: this.state.category,
             itemName: this.state.itemName,
             price: this.state.price,
             description: this.state.description,
-            postImage: this.state.postImage
+            imageUrl: `${randomInt().toString()}${this.state.image.name.split('.')[0]}`
+        }
+        let formData = new FormData();
+        formData.append("file", this.state.image);
+        formData.append("upload_preset", "ys8sasql");
+        formData.append("public_id",`${post['imageUrl']}` )
+        const options = {
+            method: 'POST',
+            body: formData,
+        };
+        console.log(this.post)
+        fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options).then(
+            response =>{
+                console.log(response)
             }
-            console.log(post)
-        this.props.createPost(post)
+        ).then(
+            () => this.props.createPost(post)
+        )
         this.setState({ 
             category: "",
             itemName: "",
             price: "",
             description: "",
-            postImage: null
+            image: null
         })
         this.props.history.push("/home")
     }
 
     render(){
-        console.log(this.state)
         return (
             <div>
                 <NavBar/>
@@ -79,7 +94,7 @@ class SellPage extends React.Component {
                             <option value="Books">Books</option>
                         </select>
                         <div className="sell-buttons">
-                            <input type="file" onChange={(e) => this.setState({ postImage: e.target.files[0]})}></input>
+                            <input type="file" onChange={(e) => this.setState({ image: e.target.files[0]})}></input>
                             <button className="create">Create Listing</button>
                         </div>
                     </form>

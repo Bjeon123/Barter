@@ -8,6 +8,8 @@ export const fetchUserOffers= (userId) => axios.get(`/api/offers/user/${userId}`
 
 export const createOffer = offer => axios.post(`/api/offers/create`, offer);
 
+export const fetchPostOffers = postId => axios.get(`/api/offers/post/${postId}`);
+
 // export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`);
 
 // export const deletePost = postId => axios.delete(`/api/posts/delete/${postId}`);

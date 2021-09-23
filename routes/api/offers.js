@@ -17,6 +17,12 @@ router.get('/user/:user_id', (req, res) => {
         .catch(err => res.status(404).json({ nooffersfound: "No offers found for that user"}))
 })
 
+router.get('/post/:post_id', (req, res) => {
+    Offer.find({ postId: req.params.post_id})
+        .then(offers => res.json(offers))
+        .catch(err => res.status(404).json({ nooffersfound: "No offers found for that user"}))
+})
+
 router.get('/:id', (req, res) => {
     Offer.findById(req.params.id)
         .then(offer => res.json(offer))

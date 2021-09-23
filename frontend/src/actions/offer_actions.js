@@ -40,3 +40,10 @@ export const createOffer = offer => dispatch => (
         .then(offer => dispatch(receiveOffer(offer)))
         .catch(error => dispatch(receiveOfferErrors(error.response.data)))
 );
+
+export const fetchPostOffers = (postId) => dispatch => (
+    OfferApiUtil.fetchPostOffers(postId)
+        .then(Offers => dispatch(receiveOffers(Offers)))
+);
+
+

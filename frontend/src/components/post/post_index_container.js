@@ -3,7 +3,8 @@ import PostIndex from './post_index';
 import { fetchPosts, updatePost, deletePost } from '../../actions/post_actions';
 
 const mapStateToProps = state => ({
-    posts: state.posts
+    session: state.session,
+    posts: state.posts,
 });
 
 const mapDispatchToProps = dispatch => ({
