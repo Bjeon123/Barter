@@ -16,23 +16,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/search', async (req, res) => {
-    const categoryResults = await Post.find({ category: { $regex: req.params.term, $options: "i" } });
-    const nameResults = await Post.find({ itemName: { $regex: req.params.term, $options: "i" } });
-    const results = [...categoryResults, ...nameResults];
-    const resultMap = {};
-    results.forEach(post => {
-        const postId = post._id;
-        resultMap[postId] = post;
-    });
-    res.json(Object.values(resultMap));
-});
-
-// router.get('/search', (req, res) => {
-//     Post.find({category: req.params.category})
-//         .then(posts => res.json(posts))
-//         .catch(err => res.status(400).json(err));
+// router.get('/search', async (req, res) => {
+//     const categoryResults = await Post.find({ category: { $regex: req.params.term, $options: "i" } });
+//     const nameResults = await Post.find({ itemName: { $regex: req.params.term, $options: "i" } });
+//     const results = [...categoryResults, ...nameResults];
+//     const resultMap = {};
+//     results.forEach(post => {
+//         const postId = post._id;
+//         resultMap[postId] = post;
+//     });
+//     res.json(Object.values(resultMap));
 // });
+
+router.get('/search', (req, res) => {
+    Post.find({category: req.params.category})
+        .then(posts => res.json(posts))
+        .catch(err => res.status(400).json(err));
+});
 
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
