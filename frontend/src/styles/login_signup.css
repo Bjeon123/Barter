@@ -5,6 +5,8 @@
     /* grid-template-columns: repeat(12, 1fr); */
     align-items: center;
     justify-content: center;
+    background-image: url("../assets/signup.jpeg");
+    background-size: cover;
 }
 
 .login-form {
@@ -19,6 +21,7 @@
     width: 25%;
     height: 40%;
     border-radius: 5px;
+    background-color: white;
 }
 
 .login-form form {
