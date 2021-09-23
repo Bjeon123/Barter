@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../nav_bar/nav_bar_container'
 import {numToDollars} from '../../util/number_api_util'
+import {Image} from 'cloudinary-react'
 import {Link} from 'react-router-dom'
 
 class Profile extends React.Component{
@@ -11,7 +12,6 @@ class Profile extends React.Component{
             posts: null,
             offers: null
         }
-        console.log(this.props)
     }
     
     componentDidMount(){
@@ -43,14 +43,14 @@ class Profile extends React.Component{
             return null
         }
         let postslis = [];
-        console.log(this.state)
         for (let i = 0; i < posts.length; i++){
+            const post = posts[i];
             postslis.push(
                 <Link to={`posts/${posts[i]._id}`}>
                     <div className="profile-post-item">
-                        <h3>{(posts[i].itemName).replace(/^"(.*)"$/, '$1')}</h3>
-                        <h3>{numToDollars.format(posts[i].price)}</h3>
-                        <img src={`${posts[i].postImage}`} alt="not working"></img>
+                        <h3>{(post.itemName).replace(/^"(.*)"$/, '$1')}</h3>
+                        <h3>{numToDollars.format(post.price)}</h3>
+                        <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`}/>
                     </div>
                 </Link>
             )
