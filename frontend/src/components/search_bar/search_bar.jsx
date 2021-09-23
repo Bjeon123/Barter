@@ -14,7 +14,8 @@ class SearchBar extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-        this.props.searchPosts(this.state.category).then(() => this.props.history.push(`/posts/search?category=${this.state.category}`));
+        // this.props.searchPosts(this.state.category).then(() => this.props.history.push(`/posts/search?category=${this.state.category}`));
+        this.props.searchPosts(this.state.category).then(() => this.props.history.push(`/search/results`));
     }
 
     render(){

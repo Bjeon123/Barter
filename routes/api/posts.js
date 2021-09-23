@@ -19,6 +19,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
+router.get('/search', (req, res) => {
+    Post.find({ category: req.params.category })
+        .then(posts => res.json(posts))
+        .catch(err => res.status(400).json(err));
+});
+
 router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
 });
