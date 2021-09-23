@@ -14,11 +14,6 @@ const ItemSchema = new Schema({
         required: true
     },
 
-    category: {
-        type: String,
-        required: true
-    },
-
     name: {
         type: String,
         required: true
@@ -29,7 +24,7 @@ const ItemSchema = new Schema({
         required: true
     },
 
-    itemImage: {
+    imageUrl: {
         type: String,
         required: true
     }

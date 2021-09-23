@@ -140,3 +140,16 @@
 .block h3 {
     margin-left: 2%;
 }
+
+textarea{
+    resize: none;
+    overflow-y: scroll;
+}
+
+.offer-item-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 2px solid rgb(201, 200, 200);
+}

@@ -1,16 +1,23 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container'
+import OfferItem from './offer_item'
+import {createItem} from '../../util/item_api_util'
 
 class PostShow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            offerId: null,
             price: 0,
             items: [],
+            itemsToRender:[],
             text: "",
             modal: false 
         }
-        this.handleOfferSubmit = this.handleOfferSubmit.bind(this)
+        this.handleOfferSubmit = this.handleOfferSubmit.bind(this);
+        // this.removeItem = this.removeItem.bind(this);
+        this.addItem=this.addItem.bind(this);
+        this.addItemtoState=this.addItemtoState.bind(this);
     }
 
     componentDidMount() {
@@ -25,17 +32,56 @@ class PostShow extends React.Component {
         }
     }
 
+    addItemtoState(item,idx){
+        let items = [...this.state.items];
+        items[idx] = item;
+        this.setState( { items } );
+    }
+
     handleOfferSubmit(e){
         e.preventDefault();
         const offer = {
             user: this.props.currentUser.id,
             text: this.state.text,
-            receiver: this.post.userId,
-            price: this.state.price,
-            items: this.state.items,
-            postId: this.props.post.id
+            receiver: this.props.post.data.userId,
+            price: parseInt(this.state.price),
+            postId: this.props.post.data._id
+        }
+        let offerId;
+        this.props.createOffer(offer).then(
+            offer => this.setState({offerId: offer.offer.data._id})
+        ).then(
+            ()=>{
+                for (let i = 0; i < this.state.items.length; i++) {
+                    const item = this.state.items[0];
+                    const itemFormatted = {
+                        userId: this.props.currentUser.id
+                    }
+                    console.log("fjirfi")
+                }
+            }
+        )
+        
+    }
+
+    addItem(){
+        const idx=this.state.itemsToRender.length
+        this.setState({ itemsToRender: [...this.state.itemsToRender, <OfferItem idx={idx} addItemtoState={this.addItemtoState}/>]})
+    }
+
+    handleChange(field) {
+        return e => {
+            e.preventDefault();
+            this.setState({ [field]: e.currentTarget.value })
         }
     }
+
+    // removeItem(idx) {
+    //     let itemsArr= [...this.state.items].splice(idx,1);
+    //     this.setState({
+    //         itemsArr: itemsArr
+    //     });
+    // }
 
     render() {
         if (!this.props.post) {
@@ -45,12 +91,6 @@ class PostShow extends React.Component {
             <div>
                 <NavBar/>
                 <div className="post-container">
-                    {/* <div className="post-pic-container">
-                        {this.props.post.data.photoUrls.map((photoUrl, idx) => (
-                        <img className="post-pic" key={idx} src={ photoUrl } alt="post-picture"/>
-                    ))}
-                    </div> */}
-                    
                         <div className="post-info">
                             <div className="corner">Product Details</div>
                             <div className="row-container">
@@ -77,18 +117,17 @@ class PostShow extends React.Component {
                         </div>
                         <form onSubmit={this.handleOfferSubmit}>
                             <h1>Make An Offer</h1>
-                            <p><i class="fas fa-plus"></i> Add An Item</p>
-                            <div className="offer-item-container">
-                                <input type="text" placeholder="item name"></input>
-                                <textarea placeholder="description"></textarea>
-                                <input type="file"></input>
-                            </div>
+                            <p onClick={this.addItem}><i class="fas fa-plus"></i> Add An Item</p>
+                            {this.state.itemsToRender}
                             <div className="cash-offer">
+                                <label> Offer Description
+                                    <input onChange={this.handleChange('text')} type="text" placeholder="$0" />
+                                </label>
                                 <label> Cash
-                                    <input type="number" placeholder="$0" />
+                                    <input onChange={this.handleChange('price')} type="number" placeholder="$0" />
                                 </label>
                             </div>
-
+                            <button>Create Offer</button>
                         </form>
                     </div>
                 </div>

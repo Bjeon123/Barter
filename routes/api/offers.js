@@ -39,12 +39,28 @@ router.post('/', (req, res) => {
         text: req.body.text,
         receiver: req.body.receiver,
         price: req.body.price,
-        items: req.body.items,
         postId: req.body.postId
     })
     newOffer.save().then(offer=>
         res.json(offer)
     )
 })
+
+router.patch('/:id', (req, res) => {
+    const { errors, isValid } = validateOffer(req.body);
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    const updatedPost = {
+        user: req.body.user,
+        text: req.body.text,
+        receiver: req.body.receiver,
+        price: req.body.price,
+        postId: req.body.postId
+    }
+    Post.findOneAndUpdate({ id: req.body.id}, { $set: updatedPost })
+        .then(post => res.json(post))
+        .catch(err => console.log(err));
+});
 
 module.exports = router;
