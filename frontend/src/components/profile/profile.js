@@ -3,15 +3,24 @@ import NavBar from '../nav_bar/nav_bar_container'
 import {numToDollars} from '../../util/number_api_util'
 import {Image} from 'cloudinary-react'
 import {Link} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
 
 class Profile extends React.Component{
     constructor(props){
         super(props)
         this.state={
             userId: this.props.user.id,
+            username: "",
             posts: null,
-            offers: null
+            offers: null,
+            postdrop: false,
+            offerdrop: false,
         }
+        this.handlePostDrop = this.handlePostDrop.bind(this);
+        this.handleOfferDrop = this.handleOfferDrop.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
     
     componentDidMount(){
@@ -27,6 +36,31 @@ class Profile extends React.Component{
                 }
             )
         )
+    }
+
+    handleChange(field) {
+        return e => {
+            e.preventDefault();
+            this.setState({ [field]: e.currentTarget.value })
+        }
+    }
+
+    handleUpdate(e){
+        e.preventDefault();
+        let user = {
+            username: this.state.username,
+            password: this.props.user.password,
+            email: this.props.user.email
+        }
+        this.props.updateUser(user)
+    }
+
+    handlePostDrop() {
+        this.setState({ postdrop: !this.state.postdrop})
+    }
+
+    handleOfferDrop() {
+        this.setState({ offerdrop: !this.state.offerdrop})
     }
 
     changePassword(){
@@ -48,8 +82,10 @@ class Profile extends React.Component{
             postslis.push(
                 <Link to={`posts/${posts[i]._id}`}>
                     <div className="profile-post-item">
-                        <h3>{(post.itemName).replace(/^"(.*)"$/, '$1')}</h3>
-                        <h3>{numToDollars.format(post.price)}</h3>
+                        <div className="details">
+                            <h3>{(post.itemName).replace(/^"(.*)"$/, '$1')}</h3>
+                            <h3>{numToDollars.format(post.price)}</h3>
+                        </div>
                         <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`}/>
                     </div>
                 </Link>
@@ -59,7 +95,7 @@ class Profile extends React.Component{
         if(offers.length !== 0){
             for (let i = 0; i < offers.length; i++) {
                 offerlis.push(
-                    <div className="profile-post-item">
+                    <div >
                         <h3>{(offers[i].items)}</h3>
                         <h3>{numToDollars.format(offers[i].price)}</h3>
                         <h3>{(offers[i].text).replace(/^"(.*)"$/, '$1')}</h3>
@@ -68,24 +104,37 @@ class Profile extends React.Component{
             }
         }
         return(
-            <div>
+            <div className="profile-background">
                 <NavBar/>
                 <div className="profile">
-                    <h1>Profile</h1>
-                    <h2>Your Posts</h2>
-                    <div className="profile-post-lists">
+                    <h1>{`${this.props.user.username}`}'s Profile</h1>
+                    <div className="header">
+                        <h2>Your Posts</h2>
+                        <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle"/></i>
+                    </div>
+                    <div className={`${this.state.postdrop ? 'display_modal' : 'hide_modal' } items`}>
                         {postslis}
                     </div>
-                    <h2>Offers Made</h2>
-                    <div className= "profile-post-lists">
+                    <div className="header">
+                        <h2>Offers Made</h2>
+                        <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleDown} className="angle"/></i>
+                    </div>
+                    <div className={`${this.state.offerdrop ? 'display_modal' : 'hide_modal' } items`}>
                        {offerlis}
                     </div>
                     <div className="user-options">
-                        <a>Change Username</a>
-                        <a>Change Password</a>
+                        <button className="profile-settings-btn">Change Password</button>
+                        <button className="profile-settings-btn">Delete Account</button>
                     </div>
-                    <button className="profile-settings-btn">Delete Account</button>
                 </div>
+                <form onSubmit={this.handleUpdate}>
+                    <input 
+                        type="text"
+                        value={this.state.username}
+                        onChange={this.handleChange('username')}
+                    />
+                    <button>Submit</button>
+                </form>
             </div>
         )
     }
