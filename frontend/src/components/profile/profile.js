@@ -5,6 +5,7 @@ import {Image} from 'cloudinary-react'
 import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { fetchOfferItems } from '../../util/item_api_util'
 
 
 class Profile extends React.Component{
@@ -13,6 +14,7 @@ class Profile extends React.Component{
         this.state={
             userId: this.props.user.id,
             posts: null,
+            offersData: [],
             offers: null,
             postdrop: false,
             offerdrop: false,
@@ -31,8 +33,27 @@ class Profile extends React.Component{
             }
         ).then(
             this.props.fetchUserOffers(userId).then(
-                offers=>{
-                    this.setState({offers: offers.offers.data})
+                (offers) => {
+                    for (let i = 0; i < offers.offers.data.length; i++) {
+                        const offerData = offers.offers.data[i];
+                        let offerItemsData = {};
+                        console.log(offerData)
+                        offerItemsData.cash = offerData.price;
+                        offerItemsData.offer_description = offerData.text;
+                        offerItemsData.offerId = offerData._id
+                        fetchOfferItems(offerItemsData.offerId).then(
+                            (items) => {
+                                const itemsData = items.data;
+                                let addItemsData = {};
+                                for (let j = 0; j < itemsData.length; j++) {
+                                    addItemsData[j] = itemsData[j]
+                                }
+                                offerItemsData['items'] = addItemsData
+                            }
+                        ).then(
+                            () => this.setState({ offersData: [...this.state.offersData, offerItemsData] })
+                        )
+                    }
                 }
             )
         )
@@ -69,10 +90,11 @@ class Profile extends React.Component{
     }
 
     render(){
-        const {posts,offers} = this.state
-        if(posts === null || offers === null){
+        const {posts,offersData} = this.state
+        if(posts === null && this.state.offersData!==null){
             return null
         }
+        console.log(this.state)
         let postslis = [];
         for (let i = 0; i < posts.length; i++){
             const post = posts[i];
@@ -89,14 +111,29 @@ class Profile extends React.Component{
             )
         }
         let offerlis = [];
-        if(offers.length !== 0){
-            for (let i = 0; i < offers.length; i++) {
+        if(offersData.length !== 0){
+            for (let i = 0; i < offersData.length; i++) {
+                const offer = this.state.offersData[i];
+                let itemsdiv = [];
+                for(let j=0; j< Object.values(offer.items).length; j++){
+                    let item = offer.items[j]
+                    const itemRender =
+                    <div>
+                        <p>{item.name}</p>
+                        <p>{item.description}</p>
+                        <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
+                    </div>
+                    itemsdiv.push(itemRender)
+                }
                 offerlis.push(
                     <div className="offer-container">
-                        <h3>{(offers[i].items)}</h3>
-                        <h3>Post Id: {offers[i].postId}</h3>
-                        <h3>Cash offered: {numToDollars.format(offers[i].price)}</h3>
-                        <h3>Offer description: {(offers[i].text).replace(/^"(.*)"$/, '$1')}</h3>
+                        {/* <h3>{(offersData[i].items)}</h3> */}
+                        <h3>Offer Id: {offersData[i].offerId}</h3>
+                        <h3>Cash offered: {numToDollars.format(offersData[i].cash)}</h3>
+                        <h3>Offer description: {(offersData[i].offer_description).replace(/^"(.*)"$/, '$1')}</h3>
+                        <div>
+                            {itemsdiv}
+                        </div>
                     </div>
                 )
             }
