@@ -92,10 +92,11 @@ class Profile extends React.Component{
         if(offers.length !== 0){
             for (let i = 0; i < offers.length; i++) {
                 offerlis.push(
-                    <div >
+                    <div className="offer-container">
                         <h3>{(offers[i].items)}</h3>
-                        <h3>{numToDollars.format(offers[i].price)}</h3>
-                        <h3>{(offers[i].text).replace(/^"(.*)"$/, '$1')}</h3>
+                        <h3>Post Id: {offers[i].postId}</h3>
+                        <h3>Cash offered: {numToDollars.format(offers[i].price)}</h3>
+                        <h3>Offer description: {(offers[i].text).replace(/^"(.*)"$/, '$1')}</h3>
                     </div>
                 )
             }
@@ -123,7 +124,7 @@ class Profile extends React.Component{
                         <button className="profile-settings-btn">Delete Account</button>
                     </div>
                 </div>
-                <form>
+                {/* <form>
                     Username 
                     <input 
                         type="text"
@@ -131,7 +132,7 @@ class Profile extends React.Component{
                         onChange={this.handleChange("username")}
                     />
                     <button onClick={this.handleSubmit}></button>
-                </form>
+                </form> */}
             </div>
         )
     }

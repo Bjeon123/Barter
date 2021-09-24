@@ -44,7 +44,6 @@ class SellPage extends React.Component {
             method: 'POST',
             body: formData,
         };
-        console.log(this.post)
         fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options).then(
             response =>{
                 console.log(response)
@@ -94,9 +93,11 @@ class SellPage extends React.Component {
                             <option value="Books">Books</option>
                         </select>
                         <div className="sell-buttons">
-                            <input type="file" onChange={(e) => this.setState({ image: e.target.files[0]})}></input>
-                            <button className="create">Create Listing</button>
+                            <label for="file-upload" className="custom">
+                                <input type="file" onChange={(e) => this.setState({ image: e.target.files[0]})}/>
+                            </label>
                         </div>
+                            <button className="create">Create Listing</button>
                     </form>
                 </div>
             </div>
