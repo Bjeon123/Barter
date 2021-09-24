@@ -41,7 +41,7 @@ router.post('/create', (req, res) => {
     const newItem = new Item({
         name: req.body.name,
         userId: req.body.userId,
-        offerId: req.body.postId,
+        offerId: req.body.offerId,
         description: req.body.description,
         imageUrl: req.body.imageUrl
     })
@@ -55,10 +55,10 @@ router.patch('/update/:id', (req, res) => {
     }
     const updatedItem = {
         name: req.body.name,
-        postId: req.body.postId,
-        offerId: req.body.postId,
+        userId: req.body.userId,
+        offerId: req.body.offerId,
         description: req.body.description,
-        itemUrl: req.file.path
+        itemUrl: req.body.imageUrl
     }
     Item.findOneAndUpdate({ '_id': req.body['_id'] }, { $set: updatedItem }, { new: true })
         .then(item => res.json(item))

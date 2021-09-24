@@ -2,9 +2,8 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
 }
 
 .post-info {
@@ -152,4 +151,8 @@ textarea{
     padding-top: 5px;
     padding-bottom: 5px;
     border-top: 2px solid rgb(201, 200, 200);
+}
+
+.post-container img{
+    width: 30%;
 }
