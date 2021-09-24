@@ -13,6 +13,14 @@
     box-shadow: 10px 10px;
 }
 
+.post-container img {
+   height: auto;
+   width: auto;
+   max-height: 40%;
+   max-width: 20%;
+   display: block;
+}
+
 .corner {
     background-color: black;
     color: white;
@@ -75,12 +83,23 @@
     display: flex;
     flex-direction: column;
     color: black;
-    padding-bottom: 5%;
+    /* padding-bottom: 5%; */
 }
 
 .createOffer h1 {
     opacity: 1;
     color: black;
+}
+
+.createOffer input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 3%;
+}
+
+.offer button {
+    margin-bottom: 5%;
 }
 
 .display_modal {
@@ -192,4 +211,8 @@ textarea{
 
 .post-container img{
     width: 30%;
+}
+
+.offer-container {
+    border-bottom: 1px solid gray;
 }
