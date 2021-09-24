@@ -18,7 +18,7 @@
    height: auto;
    width: auto;
    max-height: 40%;
-   max-width: 20%;
+   max-width: 35%;
    display: block;
 }
 
@@ -210,15 +210,17 @@ textarea{
     justify-content: center;
 }
 
-.post-container img{
-    width: 30%;
-}
 
 .offer-container {
     border-bottom: 1px solid gray;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.offer-container:hover {
+    border: 2px solid black;
+    box-shadow: 5px 5px lightgray;
 }
 
 .offer-post {
@@ -293,7 +295,8 @@ textarea{
 }
 
 .item-render {
-    margin-right: 15%;
+    padding-right: 15%;
+    
 }
 .item-render img{
     max-height: 200px;
@@ -304,5 +307,9 @@ textarea{
 
 .image-container {
     display: flex;
+    margin-right: 5%;
 }
 
+.offer-details {
+    margin-left: 5%;
+}

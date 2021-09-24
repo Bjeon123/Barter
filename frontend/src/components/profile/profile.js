@@ -36,9 +36,10 @@ class Profile extends React.Component{
                 (offers) => {
                     for (let i = 0; i < offers.offers.data.length; i++) {
                         const offerData = offers.offers.data[i];
-                        let offerItemsData = {};
                         console.log(offerData)
+                        let offerItemsData = {};
                         offerItemsData.cash = offerData.price;
+                        offerItemsData.postId= offerData.postId;
                         offerItemsData.offer_description = offerData.text;
                         offerItemsData.offerId = offerData._id
                         fetchOfferItems(offerItemsData.offerId).then(
@@ -81,7 +82,6 @@ class Profile extends React.Component{
             email: this.props.user.email,
             username: this.state.username
         }
-        console.log(user)
         this.props.editUser(user)
     }
 
@@ -94,7 +94,6 @@ class Profile extends React.Component{
         if(posts === null && this.state.offersData!==null){
             return null
         }
-        console.log(this.state)
         let postslis = [];
         for (let i = 0; i < posts.length; i++){
             const post = posts[i];
@@ -126,9 +125,8 @@ class Profile extends React.Component{
                     itemsdiv.push(itemRender)
                 }
                 offerlis.push(
-                    <div className="offer-container">
-                        {/* <h3>{(offersData[i].items)}</h3> */}
-                        <div>
+                    <Link to={`posts/${offersData[i].postId}`} className="offer-container">
+                        <div className="offer-details">
                             <h3>Offer Id:</h3> <p>{offersData[i].offerId}</p>
                             <h3>Cash offered:</h3> <p>{numToDollars.format(offersData[i].cash)}</p>
                             <h3>Offer description: </h3><p>{(offersData[i].offer_description).replace(/^"(.*)"$/, '$1')}</p>
@@ -136,7 +134,8 @@ class Profile extends React.Component{
                         <div className="image-container">
                             {itemsdiv}
                         </div>
-                    </div>
+                        </Link>
+                    
                 )
             }
         }
