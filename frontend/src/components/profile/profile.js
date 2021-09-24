@@ -36,9 +36,10 @@ class Profile extends React.Component{
                 (offers) => {
                     for (let i = 0; i < offers.offers.data.length; i++) {
                         const offerData = offers.offers.data[i];
-                        let offerItemsData = {};
                         console.log(offerData)
+                        let offerItemsData = {};
                         offerItemsData.cash = offerData.price;
+                        offerItemsData.postId= offerData.postId;
                         offerItemsData.offer_description = offerData.text;
                         offerItemsData.offerId = offerData._id
                         fetchOfferItems(offerItemsData.offerId).then(
@@ -81,7 +82,6 @@ class Profile extends React.Component{
             email: this.props.user.email,
             username: this.state.username
         }
-        console.log(user)
         this.props.editUser(user)
     }
 
@@ -94,7 +94,6 @@ class Profile extends React.Component{
         if(posts === null && this.state.offersData!==null){
             return null
         }
-        console.log(this.state)
         let postslis = [];
         for (let i = 0; i < posts.length; i++){
             const post = posts[i];
@@ -127,8 +126,7 @@ class Profile extends React.Component{
                 }
                 offerlis.push(
                     <div className="offer-container">
-                        {/* <h3>{(offersData[i].items)}</h3> */}
-                        <h3>Offer Id: {offersData[i].offerId}</h3>
+                        <Link to={`posts/${offersData[i].postId}`}><h3>Post Id: {offersData[i].postId}</h3></Link>
                         <h3>Cash offered: {numToDollars.format(offersData[i].cash)}</h3>
                         <h3>Offer description: {(offersData[i].offer_description).replace(/^"(.*)"$/, '$1')}</h3>
                         <div>
