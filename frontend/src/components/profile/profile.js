@@ -118,9 +118,9 @@ class Profile extends React.Component{
                 for(let j=0; j< Object.values(offer.items).length; j++){
                     let item = offer.items[j]
                     const itemRender =
-                    <div>
-                        <p>{item.name}</p>
-                        <p>{item.description}</p>
+                    <div className="item-render">
+                        <h3>Name: </h3><p>{item.name}</p>
+                        <h3>Description: </h3><p>{item.description}</p>
                         <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
                     </div>
                     itemsdiv.push(itemRender)
@@ -128,10 +128,12 @@ class Profile extends React.Component{
                 offerlis.push(
                     <div className="offer-container">
                         {/* <h3>{(offersData[i].items)}</h3> */}
-                        <h3>Offer Id: {offersData[i].offerId}</h3>
-                        <h3>Cash offered: {numToDollars.format(offersData[i].cash)}</h3>
-                        <h3>Offer description: {(offersData[i].offer_description).replace(/^"(.*)"$/, '$1')}</h3>
                         <div>
+                            <h3>Offer Id:</h3> <p>{offersData[i].offerId}</p>
+                            <h3>Cash offered:</h3> <p>{numToDollars.format(offersData[i].cash)}</p>
+                            <h3>Offer description: </h3><p>{(offersData[i].offer_description).replace(/^"(.*)"$/, '$1')}</p>
+                        </div>
+                        <div className="image-container">
                             {itemsdiv}
                         </div>
                     </div>

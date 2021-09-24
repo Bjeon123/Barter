@@ -66,6 +66,7 @@ class PostShow extends React.Component {
 
     handleOfferSubmit(e){
         e.preventDefault();
+        this.setState({ modal: false })
         const offer = {
             user: this.props.currentUser.id,
             text: this.state.text,
@@ -79,7 +80,7 @@ class PostShow extends React.Component {
         ).then(
             ()=>{
                 for (let i = 0; i < this.state.items.length; i++) {
-                    const item = this.state.items[0];
+                    const item = this.state.items[i];
                     const itemFormatted = {
                         userId: this.props.currentUser.id,
                         offerId: this.state.offerId,
@@ -124,18 +125,25 @@ class PostShow extends React.Component {
             for(let j=0;j<Object.keys(offer.items).length;j++){
                 let item = offer.items[j]
                 const itemRender=
-                <div>
-                    <p>{item.name}</p>
-                    <p>{item.description}</p>
+                <div className="dimensions">
+                    <div className="item-details">
+                        <h4>Item: {item.name}</h4>
+                        {/* <p>{item.description}</p> */}
+                    </div>
                     <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
                 </div>
                 itemsdiv.push(itemRender)
             }
             let offerDiv =
-                <div>
-                    <p>${offer.offer_description}</p>
-                    <p>${offer.cash}</p>
-                    ${itemsdiv}
+                <div className="offer-post">
+                    {/* <p>User: {offer.user}</p> */}
+                    <h4>Description: {offer.offer_description}</h4>
+                    <h4>Cash offered: ${offer.cash}</h4>
+                    {itemsdiv}
+                    <div className="decision">
+                        <button className="accept">Accept</button>
+                        <button className="decline">Decline</button>
+                    </div>
                 </div>
             offersDataRender.push(offerDiv)
         }
@@ -161,8 +169,8 @@ class PostShow extends React.Component {
                                     <h3>Description:</h3><p>{this.props.post.data.description}</p>
                                 </div>
                                 <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
+                                {offersDataRender}
                             </div>
-                            {offersDataRender}
                         </div>
                 </div>
                 <div className={`modal-container ${this.state.modal ? 'display_modal' : 'hide_modal'}`}>
@@ -172,15 +180,15 @@ class PostShow extends React.Component {
                         </div>
                         <form onSubmit={this.handleOfferSubmit}>
                             <h1>Make An Offer</h1>
-                            <p onClick={this.addItem}><i class="fas fa-plus"></i> Add An Item</p>
-                            {this.state.itemsToRender}
                             <div className="cash-offer">
                                 <label> Offer Description
-                                    <input onChange={this.handleChange('text')} type="text" placeholder="$0" />
+                                    <input onChange={this.handleChange('text')} type="text" />
                                 </label>
-                                <label> Cash
+                                <label> Cash Offer
                                     <input onChange={this.handleChange('price')} type="number" placeholder="$0" />
                                 </label>
+                            <p onClick={this.addItem}><i class="fas fa-plus"></i> Add An Item</p>
+                            {this.state.itemsToRender}
                             </div>
                             <button>Create Offer</button>
                         </form>
