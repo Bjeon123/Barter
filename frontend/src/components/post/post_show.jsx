@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
-import {createItem} from '../../util/item_api_util'
+import {createItem,fetchOfferItems} from '../../util/item_api_util'
 import { Image } from 'cloudinary-react'
 
 class PostShow extends React.Component {
@@ -11,7 +11,8 @@ class PostShow extends React.Component {
             offerId: null,
             price: 0,
             items: [],
-            itemsToRender:[],
+            itemsToRender : [],
+            offersData : [],
             text: "",
             modal: false 
         }
@@ -25,7 +26,27 @@ class PostShow extends React.Component {
         const id = this.props.match.params.postid;
         this.props.fetchPost(id).then(
             (post) => this.props.fetchPostOffers(post.post.data._id).then(
-                (offers) => console.log(offers)
+                (offers) => {
+                    for (let i = 0; i < offers.offers.data.length;i++){
+                        const offerData = offers.offers.data[i];
+                        let offerItemsData={};
+                        offerItemsData.cash = offerData.price;
+                        offerItemsData.offer_description = offerData.text;
+                        offerItemsData.offerId = offerData._id
+                        fetchOfferItems(offerItemsData.offerId).then(
+                            (items)=>{
+                                const itemsData = items.data;
+                                let addItemsData = {};
+                                for(let j = 0; j<itemsData.length ; j++){
+                                    addItemsData[j] = itemsData[j]
+                                }
+                                offerItemsData['items'] = addItemsData
+                            }
+                        ).then(
+                            () => this.setState({ offersData: [...this.state.offersData, offerItemsData] })
+                        )
+                    }   
+                }
             )
         )
     }
@@ -96,6 +117,29 @@ class PostShow extends React.Component {
         if (!this.props.post){
             return null;
         }
+        let offersDataRender =[]
+        for(let i=0;i<this.state.offersData.length;i++){
+            const offer = this.state.offersData[i];
+            let itemsdiv=[];
+            for(let j=0;j<Object.keys(offer.items).length;j++){
+                let item = offer.items[j]
+                const itemRender=
+                <div>
+                    <p>{item.name}</p>
+                    <p>{item.description}</p>
+                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
+                </div>
+                itemsdiv.push(itemRender)
+            }
+            let offerDiv =
+                <div>
+                    <p>${offer.offer_description}</p>
+                    <p>${offer.cash}</p>
+                    ${itemsdiv}
+                </div>
+            offersDataRender.push(offerDiv)
+        }
+        console.log(this.state)
         return (
             <div>
                 <NavBar/>
@@ -118,6 +162,7 @@ class PostShow extends React.Component {
                                 </div>
                                 <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
                             </div>
+                            {offersDataRender}
                         </div>
                 </div>
                 <div className={`modal-container ${this.state.modal ? 'display_modal' : 'hide_modal'}`}>
