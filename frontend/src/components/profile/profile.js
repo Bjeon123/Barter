@@ -16,9 +16,11 @@ class Profile extends React.Component{
             offers: null,
             postdrop: false,
             offerdrop: false,
+            username: ""
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     componentDidMount(){
@@ -51,8 +53,15 @@ class Profile extends React.Component{
         this.setState({ offerdrop: !this.state.offerdrop})
     }
 
-    changePassword(){
-
+    handleSubmit(e) {
+        e.preventDefault();
+        let user = {
+            id: this.props.user.id, 
+            email: this.props.user.email,
+            username: this.state.username
+        }
+        console.log(user)
+        this.props.editUser(user)
     }
 
     deleteAccount(){
@@ -114,6 +123,15 @@ class Profile extends React.Component{
                         <button className="profile-settings-btn">Delete Account</button>
                     </div>
                 </div>
+                <form>
+                    Username 
+                    <input 
+                        type="text"
+                        value={this.state.username}
+                        onChange={this.handleChange("username")}
+                    />
+                    <button onClick={this.handleSubmit}></button>
+                </form>
             </div>
         )
     }
