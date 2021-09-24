@@ -8,7 +8,7 @@ module.exports = function validateItem(item) {
         errors.userId = "User ID is required";
     }
 
-    if (Validator.isEmpty(item.postId)) {
+    if (Validator.isEmpty(item.offerId)) {
         errors.offerId = "Offer ID is required";
     }
 

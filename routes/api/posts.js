@@ -3,7 +3,6 @@ const router = express.Router();
 const Post = require("../../models/Post");
 const validatePost = require("../../validation/posts");
 
-
 // router.get('/search', async (req, res) => {
 //     const categoryResults = await Post.find({ category: { $regex: req.params.term, $options: "i" } });
 //     const nameResults = await Post.find({ itemName: { $regex: req.params.term, $options: "i" } });

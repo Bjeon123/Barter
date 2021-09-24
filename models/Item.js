@@ -8,7 +8,7 @@ const ItemSchema = new Schema({
         required: true
     },
 
-    OfferId: {
+    offerId: {
         type: Schema.Types.ObjectId,
         ref: 'offers',
         required: true
