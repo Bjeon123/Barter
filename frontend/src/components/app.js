@@ -9,7 +9,7 @@ import PostShow from './post/post_show_container';
 import SellContainer from './sell/sell_container';
 import { Route } from 'react-router';
 import PostIndex from './post/post_index_container';
-import SearchResultsContainer from "./search_bar/search_results_container";
+import SearchResults from "./search_bar/search_results";
 
 
 const App = () => (
@@ -22,7 +22,7 @@ const App = () => (
     <Route path='/sell' component={SellContainer} />
     <Route path='/posts/:postid' component={PostShow} />
     <Route path='/posts' component={PostIndex} />
-    <Route path= '/search/results' component={SearchResultsContainer}/>
+    <Route path='/results' component={SearchResults}/>
   </Switch>
 )
 

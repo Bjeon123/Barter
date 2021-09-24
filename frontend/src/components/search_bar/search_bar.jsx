@@ -13,7 +13,7 @@ function SearchBar(props){
         if (searchContent.length > 0){
             props.searchPosts(searchContent);
             setSearchContent('');
-            props.history.push(`/search/results`);
+            props.history.push(`/results`);
         }
     }
   

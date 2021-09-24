@@ -49,6 +49,7 @@ class NavBar extends React.Component {
                         {this.state.openedCategories ? categories : null }
                         <input placeholder="search"></input> */}
                         {/* <SearchBar searchPosts={this.props.searchPosts}/> */}
+                        <Link style={{ color: "white" }} to={"/posts"}><p>Browse All</p></Link>
                         <SearchBarContainer/>
                     </div>
                     {navRight}

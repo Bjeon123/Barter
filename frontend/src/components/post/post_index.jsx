@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container';
 import {Image} from 'cloudinary-react'
 import { Link } from 'react-router-dom';
+import { fetchPosts } from '../../actions/post_actions';
 // import PostShow from './post_show';
 
 class PostIndex extends React.Component {
@@ -11,24 +12,32 @@ class PostIndex extends React.Component {
         this.state = { posts: null};
     }
 
-    componentDidMount(){
-        this.props.fetchPosts()
-            .then(posts => this.setState({posts: posts}))
-    }
+    // componentDidMount(){
+    //     this.props.fetchPosts()
+    //         .then(posts => this.setState({posts: posts}))
+    // }
+
+    // componentDidMount(){
+    //     this.props.fetchPosts();
+    // }
 
     render() {
-        if(this.state.posts === null) {
+        if(this.props.posts === null) {
             return <p>Null</p>;
         }
+        debugger
         console.log("Page");
-        console.log(this.state.posts);
+        // const { posts } = this.props;
+        // console.log(this.state.posts);
+        const dir = this.props.action ? this.props.posts : this.props.posts.posts.data;
         return(
             <div className="post-index">
                 <NavBar />
                 <h1>All Listings</h1>
                 <div className="posts-container">
                 {
-                    this.state.posts.posts.data.map((post, idx) => (
+                    // posts.map((post, idx) => (
+                    dir.map((post, idx) => (
                         <div className="offer" >
                             <div className="item-description">
                                 {/* <div className="block"> 
@@ -57,23 +66,6 @@ class PostIndex extends React.Component {
                 </div>
             </div>
         );
-
-        // const allPosts = this.state.posts.posts.data.map((post, idx) => {(
-        //     <div>
-        //         <p key={idx}>{post.userId}</p>
-        //         <p key={idx}>{post.category}</p>
-        //         <p key={idx}>{post.itemName}</p>
-        //         <p key={idx}>{post.price}</p>
-        //         <p key={idx}>{post.description}</p>
-        //     </div>
-        // )});
-
-        // return(
-        //     <div>
-        //         <h1>Index Page</h1>
-        //         <div>{allPosts}</div>
-        //     </div>
-        // )
     }
 }
 
