@@ -3,18 +3,6 @@ const router = express.Router();
 const Post = require("../../models/Post");
 const validatePost = require("../../validation/posts");
 
-const randomVal = ()=> Math.floor(1000 + Math.random() * 9000);
-
-const storage = multer.diskStorage({
-    destination: (req,file,cb) =>{
-        cb(null, './uploads/')
-    },
-    filename: (req,file,cb)=> {
-        cb(null, randomVal().toString() + file.originalname )
-    }
-})
-
-const upload = multer({storage: storage});
 
 // router.get('/search', async (req, res) => {
 //     const categoryResults = await Post.find({ category: { $regex: req.params.term, $options: "i" } });

@@ -103,6 +103,8 @@
 
 .offer {
     border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
 }
 
 .post-index {
@@ -116,7 +118,6 @@
 
 .post-index h1 {
     /* margin-left: 10%; */
-    margin-top: 5%;
     width: 100%;
     text-align: center;
 }
@@ -152,4 +153,40 @@ textarea{
     padding-top: 5px;
     padding-bottom: 5px;
     border-top: 2px solid rgb(201, 200, 200);
+}
+
+.offer img {
+    max-width: 250px;
+    max-height: 200px;
+    /* min-width: 250px;
+    min-height: 200px; */
+    margin-top: 3%;
+    height: auto;
+    width: auto;
+}
+
+.picture {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 250px;
+    min-height: 250px;
+}
+
+.picture button {
+    margin-bottom: 3%;
+    background-color: black;
+    border: none;
+    height: 25px;
+}
+
+.picture a {
+    color: white;
+    font-weight: bold;
+}
+
+.item-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
