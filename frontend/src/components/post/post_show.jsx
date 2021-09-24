@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
 import {createItem} from '../../util/item_api_util'
+import { Image } from 'cloudinary-react'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -22,7 +23,11 @@ class PostShow extends React.Component {
 
     componentDidMount() {
         const id = this.props.match.params.postid;
-        this.props.fetchPost(id)
+        this.props.fetchPost(id).then(
+            (post) => this.props.fetchPostOffers(post.post.data._id).then(
+                (offers) => console.log(offers)
+            )
+        )
     }
 
     handleCreateOffer(bool) {
@@ -55,9 +60,13 @@ class PostShow extends React.Component {
                 for (let i = 0; i < this.state.items.length; i++) {
                     const item = this.state.items[0];
                     const itemFormatted = {
-                        userId: this.props.currentUser.id
+                        userId: this.props.currentUser.id,
+                        offerId: this.state.offerId,
+                        name: item.name,
+                        description: item.description,
+                        imageUrl: item.imageUrl
                     }
-                    console.log("fjirfi")
+                    createItem(itemFormatted)
                 }
             }
         )
@@ -84,13 +93,14 @@ class PostShow extends React.Component {
     // }
 
     render() {
-        if (!this.props.post) {
+        if (!this.props.post){
             return null;
         }
         return (
             <div>
                 <NavBar/>
                 <div className="post-container">
+                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${this.props.post.data.imageUrl}`} />
                         <div className="post-info">
                             <div className="corner">Product Details</div>
                             <div className="row-container">
