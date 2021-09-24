@@ -147,7 +147,7 @@ class PostShow extends React.Component {
                 </div>
             offersDataRender.push(offerDiv)
         }
-        console.log(this.state)
+
         return (
             <div>
                 <NavBar/>

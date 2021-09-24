@@ -4,8 +4,7 @@ import PostIndex from '../post/post_index';
 import { connect } from 'react-redux';
 
 function SearchResults(props){
-    console.log("adsfsdfsdfdsfasd");
-    console.log(props.posts);
+
     if (props.posts.length === 0){
         return (
             <p>No Matched Posts</p>

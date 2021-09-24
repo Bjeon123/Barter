@@ -8,7 +8,6 @@ import { fetchPosts } from '../../actions/post_actions';
 class PostIndex extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.state = { posts: null};
     }
 
@@ -25,10 +24,6 @@ class PostIndex extends React.Component {
         if(this.props.posts === null) {
             return <p>Null</p>;
         }
-        debugger
-        console.log("Page");
-        // const { posts } = this.props;
-        // console.log(this.state.posts);
         const dir = this.props.action ? this.props.posts : this.props.posts.posts.data;
         return(
             <div className="post-index">

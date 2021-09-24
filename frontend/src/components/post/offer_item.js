@@ -16,7 +16,6 @@ class OfferItem extends React.Component{
 
     handleImageUpload(image){
         const imageUrl= `${randomInt().toString()}${image.name.split('.')[0]}`
-        console.log(imageUrl)
         let formData = new FormData();
         formData.append("file", image);
         formData.append("upload_preset", "ys8sasql");

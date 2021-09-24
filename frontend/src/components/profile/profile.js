@@ -36,7 +36,6 @@ class Profile extends React.Component{
                 (offers) => {
                     for (let i = 0; i < offers.offers.data.length; i++) {
                         const offerData = offers.offers.data[i];
-                        console.log(offerData)
                         let offerItemsData = {};
                         offerItemsData.cash = offerData.price;
                         offerItemsData.postId= offerData.postId;

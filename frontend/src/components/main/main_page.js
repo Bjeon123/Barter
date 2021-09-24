@@ -9,6 +9,7 @@ import gow from '../../assets/gow.jpeg'
 import sacai from '../../assets/sacais.jpeg'
 import clock from '../../assets/clock.jpeg'
 import airmax from '../../assets/airmax.png'
+import ones from '../../assets/ones.jpeg'
 
 class MainPage extends React.Component {
     render() {
@@ -57,8 +58,9 @@ class MainPage extends React.Component {
                     <div className="description">
                         <h1>Featured categories</h1>
                     </div>
-                    <img src={zelda}></img>
-                    <img src={mario}></img>
+                    <img src={ones}/>
+                    <img src={mario}/>
+                    <img src={clock}/>
                 </div>
             </div>
         )
