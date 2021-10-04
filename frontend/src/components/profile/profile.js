@@ -23,6 +23,7 @@ class Profile extends React.Component{
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.deleteAccount = this.deleteAccount.bind(this);
     }
     
     componentDidMount(){
@@ -87,7 +88,9 @@ class Profile extends React.Component{
     }
 
     deleteAccount(){
-
+        this.props.deleteUser(this.state.userId).then(
+            this.props.logout()
+        )
     }
 
     render(){
@@ -163,14 +166,16 @@ class Profile extends React.Component{
                        {offerlis}
                     </div>
                     <div className="user-options">
-                        <form>
-                            <label>New Username
-                                <input onChange={(e)=>this.setState({username: e.target.value})} type="text"></input>
-                            </label>
-                            <button onClick={this.handleSubmit} className="profile-settings-btn">Change Username</button>
-                        </form>
+                        <button className="profile-settings-btn">User Options</button>
                     </div>
                 </div>
+                <form>
+                    <label>New Username
+                            <input onChange={(e) => this.setState({ username: e.target.value })} type="text"></input>
+                    </label>
+                    <button onClick={this.handleSubmit} className="profile-settings-btn">Change Username</button>
+                </form>
+                <button onClick={this.deleteAccount} className="profile-settings-btn">Change Username</button>
             </div>
         )
     }
