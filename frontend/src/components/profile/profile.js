@@ -175,7 +175,7 @@ class Profile extends React.Component{
                     </label>
                     <button onClick={this.handleSubmit} className="profile-settings-btn">Change Username</button>
                 </form>
-                <button onClick={this.deleteAccount} className="profile-settings-btn">Change Username</button>
+                <button onClick={this.deleteAccount} className="profile-settings-btn">Delete Account</button>
             </div>
         )
     }
