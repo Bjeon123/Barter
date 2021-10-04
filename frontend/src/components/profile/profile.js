@@ -18,7 +18,7 @@ class Profile extends React.Component{
             offers: null,
             postdrop: false,
             offerdrop: false,
-            username: ""
+            username: this.props.user.username
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
@@ -78,10 +78,12 @@ class Profile extends React.Component{
         e.preventDefault();
         let user = {
             id: this.props.user.id, 
-            email: this.props.user.email,
             username: this.state.username
         }
-        this.props.editUser(user)
+        let updatedUser = Object.assign({},this.props.session)
+        this.props.editUser(user).then(
+            this.props.logout()
+        )
     }
 
     deleteAccount(){
@@ -90,7 +92,11 @@ class Profile extends React.Component{
 
     render(){
         const {posts,offersData} = this.state
-        if(posts === null && this.state.offersData!==null){
+        const {user} = this.props.session
+        if(posts === null){
+            return null
+        }
+        else if (user === undefined ){
             return null
         }
         let postslis = [];
@@ -133,8 +139,7 @@ class Profile extends React.Component{
                         <div className="image-container">
                             {itemsdiv}
                         </div>
-                        </Link>
-                    
+                    </Link>
                 )
             }
         }
@@ -142,7 +147,7 @@ class Profile extends React.Component{
             <div className="profile-background">
                 <NavBar/>
                 <div className="profile">
-                    <h1>{`${this.props.user.username}`}'s Profile</h1>
+                    <h1>{`${this.props.session.user.username}`}'s Profile</h1>
                     <div className="header">
                         <h2>Your Posts</h2>
                         <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle"/></i>
@@ -158,18 +163,14 @@ class Profile extends React.Component{
                        {offerlis}
                     </div>
                     <div className="user-options">
-                        <button className="profile-settings-btn">Delete Account</button>
+                        <form>
+                            <label>New Username
+                                <input onChange={(e)=>this.setState({username: e.target.value})} type="text"></input>
+                            </label>
+                            <button onClick={this.handleSubmit} className="profile-settings-btn">Change Username</button>
+                        </form>
                     </div>
                 </div>
-                {/* <form>
-                    Username 
-                    <input 
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.handleChange("username")}
-                    />
-                    <button onClick={this.handleSubmit}></button>
-                </form> */}
             </div>
         )
     }

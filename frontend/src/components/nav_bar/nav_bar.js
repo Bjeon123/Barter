@@ -6,16 +6,6 @@ import SearchBarContainer from '../search_bar/search_bar_container';
 class NavBar extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            openedCategories: false
-        }
-        this.handleClick=this.handleClick.bind(this);
-    }
-
-    handleClick(){
-        this.setState({
-            openedCategories: !this.state.openedCategories
-        })
     }
 
     render() {
@@ -30,25 +20,11 @@ class NavBar extends React.Component {
                 <Link to={'/signup'}><button>Sign Up</button></Link>
             </div>
         
-        const categories = 
-            <div className="categories">
-                <div className="category">
-                    <p>Games</p>
-                </div>
-                <div>
-                    <p>Shoes</p>
-                </div>
-            </div>
-
         return (
            
                 <nav className="navbar">
                     <div className="navbar-left">
                         <Link style={{ textDecoration: 'none' }} to={'/home'}><h1>Barter</h1></Link>
-                        {/* <p onClick={this.handleClick}>Categories<i className="fas fa-chevron-down"></i></p>
-                        {this.state.openedCategories ? categories : null }
-                        <input placeholder="search"></input> */}
-                        {/* <SearchBar searchPosts={this.props.searchPosts}/> */}
                         <Link style={{ color: "white" }} to={"/posts"}><p>Browse All</p></Link>
                         <SearchBarContainer/>
                     </div>

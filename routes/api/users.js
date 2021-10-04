@@ -54,54 +54,82 @@ router.post('/register', (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    User.findOne({ email: req.body.email }).then(user => {
-        if (!user) {
-            return res.status(400).json(["Invalid email/password combinations"])
-        }
-        else {
-            bcrypt.compare(req.body.password, user.password).then(
-                (isMatch) => {
-                    if (isMatch) {
-                        const payload = {
-                            id: user.id,
-                            username: user.username,
-                            email: user.email
+    const user = await User.findOne({
+        $or: [{
+            "email": req.body.email
+        }, {
+            "username": req.body.email
+        }]
+    })
+    if (!user) {
+        return res.status(400).json(["Invalid email/password combinations"])
+    }
+    else {
+        bcrypt.compare(req.body.password, user.password).then(
+            (isMatch) => {
+                if (isMatch) {
+                    const payload = {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email
+                    }
+                    jwt.sign(
+                        payload,
+                        keys.secretOrKey,
+                        { expiresIn: 3600 },
+                        (err, token) => {
+                            res.json({
+                                success: true,
+                                token: "Bearer" + token
+                            })
                         }
-                        jwt.sign(
-                            payload,
-                            keys.secretOrKey,
-                            { expiresIn: 3600 },
-                            (err, token) => {
-                                res.json({
-                                    success: true,
-                                    token: "Bearer" + token
-                                })
-                            }
-                        )
-                    }
-                    else {
-                        return res.status(400).json(["Invalid email/password combinations"])
-                    }
+                    )
                 }
-            )
+                else {
+                    return res.status(400).json(["Invalid email/password combinations"])
+                }
+            }
+        )
+    }
+})
+
+router.patch("/:userId", (req, res) => {
+    User.findOneAndUpdate({_id: req.body.id},{username: req.body.username},null, (err,user) =>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            const userFormatted = {
+                id: user.id,
+                email: user.email,
+                username: user.username
+            }
+            return res.json(userFormatted)
         }
     })
 })
 
-router.put("/:userId", passport.authenticate('jwt', { session: false }), async(req, res) => {
-    const { errors, isValid } = validateUserInput(req.body);
-    if (!isValid) {
-        return res.status(400).json({errors});
-    }
-    const user = await User.findOneAndUpdate({id: req.params.userId}, req.body)
-    const newUser = await User.findById(req.params.userId);
-    newUser.save()
-    res.json(newUser)
+router.get("/:userId", (req, res) => {
+    User.findOne({ _id: req.params.userId }).then(
+        user=>{
+            if(!user){
+                return res.status(400).json(["Invalid User"])
+            }
+            else{
+                const userFormatted={
+                    id: user.id,
+                    email: user.email,
+                    username: user.username
+                }
+                return res.json(userFormatted)
+            }
+        }
+    )
 })
 
 
