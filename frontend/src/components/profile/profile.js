@@ -18,12 +18,14 @@ class Profile extends React.Component{
             offers: null,
             postdrop: false,
             offerdrop: false,
-            username: this.props.user.username
+            username: this.props.user.username,
+            account: false 
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
+        this.handleAccountSettings = this.handleAccountSettings.bind(this);
     }
     
     componentDidMount(){
@@ -67,6 +69,10 @@ class Profile extends React.Component{
         }
     }
 
+    handleAccountSettings() {
+        this.setState({ account: !this.state.account })
+    }
+
     handlePostDrop() {
         this.setState({ postdrop: !this.state.postdrop})
     }
@@ -107,12 +113,14 @@ class Profile extends React.Component{
             const post = posts[i];
             postslis.push(
                 <Link to={`posts/${posts[i]._id}`}>
-                    <div className="profile-post-item">
-                        <div className="details">
+                    <div className="offer-container">
+                        <div className="offer-details">
                             <h3>{(post.itemName).replace(/^"(.*)"$/, '$1')}</h3>
                             <h3>{numToDollars.format(post.price)}</h3>
                         </div>
-                        <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`}/>
+                        <div className="image-container">
+                            <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`}/>
+                        </div>
                     </div>
                 </Link>
             )
@@ -166,17 +174,27 @@ class Profile extends React.Component{
                        {offerlis}
                     </div>
                     <div className="user-options">
-                        <button className="profile-settings-btn">User Options</button>
+                        <button className="profile-settings-btn" onClick={this.handleAccountSettings}>User Options</button>
                     </div>
                 </div>
-                <form>
-                    <label>New Username
-                            <input onChange={(e) => this.setState({ username: e.target.value })} type="text"></input>
-                    </label>
-                    <button onClick={this.handleSubmit} className="profile-settings-btn">Change Username</button>
-                </form>
-                <button onClick={this.deleteAccount} className="profile-settings-btn">Delete Account</button>
+                
+                <div className={`modal-container ${this.state.account ? 'display_modal' : 'hide_modal'}`}>
+                    <form className="user-profile">
+                    <div className="close" onClick={this.handleAccountSettings}>
+                        &times;
+                    </div>
+                        <h1>Account Settings</h1>
+                        <p>New Username</p>
+                        <input onChange={(e) => this.setState({ username: e.target.value })} type="text"></input>
+                        
+                        <div className="user-options2">
+                            <button onClick={this.deleteAccount} className="profile-settings-btn2">Delete Account</button>
+                            <button onClick={this.handleSubmit} className="profile-settings-btn2">Change Username</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+            
         )
     }
 }

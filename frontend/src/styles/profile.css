@@ -117,5 +117,51 @@ a:hover{
     font-weight: bold;
 }
 
+.user-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-profile {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.user-profile h1 {
+    margin-bottom: 0px;
+}
+
+.user-options2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    /* margin-bottom: 1%; */
+}
+
+.profile-settings-btn2 {
+    /* margin-left: 2%; */
+    /* margin-right: 2%; */
+    background-color: black;
+    color: white;
+    border: none;
+    height: 40px;
+    font-weight: bold;
+    width: 30%;
+    /* border-radius: 5px; */
+}
+
+.profile-settings-btn2:hover {
+    background-color: red;
+}
 
 

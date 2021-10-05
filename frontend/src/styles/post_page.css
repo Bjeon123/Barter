@@ -126,6 +126,11 @@
     justify-content: space-between;
 }
 
+.offer:hover {
+    border: 2px solid black;
+    box-shadow: 5px 5px lightgray;
+}
+
 .post-index {
     width: 100vw;
     height: 100vh;
@@ -155,6 +160,7 @@
 
 .block p {
     margin-left: 1%;
+    width: 200px;
 }
 
 .block h3 {
@@ -176,12 +182,13 @@ textarea{
 
 .offer img {
     max-width: 250px;
-    max-height: 200px;
+    max-height: 250px;
     /* min-width: 250px;
     min-height: 200px; */
     margin-top: 3%;
     height: auto;
     width: auto;
+    margin-bottom: 1%;
 }
 
 .picture {
@@ -190,6 +197,7 @@ textarea{
     justify-content: space-between;
     min-width: 250px;
     min-height: 250px;
+    margin-right: 2%;
 }
 
 .picture button {
@@ -197,6 +205,11 @@ textarea{
     background-color: black;
     border: none;
     height: 25px;
+    border-radius: 10px;
+}
+
+.picture button:hover {
+    background-color: lightgreen;
 }
 
 .picture a {
@@ -299,15 +312,24 @@ textarea{
     
 }
 .item-render img{
-    max-height: 200px;
-    max-width: 300px;
-    margin-bottom: 10px;
-    margin-right: 5%;
+    max-height: 250px;
+    max-width: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    /* margin-bottom: 10px;
+    margin-right: 5%; */
 }
 
 .image-container {
     display: flex;
     margin-right: 5%;
+}
+
+.image-container img {
+    max-height: 250px;
+    max-width: 200px;
+    min-width: 200px;
+    min-height: 200px;
 }
 
 .offer-details {

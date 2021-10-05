@@ -100,4 +100,33 @@
     color: white;
 }
 
+.search {
+    border: none;
+    background-color: white;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin-left: 1%;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+}
+
+::placeholder {
+    color: white;
+}
+
+.searchbar input {
+    border-radius: 10px;
+    background-color: #2f3137;
+    color: white;
+}
+
+.search:hover {
+    background-color: black;
+    color: white;
+}
+
 
