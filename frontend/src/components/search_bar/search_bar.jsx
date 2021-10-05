@@ -16,6 +16,20 @@ function SearchBar(props){
             props.history.push(`/results`);
         }
     }
+
+    // let matchedItemNames = [];
+    // let posts = props.posts;
+    // if(posts != undefined){
+    //     matchedItemNames = posts.filter(post => (
+    //         (post.itemName.toLowerCase().slice(0, searchContent.length) === searchContent.toLowerCase())
+    //     )).slice(0, 15).map((post, idx) => (
+    //         <li className="matched-itemName" key={idx}>
+    //             {post.itemName}
+    //         </li>
+    //     ));
+    // }
+    
+    
   
     return (
         <form onSubmit={handleSubmit}>
