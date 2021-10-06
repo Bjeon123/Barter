@@ -128,7 +128,6 @@ class PostShow extends React.Component {
     handleAccept(e){
         deleteOffer(e.target.id).then(
             (offer) => {
-                debugger
                 const offersdata = [...this.state.offersData];
                 for(let i=0;i<this.state.offersData.length;i++){
                     if(offersdata[i].offerId === offer.data._id){
