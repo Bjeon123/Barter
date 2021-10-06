@@ -63,4 +63,11 @@ router.patch('/:id', (req, res) => {
         .catch(err => console.log(err));
 });
 
+router.delete('/:id', (req, res) => {
+    Offer.findOneAndDelete({_id: req.params.id})
+        .then(offer => res.json(offer))
+        .catch(err => res.status(404).json({ noofferfound: "No offer found with that id" }))
+    })
+
+
 module.exports = router;
