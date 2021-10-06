@@ -14,6 +14,6 @@ export const createOffer = offer => {
 
 export const fetchPostOffers = postId => axios.get(`/api/offers/post/${postId}`);
 
-// export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`);
+export const deleteOffer = offerId => axios.delete(`/api/offers/${offerId}`);
 
-// export const deletePost = postId => axios.delete(`/api/posts/delete/${postId}`);
+// export const updatePost = postId => axios.patch(`/api/posts/update/${postId}`);

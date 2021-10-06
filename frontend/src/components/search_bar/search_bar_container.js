@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SearchBar from './search_bar';
-import { searchPosts, fetchPosts } from '../../actions/post_actions';
+import { searchPosts, fetchPosts, fetchPost } from '../../actions/post_actions';
 
 const mapStateToProps = state =>({
   // posts: state.posts
@@ -9,6 +9,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(fetchPosts()),
+  fetchPost: postId => dispatch(fetchPost(postId)),
   searchPosts: searchContent => dispatch(searchPosts(searchContent))
 });
 

@@ -41,6 +41,12 @@ export const createOffer = offer => dispatch => (
         .catch(error => dispatch(receiveOfferErrors(error.response.data)))
 );
 
+export const deleteOffer = offerId => dispatch => (
+    OfferApiUtil.deleteOffer(offerId)
+        .then(offers => dispatch(receiveOffers(offers)))
+        .catch(error => dispatch(receiveOfferErrors(error.response.data)))
+);
+
 export const fetchPostOffers = (postId) => dispatch => (
     OfferApiUtil.fetchPostOffers(postId)
         .then(Offers => dispatch(receiveOffers(Offers)))

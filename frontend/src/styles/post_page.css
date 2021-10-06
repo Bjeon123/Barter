@@ -306,9 +306,18 @@ textarea{
     margin-left: 0px;
     font-family: Arial, Helvetica, sans-serif;
 }
+.offer-item-container input::placeholder { 
+  color: rgb(118, 118, 118);
+  opacity: 1;
+}
 
 .offer-item-container textarea {
     width: 100%;
+}
+
+.offer-item-container textarea::placeholder{
+    color: rgb(118, 118, 118);
+    opacity: 1;
 }
 
 .item-render {
