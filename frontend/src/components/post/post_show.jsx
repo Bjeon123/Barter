@@ -150,7 +150,6 @@ class PostShow extends React.Component {
         if (!this.props.post){
             return null;
         }
-        console.log(this.state)
         const ownPost = this.props.post.data.userId === this.props.currentUser.id;
         let offersDataRender = []
         for(let i=0;i<this.state.offersData.length;i++){
