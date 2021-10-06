@@ -12,15 +12,18 @@ class PostShow extends React.Component {
             price: 0,
             items: [],
             itemsToRender : [],
+            editingOffer: {offer_description: "", cash: ""},
             offersData : [],
             text: "",
-            modal: false 
+            modal: [false,null] 
         }
         this.handleOfferSubmit = this.handleOfferSubmit.bind(this);
         // this.removeItem = this.removeItem.bind(this);
         this.addItem=this.addItem.bind(this);
         this.addItemtoState=this.addItemtoState.bind(this);
         this.handleAccept=this.handleAccept.bind(this);
+        this.handleEditOffer = this.handleEditOffer.bind(this);
+        this.handleEditSubmit = this.handleEditSubmit.bind(this);
     }
 
     
@@ -58,7 +61,12 @@ class PostShow extends React.Component {
     handleCreateOffer(bool) {
         return e => {
             e.preventDefault()
-            this.setState({ modal: bool })
+            if(!bool){
+                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" }, price: 0, text: "" })
+            }
+            else{
+                this.setState({ modal: [bool, "createOffer"] })
+            }
         }
     }
 
@@ -68,9 +76,14 @@ class PostShow extends React.Component {
         this.setState( { items } );
     }
 
+    handleEditSubmit(e){
+        e.preventDefault();
+        
+    }
+
     handleOfferSubmit(e){
         e.preventDefault();
-        this.setState({ modal: false })
+        this.setState({ modal: [false,null] })
         const offerFormatted = {
             user: this.props.currentUser.id,
             text: this.state.text,
@@ -113,9 +126,16 @@ class PostShow extends React.Component {
         ) 
     }
 
-    addItem(){
-        const idx=this.state.itemsToRender.length
-        this.setState({ itemsToRender: [...this.state.itemsToRender, <OfferItem idx={idx} addItemtoState={this.addItemtoState}/>]})
+    async addItem(props,index){
+        const idx = this.state.itemsToRender.length
+        if(props._reactName === "onClick"){
+            this.setState({ itemsToRender: [...this.state.itemsToRender, <OfferItem idx={idx} addItemtoState={this.addItemtoState} />] })
+        }
+        else{
+            const offerItem = <OfferItem idx={index} addItemtoState={this.addItemtoState} item={props} />
+            this.setState({ itemsToRender: [...this.state.itemsToRender, offerItem] })
+            return offerItem
+        }
     }
 
     handleChange(field) {
@@ -145,6 +165,31 @@ class PostShow extends React.Component {
     //         itemsArr: itemsArr
     //     });
     // }
+
+    handleEditOffer(bool) {
+        return e => {
+            e.preventDefault();
+            if (!bool) {
+                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" },price:0,text:""})
+                return;
+            }
+            let editingOffer;
+            for(let i =0 ; i< this.state.offersData.length;i++){
+                if (e.target.id === this.state.offersData[i].offerId){
+                    editingOffer = this.state.offersData[i]
+                }
+            }
+            this.setState({text: editingOffer.offer_description, price: editingOffer.cash},
+                async ()=>{
+                    const itemsArr= Object.values(editingOffer.items)
+                    for (let i = 0; i < itemsArr.length; i++){
+                        await this.addItem(itemsArr[i],i)
+                    }
+                    this.setState({modal:[bool, "editingOffer"]})
+                }
+            )
+        }
+    }
 
     render() {
         if (!this.props.post){
@@ -180,14 +225,15 @@ class PostShow extends React.Component {
                     </div> : null
                     }
                     {ownOffer ? <div className="decision">
-                            <button onClick={this.handleCreateOffer(true)} id={offer.offerId} className="decline">Edit</button>
+                            <button onClick={this.handleEditOffer(true)} id={offer.offerId} className="decline">Edit</button>
                             <button onClick={this.handleAccept} id={offer.offerId} className="accept">Delete</button>
                         </div> : null
                     }
                 </div>
             offersDataRender.push(offerDiv)
         }
-
+        const formType = this.state.modal[1];
+        console.log(this.state)
         return (
             <div>
                 <NavBar/>
@@ -213,24 +259,30 @@ class PostShow extends React.Component {
                             </div>
                         </div>
                 </div>
-                <div className={`modal-container ${this.state.modal ? 'display_modal' : 'hide_modal'}`}>
+                <div className={`modal-container ${this.state.modal[0] ? 'display_modal' : 'hide_modal'}`}>
                     <div className="createOffer">
                         <div className="close" onClick={this.handleCreateOffer(false)}>
                             &times;
                         </div>
-                        <form onSubmit={this.handleOfferSubmit}>
-                            <h1>Make An Offer</h1>
+                        <form onSubmit={formType === "createOffer" ? this.handleOfferSubmit  : this.handleEditSubmit}>
+                            {formType === "createOffer" ? <h1>Make An Offer</h1> : <h1>Edit Offer</h1> }
                             <div className="cash-offer">
                                 <label> Offer Description
-                                    <input onChange={this.handleChange('text')} type="text" />
+                                    {
+                                        formType === "createOffer" ? <input onChange={this.handleChange('text')} type="text" />:
+                                        <input onChange={this.handleChange('text')} type="text" value = {this.state.text}/>
+                                    }
                                 </label>
                                 <label> Cash Offer
-                                    <input onChange={this.handleChange('price')} type="number" placeholder="$0" />
+                                    {
+                                        formType === "createOffer" ? <input onChange={this.handleChange('price')} type="number" placeholder="$0" /> :
+                                            <input onChange={this.handleChange('price')} type="number" value={this.state.price} />
+                                    }                                    
                                 </label>
                             <p onClick={this.addItem}><i class="fas fa-plus"></i> Add An Item</p>
                             {this.state.itemsToRender}
                             </div>
-                            <button>Create Offer</button>
+                            {formType === "createOffer" ? <button>Create Offer</button> : <button>Edit Offer</button>}
                         </form>
                     </div>
                 </div>

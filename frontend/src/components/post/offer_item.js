@@ -1,15 +1,31 @@
 import React from 'react';
 import { randomInt } from '../../util/number_api_util'
+import { Image } from 'cloudinary-react'
+
 
 class OfferItem extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            userId: null,
-            postId: null,
-            name: "",
-            description: "",
-            imageUrl: null,
+        const {item} = this.props;
+        console.log(this.props)
+        if(item){
+            this.state = {
+                userId: null,
+                postId: null,
+                name: item.name,
+                id: item._id,
+                description: item.description,
+                imageUrl: item.imageUrl
+            }
+        }
+        else{
+            this.state = {
+                userId: null,
+                postId: null,
+                name: "",
+                description:  "",
+                imageUrl: null
+            }
         }
         this.handleChange=this.handleChange.bind(this);
     }
@@ -42,11 +58,11 @@ class OfferItem extends React.Component{
 
     render(){
         this.props.addItemtoState(this.state, this.props.idx)
-        // console.log(this.state);
         return(
-            <div className="offer-item-container">
+            <div className="offer-item-container dimensions">
                 <input onChange={this.handleChange('name')} type="text" value={this.state.name} placeholder="item name"></input>
-                <textarea onChange={this.handleChange('description')} placeholder="description"></textarea>
+                <textarea onChange={this.handleChange('description')} placeholder="description">{this.state.description}</textarea>
+                <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${this.state.imageUrl}`} />
                 <input type="file" onChange={(e)=>this.handleImageUpload(e.target.files[0])}></input>
                 {/* <i onClick={()=>this.props.removeItem(this.props.index)} className="far fa-trash-alt"></i> */}
             </div>
