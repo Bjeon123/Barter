@@ -14,6 +14,13 @@ import 'react-awesome-slider/dist/styles.css';
 
 
 class MainPage extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        this.props.fetchPosts();
+    }
     
     render() {
  

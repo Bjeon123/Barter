@@ -5,7 +5,7 @@ import SearchBarContainer from '../search_bar/search_bar_container';
 
 class NavBar extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
     }
 
     render() {
@@ -19,6 +19,8 @@ class NavBar extends React.Component {
                 <Link to={'/login'}><button>Login</button></Link>
                 <Link to={'/signup'}><button>Sign Up</button></Link>
             </div>
+
+        const { posts } = this.props;
         
         return (
            
@@ -26,7 +28,7 @@ class NavBar extends React.Component {
                     <div className="navbar-left">
                         <Link style={{ textDecoration: 'none' }} to={'/home'}><h1>Barter</h1></Link>
                         <Link style={{ color: "white" }} to={"/posts"}><p>Browse All</p></Link>
-                        <SearchBarContainer/>
+                        <SearchBarContainer />
                     </div>
                     {navRight}
                 </nav>
