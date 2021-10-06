@@ -108,7 +108,7 @@ class PostShow extends React.Component {
                         }
                     )
                 }
-                this.setState({offersData: [...this.state.offersData, offer]})
+                this.setState({offersData: [...this.state.offersData, offer], items:[]})
             }
         ) 
     }
