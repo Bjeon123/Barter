@@ -9,7 +9,7 @@ import clock from '../../assets/clock.jpeg'
 import airmax from '../../assets/airmax.png'
 import ones from '../../assets/ones.jpeg'
 import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/styles.css';
+import AwsSliderStyles from 'react-awesome-slider/dist/styles.css';
 
 
 
@@ -58,7 +58,7 @@ class MainPage extends React.Component {
                         <img src={clock}></img>
                     </div>
                 </div> */}
-                <AwesomeSlider>
+                <AwesomeSlider cssModule={AwsSliderStyles}>
                     <div className="slide" id="slide-1">
                         <div className="description">
                             <h1>Popular Item</h1>
