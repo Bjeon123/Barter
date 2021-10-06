@@ -28,6 +28,7 @@
     "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "bootstrap": "^5.1.2",
     "cloudinary": "^1.27.0",
     "concurrently": "^6.2.1",
     "express": "^4.17.1",
@@ -38,6 +39,12 @@
     "multer": "^1.4.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "pure-react-carousel": "^1.27.6",
+    "react-alice-carousel": "^2.5.1",
+    "react-awesome-slider": "^4.1.0",
+    "react-bootstrap": "^1.6.4",
+    "react-bootstrap-carousel": "^4.1.1",
+    "slick-carousel": "^1.8.1",
     "validator": "^13.6.0"
   },
   "devDependencies": {

@@ -18,6 +18,7 @@
     justify-content: space-between;
     align-items: center;
     scroll-snap-align: start;
+    background-color: white;
 }
 
 .grid {
@@ -41,7 +42,7 @@
 }
 
 .slide img {
-    margin-right: 8%;
+    margin-right: 10%;
     max-width: 30%;
     max-height: 80%;
     width: auto;
@@ -63,6 +64,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 3%;
+    border-top: 1px solid black;
 }
 
 .featured img {
@@ -71,6 +74,10 @@
     max-height: 80%;
     width: auto;
     height: auto;
+}
+
+.gow {
+    margin-top: 3%;
 }
 
 .about {
@@ -122,11 +129,18 @@
     border-radius: 10px;
     background-color: #2f3137;
     color: white;
+    width: 200px;
+    text-align: center;
 }
 
 .search:hover {
     background-color: black;
     color: white;
 }
+
+.awssld {
+    height: 30%;
+}
+
 
 

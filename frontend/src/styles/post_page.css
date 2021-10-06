@@ -7,7 +7,7 @@
 }
 
 .post-info {
-    width: 35%;
+    width: 40%;
     height: 50%;
     border: 1px solid black;
     box-shadow: 10px 10px;
@@ -276,6 +276,10 @@ textarea{
 .dimensions img {
     height: 40px;
     width: 50px;
+}
+
+.accept {
+    margin-right: 3%;
 }
 
 .accept:hover {
