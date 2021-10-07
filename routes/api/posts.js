@@ -31,6 +31,13 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+router.get('/category/:category', (req, res) => {
+    console.log(req.params.id)
+    Post.find({ category: req.params.category })
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+})
+
 router.get('/user/:userId', (req, res) => {
     Post.find({userId: req.params.userId})
     .then(posts => res.json(posts))

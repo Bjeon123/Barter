@@ -3,22 +3,12 @@ import NavBar from '../nav_bar/nav_bar_container';
 import {Image} from 'cloudinary-react'
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../../actions/post_actions';
-// import PostShow from './post_show';
 
 class PostIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = { posts: null};
     }
-
-    // componentDidMount(){
-    //     this.props.fetchPosts()
-    //         .then(posts => this.setState({posts: posts}))
-    // }
-
-    // componentDidMount(){
-    //     this.props.fetchPosts();
-    // }
 
     render() {
         if(this.props.posts === null) {
@@ -31,13 +21,9 @@ class PostIndex extends React.Component {
                 <h1>All Listings</h1>
                 <div className="posts-container">
                 {
-                    // posts.map((post, idx) => (
                     dir.map((post, idx) => (
                         <div className="offer" >
                             <div className="item-description">
-                                {/* <div className="block"> 
-                                    <h3>Name: </h3><p key={idx}>{post.userId}</p>
-                                </div> */}
                                 <div className="block"> 
                                     <h3>Item: </h3><p key={idx}>{post.itemName}</p>
                                 </div>

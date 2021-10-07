@@ -13,9 +13,11 @@ class SellPage extends React.Component {
             itemName: "",
             price: 0,
             description: "",
-            image: null
+            image: null,
+            errors: {}
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
 
     handleChange(field) {
@@ -27,16 +29,20 @@ class SellPage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
+        let imageUrl;
+        let formData = new FormData
+        if (this.state.image) {
+            imageUrl = `${randomInt().toString()}${this.state.image.name.split('.')[0]}`
+        }
         let post = {
             userId: this.props.userId,
             category: this.state.category,
             itemName: this.state.itemName,
             price: this.state.price,
             description: this.state.description,
-            imageUrl: `${randomInt().toString()}${this.state.image.name.split('.')[0]}`
+            imageUrl: imageUrl
         }
-        let formData = new FormData();
+        
         formData.append("file", this.state.image);
         formData.append("upload_preset", "ys8sasql");
         formData.append("public_id",`${post['imageUrl']}` )
@@ -44,11 +50,8 @@ class SellPage extends React.Component {
             method: 'POST',
             body: formData,
         };
-        fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options).then(
-            response =>{
-                console.log(response)
-            }
-        ).then(
+        fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options)
+        .then(
             () => this.props.createPost(post)
         )
         this.setState({ 
@@ -58,7 +61,24 @@ class SellPage extends React.Component {
             description: "",
             image: null
         })
-        this.props.history.push("/home")
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ errors: nextProps.errors })
+        // this.props.history.push("/sell")
+    }
+
+    renderErrors() {
+        debugger 
+        return (
+            <ul>
+                {Object.keys(this.props.errors).map((error, i) => (
+                    <li key={`error-${i}`} className="errors">
+                        {this.props.errors[error]}
+                    </li>
+                ))}
+            </ul>
+        )
     }
 
     render(){
@@ -98,6 +118,7 @@ class SellPage extends React.Component {
                             </label>
                         </div>
                             <button className="create">Create Listing</button>
+                            {this.renderErrors()}
                     </form>
                 </div>
             </div>

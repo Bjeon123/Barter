@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST} from "../actions/post_actions";
+import { RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST } from "../actions/post_actions";
 
 
 const postsReducer = (state = {}, action) => {

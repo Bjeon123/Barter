@@ -69,10 +69,31 @@ class MainPage extends React.Component {
                     <div className="description">
                         <h1>Featured categories</h1>
                     </div>
-                    <img src={ones}/>
-                    <img src={mario}/>
-                    <img src={clock}/>
+                    <Link to="/category/Shoes"><img src={ones}/></Link>
+                    <Link to ="/category/Games"><img src={mario}/></Link>
+                    <Link to ="/category/Books"><img src={clock}/></Link>
                 </div>
+                <footer>
+                    <div className="column">
+                        <h2>Jonathan Wong</h2>
+                        <a href="https://www.linkedin.com/in/jonathan-wong-435a8b146/" rel="noreferrer" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/jay5375" rel="noreferrer" target="_blank">Github</a>
+                        <a href="https://docs.google.com/document/d/1V0Y0HZvcfPiW93J_Y_bRNS07jfRTXbe7Sa-uQSB1l8Q/edit?usp=sharing" rel="noreferrer" target="_blank">Resume</a>
+                    </div>
+                    <div className="column">
+                        <h2>Sam Jeon</h2>
+                        <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank">Github</a>
+                        <a href="" rel="noreferrer" target="_blank">Resume</a>
+                    </div>
+                    <div className="column">
+                        <h2>Long Chen</h2>
+                        <a href="https://www.linkedin.com/in/long-chen-5153a31b7/" rel="noreferrer" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/rinayumiho" rel="noreferrer" target="_blank">Github</a>
+                        <a href="https://rinayumiho.github.io/portfolio/assets/LongChen_resume_udel.pdf" rel="noreferrer" target="_blank">Resume</a>
+                    </div>
+                    
+                </footer>
             </div>
         )
     }

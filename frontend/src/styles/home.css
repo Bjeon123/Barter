@@ -59,7 +59,7 @@
 }
 
 .featured {
-    height: 30%;
+    height: 40%;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -70,6 +70,7 @@
 
 .featured img {
     margin-right: 8%;
+    margin-left: 5%;
     max-width: 33%;
     max-height: 80%;
     width: auto;
@@ -130,6 +131,7 @@
     background-color: #2f3137;
     color: white;
     width: 200px;
+    height: 25px;
     text-align: center;
 }
 
@@ -147,5 +149,26 @@
     height: 8px !important;
 }
 
+footer {
+    display: flex;
+    height: 150px;
+    background-color: black;
+    justify-content: space-evenly;
+}
 
+.column {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
 
+.column h2 {
+    margin-top: 0.5%;
+    margin-bottom: 2%;
+}
+
+.column a {
+    color: white;
+}

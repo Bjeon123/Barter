@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("../../config/passport");
 const router = express.Router();
 const Offer = require("../../models/Offer");
+const Post = require("../../models/Post");
 const validateOffer = require("../../validation/offers");
 
 router.get('/', (req, res) => {
@@ -28,6 +29,7 @@ router.get('/:id', (req, res) => {
         .then(offer => res.json(offer))
         .catch(err => res.status(404).json({ noofferfound: "No offer found with that id"}))
 })
+
 
 router.post('/', (req, res) => {
     const { errors, isValid } = validateOffer(req.body)
