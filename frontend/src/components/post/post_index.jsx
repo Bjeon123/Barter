@@ -39,7 +39,9 @@ class PostIndex extends React.Component {
                             </div>
                             <div className="picture">
                                 <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`} />
-                                <button><Link to={`/posts/${post._id}`}>Offer</Link></button>
+                                <div className="offer-button">
+                                    <Link to={`/posts/${post._id}`}><button>Offer</button></Link>
+                                </div>
                             </div>
                         </div>
                     ))
