@@ -71,10 +71,28 @@
 .featured img {
     margin-right: 8%;
     margin-left: 5%;
-    max-width: 33%;
-    max-height: 80%;
+    max-width: 35%;
+    /* max-height: 80%; */
     width: auto;
     height: auto;
+    /* min-width: 40%; */
+}
+
+.featured a {
+    width: 33%;
+}
+
+.home-footer {
+    display: flex;
+    /* justify-content: space-between; */
+    color: white;
+}
+
+.creators {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .gow {
@@ -151,24 +169,61 @@
 
 footer {
     display: flex;
-    height: 150px;
+    height: 100px;
     background-color: black;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    margin-left: 5%;
+    
+}
+
+.footer-left h1 {
+    margin-bottom: 1%;
+}
+
+.footer-left p {
+    margin-top: 0px;
+}
+
+.searchform {
+    position: relative;
+    width: 100%;
+}
+
+.searchform ul {
+    position: inherit;
+    width: inherit;
+}
+
+.searchform li {
+    width: 200px;
 }
 
 .column {
     display: flex;
     flex-direction: column;
-    color: white;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 33%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+}
+
+.row a {
+    color: white;
 }
 
 .column h2 {
-    margin-top: 0.5%;
     margin-bottom: 2%;
-}
-
-.column a {
-    color: white;
+    margin-top: 1%;
 }

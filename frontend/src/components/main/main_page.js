@@ -10,7 +10,8 @@ import airmax from '../../assets/airmax.png'
 import ones from '../../assets/ones.jpeg'
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/dist/styles.css';
-
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 
 class MainPage extends React.Component {
@@ -73,26 +74,37 @@ class MainPage extends React.Component {
                     <Link to ="/category/Games"><img src={mario}/></Link>
                     <Link to ="/category/Books"><img src={clock}/></Link>
                 </div>
-                <footer>
-                    <div className="column">
-                        <h2>Jonathan Wong</h2>
-                        <a href="https://www.linkedin.com/in/jonathan-wong-435a8b146/" rel="noreferrer" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/jay5375" rel="noreferrer" target="_blank">Github</a>
-                        <a href="https://docs.google.com/document/d/1V0Y0HZvcfPiW93J_Y_bRNS07jfRTXbe7Sa-uQSB1l8Q/edit?usp=sharing" rel="noreferrer" target="_blank">Resume</a>
+                <footer className="home-footer">
+                    <div className="footer-left">
+                        <h1>Barter</h1>
+                        <p>Meet the Creators</p>
                     </div>
-                    <div className="column">
-                        <h2>Sam Jeon</h2>
-                        <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank">Github</a>
-                        <a href="" rel="noreferrer" target="_blank">Resume</a>
+                    <div className="creators">
+                        <div className="column">
+                            <h2>Jonathan Wong</h2>
+                            <div className="row">
+                                <a href="https://github.com/jay5375" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/jonathan-wong-435a8b146/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://docs.google.com/document/d/1V0Y0HZvcfPiW93J_Y_bRNS07jfRTXbe7Sa-uQSB1l8Q/edit?usp=sharing" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                            </div>
+                        </div>
+                        <div className="column">
+                            <h2>Sam Jeon</h2>
+                            <div className="row">
+                                <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                            </div>
+                        </div>
+                        <div className="column">
+                            <h2>Long Chen</h2>
+                            <div className="row">
+                                <a href="https://github.com/rinayumiho" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/long-chen-5153a31b7/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://rinayumiho.github.io/portfolio/assets/LongChen_resume_udel.pdf" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                            </div>
+                        </div>
                     </div>
-                    <div className="column">
-                        <h2>Long Chen</h2>
-                        <a href="https://www.linkedin.com/in/long-chen-5153a31b7/" rel="noreferrer" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/rinayumiho" rel="noreferrer" target="_blank">Github</a>
-                        <a href="https://rinayumiho.github.io/portfolio/assets/LongChen_resume_udel.pdf" rel="noreferrer" target="_blank">Resume</a>
-                    </div>
-                    
                 </footer>
             </div>
         )
