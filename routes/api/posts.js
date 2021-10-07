@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../../models/Post");
-const Offer = require('../../models/Offer');
-const Item = require('../../models/Item')
 const validatePost = require("../../validation/posts");
 
 router.get('/search', async (req, res) => {

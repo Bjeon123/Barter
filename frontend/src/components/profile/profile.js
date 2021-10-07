@@ -14,15 +14,18 @@ class Profile extends React.Component{
         this.state={
             userId: this.props.user.id,
             posts: null,
+            transactions: null,
             offersData: [],
             offers: null,
             postdrop: false,
             offerdrop: false,
+            transactiondrop: false,
             username: this.props.user.username,
             account: false 
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
+        this.handleTransactionDrop = this.handleTransactionDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
         this.handleAccountSettings = this.handleAccountSettings.bind(this);
@@ -58,6 +61,10 @@ class Profile extends React.Component{
                         )
                     }
                 }
+            ).then(
+                this.props.fetchTransactions(this.state.userId).then(
+                    transactions => this.setState({transactions: transactions.transactions.data})
+                )
             )
         )
     }
@@ -81,6 +88,10 @@ class Profile extends React.Component{
         this.setState({ offerdrop: !this.state.offerdrop})
     }
 
+    handleTransactionDrop() {
+        this.setState({ transactiondrop: !this.state.transactiondrop })
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         let user = {
@@ -100,14 +111,18 @@ class Profile extends React.Component{
     }
 
     render(){
-        const {posts,offersData} = this.state
+        const {posts,offersData,transactions} = this.state
         const {user} = this.props.session
         if(posts === null){
+            return null
+        }
+        else if (transactions === null) {
             return null
         }
         else if (user === undefined ){
             return null
         }
+        console.log(this.state)
         let postslis = [];
         for (let i = 0; i < posts.length; i++){
             const post = posts[i];
@@ -176,6 +191,12 @@ class Profile extends React.Component{
                     </div>
                     <div className={`${this.state.offerdrop ? 'display_modal' : 'hide_modal' } items`}>
                        {offerlis}
+                    </div>
+                    <div className="header">
+                        <h2>Transactions</h2>
+                        {this.state.transactiondrop ? <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
+                            <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        }
                     </div>
                     <div className="user-options">
                         <button className="profile-settings-btn" onClick={this.handleAccountSettings}>User Options</button>

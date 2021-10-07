@@ -27,6 +27,10 @@ const ItemSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
+    },
+    transactionId:{
+        type: Schema.Types.ObjectId,
+        ref: 'transactions'
     }
 });
 

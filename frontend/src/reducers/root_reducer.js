@@ -5,13 +5,15 @@ import offers from './offers_reducer'
 import errors from './errors_reducer'
 import postsReducer from './posts_reducer';
 import user from './users_reducer';
+import transactions from './transaction_reducer'
 
 const RootReducer = combineReducers({
   session,
   posts: postsReducer,
   offers,
   errors,
-  user
+  user,
+  transactions
 });
 
 export default RootReducer;
