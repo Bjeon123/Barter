@@ -27,6 +27,7 @@ router.post('/', (req, res) => {
     }
     const newTransaction = new Transaction({
         offerer: req.body.offerer,
+        postName: req.body.postName,
         postDescription: req.body.postDescription,
         receiver: req.body.receiver,
         cash: req.body.cash,

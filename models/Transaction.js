@@ -7,6 +7,10 @@ const TransactionSchema = new Schema({
         ref: 'users',
         required: true
     },
+    postName:{
+        type: String,
+        required: true
+    },
     postDescription: {
         type: String,
         required: true

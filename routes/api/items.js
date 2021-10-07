@@ -49,6 +49,7 @@ router.post('/create', (req, res) => {
 });
 
 router.patch('/:id', (req, res) => {
+    console.log(req.body)
     const { errors, isValid } = validateItem(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -58,7 +59,8 @@ router.patch('/:id', (req, res) => {
         userId: req.body.userId,
         offerId: req.body.offerId,
         description: req.body.description,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
+        transactionId: req.body.transactionId
     }
     Item.findOneAndUpdate({ _id: req.params.id }, updatedItem, { new: true }, (err, item) => {
         if (err) {

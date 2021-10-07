@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
 import {createItem,fetchOfferItems,updateItem,deleteItem, deleteOfferItems} from '../../util/item_api_util'
+import {createTransaction} from '../../util/transaction_api_util'
 import {deletePost} from '../../util/post_api_util'
 import { Image } from 'cloudinary-react'
 import { deleteOffer, updateOffer,deletePostOffers } from '../../util/offer_api_util'
@@ -25,10 +26,12 @@ class PostShow extends React.Component {
         this.removeItem = this.removeItem.bind(this);
         this.addItem=this.addItem.bind(this);
         this.addItemtoState=this.addItemtoState.bind(this);
-        this.handleAccept=this.handleAccept.bind(this);
+        this.handleAccept = this.handleAccept.bind(this);
+        this.handleDecline=this.handleDecline.bind(this);
         this.handleEditOffer = this.handleEditOffer.bind(this);
         this.handleEditSubmit = this.handleEditSubmit.bind(this);
         this.handleDeletePost = this.handleDeletePost.bind(this);
+        this.handleBuyNow = this.handleBuyNow.bind(this)
     }
 
     componentDidMount() {
@@ -58,6 +61,62 @@ class PostShow extends React.Component {
                     }   
                 }
             )
+        )
+    }
+
+    handleBuyNow(){
+        console.log(this.props)
+        const transaction = {
+            offerer: this.props.currentUser.id,
+            postName: this.props.post.data.itemName,
+            postDescription: this.props.post.data.description,
+            receiver: this.props.post.data.userId,
+            cash: this.props.post.data.price,
+            imageUrl: this.props.post.data.imageUrl
+        }
+        createTransaction(transaction).then(
+            this.handleDeletePost()
+        )
+    }
+
+    handleAccept(e){
+        let offersdata = [...this.state.offersData];
+        let offer;
+        for (let i = 0; i < this.state.offersData.length; i++) {
+            if (offersdata[i].offerId === e.target.id) {
+                offer = offersdata[i];
+                offersdata.splice(i,1)
+                break;
+            }
+        }
+        let itemsArr=Object.values(offer.items)
+        const transaction = {
+            offerer: offer.userId,
+            postName: this.props.post.data.itemName,
+            postDescription: this.props.post.data.description,
+            receiver: this.props.currentUser.id,
+            cash: offer.cash,
+            imageUrl: this.props.post.data.imageUrl
+        }
+        createTransaction(transaction).then(
+            async (transaction)=>{
+                const transactionId = transaction.data._id;
+                for (let i = 0; i < itemsArr.length; i++) {
+                    const item = itemsArr[i];
+                    const itemFormatted = {
+                        userId: this.props.currentUser.id,
+                        offerId: null,
+                        name: item.name,
+                        description: item.description,
+                        imageUrl: item.imageUrl,
+                        transactionId: transactionId
+                    }
+                    await updateItem(item._id,itemFormatted)
+                }
+            }
+        )
+        deleteOffer(offer.offerId).then(
+            () => this.setState({ offersData: offersdata }, this.handleDeletePost())
         )
     }
 
@@ -209,7 +268,7 @@ class PostShow extends React.Component {
         }
     }
 
-    handleAccept(e){
+    handleDecline(e){
         deleteOffer(e.target.id).then(
             (offer) => {
                 const offersdata = [...this.state.offersData];
@@ -315,12 +374,12 @@ class PostShow extends React.Component {
                     {itemsdiv}
                     {ownPost ? <div className="decision">
                         <button onClick={this.handleAccept} id={offer.offerId} className="accept">Accept</button>
-                        <button onClick={this.handleAccept} id={offer.offerId} className="decline">Decline</button>
+                        <button onClick={this.handleDecline} id={offer.offerId} className="decline">Decline</button>
                     </div> : null
                     }
                     {ownOffer ? <div className="decision">
                             <button onClick={this.handleEditOffer(true)} id={offer.offerId} className="decline">Edit</button>
-                            <button onClick={this.handleAccept} id={offer.offerId} className="accept">Delete</button>
+                            <button onClick={this.handleDecline} id={offer.offerId} className="accept">Delete</button>
                         </div> : null
                     }
                 </div>
@@ -350,7 +409,7 @@ class PostShow extends React.Component {
                                 {ownPost ? <button onClick={this.handleDeletePost}>Delete Post</button> : 
                                     <div>
                                         <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
-                                        <button>Buy Now</button>
+                                        <button onClick ={this.handleBuyNow}>Buy Now</button>
                                     </div>
                                 }
                                 {offersDataRender}
