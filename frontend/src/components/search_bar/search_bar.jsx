@@ -42,7 +42,7 @@ function SearchBar(props){
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="searchbar">
-                    <input type="text" name="search" placeholder="Name or Categories" onChange={handleChange} value={searchContent}/>
+                    <input type="text" name="search" placeholder="Search" onChange={handleChange} value={searchContent}/>
                     {/* <button><img id="search-icon" src="https://i.ibb.co/B45HM6R/search-icon.png" alt="Search" /></button> */}
                     <input id="search-icon" type="image" src="https://i.ibb.co/B45HM6R/search-icon.png" alt="Submit" />
                 </div>

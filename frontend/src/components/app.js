@@ -10,6 +10,7 @@ import SellContainer from './sell/sell_container';
 import { Route } from 'react-router';
 import PostIndex from './post/post_index_container';
 import SearchResults from "./search_bar/search_results";
+import post_category_container from './post/post_category_container';
 
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
     <Route path='/posts/:postid' component={PostShow} />
     <Route path='/posts' component={PostIndex} />
     <Route path='/results' component={SearchResults}/>
+    <Route path='/category/:category' component={post_category_container} />
   </Switch>
 )
 

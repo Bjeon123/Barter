@@ -16,6 +16,10 @@ module.exports = function validatePost(post) {
     if(Validator.isEmpty(post.itemName)) {
         errors.itemName = "Item Name is required";
     }
+
+    if(Validator.isEmpty(post.imageUrl)) {
+        errors.imageUrl = "Image is required"
+    }
     
     let regPos = /^[0-9]+.?[0-9]*/;
 

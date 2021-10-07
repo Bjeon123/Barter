@@ -35,6 +35,11 @@ export const fetchUserPosts = (userId) => dispatch =>(
         .then(Posts => dispatch(receivePosts(Posts)))
 )
 
+export const fetchCategoryPosts = (category) => dispatch => (
+    PostApiUtil.fetchCategoryPosts(category)
+        .then(Posts => dispatch(receivePosts(Posts)))
+)
+
 export const fetchPost = postId => dispatch => (
     PostApiUtil.fetchPost(postId)
         .then(post => dispatch(receivePost(post)))
@@ -49,7 +54,7 @@ export const createPost = post => dispatch => {
     return(
         PostApiUtil.createPost(post)
             .then(post => dispatch(receivePost(post)))
-            .catch(error => dispatch(receivePostErrors(error.response.data)))
+            .catch(err => dispatch(receivePostErrors(err.response.data)))
     )
 }
 
