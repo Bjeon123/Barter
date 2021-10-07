@@ -275,15 +275,18 @@ class PostShow extends React.Component {
                     }
                 }
             )
+        ).then(
+            ()=> this.props.history.push('/profile')
         )
-        // .then(
-        //     ()=> this.props.history.push('/profile')
-        // )
     }
 
     render() {
         if (!this.props.post){
             return null;
+        }
+        console.log(this.props)
+        if(Object.keys(this.props.currentUser).length===0){
+            this.props.history.push('/login')
         }
         const ownPost = this.props.post.data.userId === this.props.currentUser.id;
         let offersDataRender = []
