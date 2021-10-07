@@ -290,7 +290,7 @@ class PostShow extends React.Component {
         const formType = this.state.modal[1];
         return (
             <div>
-                <NavBar/>
+                <NavBar action="offer"/>
                 <div className="post-container">
                     <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${this.props.post.data.imageUrl}`} />
                         <div className="post-info">

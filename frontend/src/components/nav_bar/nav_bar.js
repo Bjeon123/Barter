@@ -9,7 +9,7 @@ class NavBar extends React.Component {
     }
 
     render() {
-        const navRight = this.props.session.isAuthenticated ?
+        const navRight = (this.props.session != undefined && this.props.session.isAuthenticated) ?
             <div className="navbar-right">
                 <Link to={"/sell"}><button>Sell</button></Link>
                 <Link to={'/home'}><button onClick={this.props.logout}>Sign out</button></Link>
@@ -28,7 +28,7 @@ class NavBar extends React.Component {
                     <div className="navbar-left">
                         <Link style={{ textDecoration: 'none' }} to={'/home'}><h1>Barter</h1></Link>
                         <Link style={{ color: "white" }} to={"/posts"}><p>Browse All</p></Link>
-                        <SearchBarContainer />
+                        {this.props.action ? null : <SearchBarContainer />}
                     </div>
                     {navRight}
                 </nav>
