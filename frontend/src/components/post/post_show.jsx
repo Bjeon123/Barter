@@ -402,9 +402,9 @@ class PostShow extends React.Component {
                                 </div>
                                 <div className="post-row">
                                     <h3>Description:</h3><p>{this.props.post.data.description}</p>
-                                </div>
+                                </div >
                                 {ownPost ? <button onClick={this.handleDeletePost}>Delete Post</button> : 
-                                    <div>
+                                    <div className="offer-options">
                                         <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
                                         <button onClick ={this.handleBuyNow}>Buy Now</button>
                                     </div>

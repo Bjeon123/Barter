@@ -22,28 +22,27 @@ class PostIndex extends React.Component {
                 <div className="posts-container">
                 {
                     dir.map((post, idx) => (
-                        <div className="offer" >
-                            <div className="item-description">
-                                <div className="block"> 
-                                    <h3>Item: </h3><p key={idx}>{post.itemName}</p>
+                        <Link to={`/posts/${post._id}`}>
+                            <div className="offer" >
+                                <div className="item-description">
+                                    <div className="block"> 
+                                        <h3>Item: </h3><p key={idx}>{post.itemName}</p>
+                                    </div>
+                                    <div className="block"> 
+                                        <h3>Category: </h3><p key={idx}>{post.category}</p>
+                                    </div>
+                                    <div className="block"> 
+                                        <h3>Price: </h3><p key={idx}>${post.price}</p>
+                                    </div>
+                                    <div className="block"> 
+                                        <h3>Description: </h3><p key={idx}>{post.description}</p>
+                                    </div>
                                 </div>
-                                <div className="block"> 
-                                    <h3>Category: </h3><p key={idx}>{post.category}</p>
-                                </div>
-                                <div className="block"> 
-                                    <h3>Price: </h3><p key={idx}>${post.price}</p>
-                                </div>
-                                <div className="block"> 
-                                    <h3>Description: </h3><p key={idx}>{post.description}</p>
+                                <div className="picture">
+                                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`} />
                                 </div>
                             </div>
-                            <div className="picture">
-                                <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`} />
-                                <div className="offer-button">
-                                    <Link to={`/posts/${post._id}`}><button>Offer</button></Link>
-                                </div>
-                            </div>
-                        </div>
+                        </Link>
                     ))
                 }
                 </div>

@@ -20,6 +20,7 @@
    max-height: 40%;
    max-width: 35%;
    display: block;
+   object-fit: contain;
 }
 
 .corner {
@@ -46,8 +47,24 @@
     justify-content: space-between;
 }
 
+.offer-options {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-left: 6%;
+}
+
 .post-info button {
-    margin-left: 8%;
+    margin-left: 2%;
+    border: none;
+    background-color: black;
+    color: white;
+    height: 30px;
+    font-weight: bold;
+}
+
+.decision button {
+    margin-left: 5%;
     border: none;
     background-color: black;
     color: white;
@@ -76,7 +93,7 @@
     position: fixed;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -207,7 +224,7 @@ textarea{
     border: none;
     height: 25px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
 }
 
@@ -285,13 +302,13 @@ textarea{
     margin-right: 3%;
 }
 
-.accept:hover {
+/* .accept:hover {
     background-color: lightgreen;
 }
 
 .decline:hover {
     background-color: red;
-}
+} */
 
 .createOffer form button {
     margin-bottom: 10%;
