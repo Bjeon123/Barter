@@ -65,7 +65,6 @@ class PostShow extends React.Component {
     }
 
     handleBuyNow(){
-        console.log(this.props)
         const transaction = {
             offerer: this.props.currentUser.id,
             postName: this.props.post.data.itemName,
@@ -196,7 +195,6 @@ class PostShow extends React.Component {
                         break;
                     }
                 }
-                console.log(offersDataCopy)
                 this.setState({ offersData: offersDataCopy })
             }
         )
@@ -343,7 +341,6 @@ class PostShow extends React.Component {
         if (!this.props.post){
             return null;
         }
-        console.log(this.props)
         if(Object.keys(this.props.currentUser).length===0){
             this.props.history.push('/login')
         }
