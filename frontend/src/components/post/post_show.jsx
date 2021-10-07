@@ -1,10 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
-import {createItem,fetchOfferItems,updateItem,deleteItem} from '../../util/item_api_util'
+import {createItem,fetchOfferItems,updateItem,deleteItem, deleteOfferItems} from '../../util/item_api_util'
+import {deletePost} from '../../util/post_api_util'
 import { Image } from 'cloudinary-react'
-import { deleteOffer, updateOffer } from '../../util/offer_api_util'
-import { randomInt } from '../../util/number_api_util'
+import { deleteOffer, updateOffer,deletePostOffers } from '../../util/offer_api_util'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -27,9 +28,8 @@ class PostShow extends React.Component {
         this.handleAccept=this.handleAccept.bind(this);
         this.handleEditOffer = this.handleEditOffer.bind(this);
         this.handleEditSubmit = this.handleEditSubmit.bind(this);
+        this.handleDeletePost = this.handleDeletePost.bind(this);
     }
-
-    
 
     componentDidMount() {
         const id = this.props.match.params.postid;
@@ -264,6 +264,23 @@ class PostShow extends React.Component {
         }
     }
 
+    handleDeletePost(){
+        const id = this.props.match.params.postid;
+        deletePost(id).then(
+            ()=>deletePostOffers(id)
+            .then(
+                ()=>{
+                    for(let i=0;i<this.state.offersData.length;i++){
+                        deleteOfferItems(this.state.offersData[i].offerId)
+                    }
+                }
+            )
+        )
+        // .then(
+        //     ()=> this.props.history.push('/profile')
+        // )
+    }
+
     render() {
         if (!this.props.post){
             return null;
@@ -306,7 +323,6 @@ class PostShow extends React.Component {
                 </div>
             offersDataRender.push(offerDiv)
         }
-        console.log(this.state)
         const formType = this.state.modal[1];
         return (
             <div>
@@ -328,7 +344,7 @@ class PostShow extends React.Component {
                                 <div className="post-row">
                                     <h3>Description:</h3><p>{this.props.post.data.description}</p>
                                 </div>
-                                {ownPost ? null : 
+                                {ownPost ? <button onClick={this.handleDeletePost}>Delete Post</button> : 
                                     <div>
                                         <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
                                         <button>Buy Now</button>

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../../models/Post");
+const Offer = require('../../models/Offer');
+const Item = require('../../models/Item')
 const validatePost = require("../../validation/posts");
 
 router.get('/search', async (req, res) => {
@@ -59,24 +61,24 @@ router.post('/create',(req, res) => {
     newPost.save().then(post => res.json(post));
 });
 
-router.patch('/update/:id', (req, res) => {
-    const { errors, isValid } = validatePost(req.body);
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
-    const updatedPost = {
-        category: req.body.category,
-        itemName: req.body.itemName,
-        price: req.body.price,
-        description: req.body.description
-    }
-    Post.findOneAndUpdate({'_id': req.body['_id']}, {$set: updatedPost}, {new: true})
-        .then(post => res.json(post))
-        .catch(err => console.log(err));
-});
+// router.patch('/update/:id', (req, res) => {
+//     const { errors, isValid } = validatePost(req.body);
+//     if (!isValid) {
+//         return res.status(400).json(errors);
+//     }
+//     const updatedPost = {
+//         category: req.body.category,
+//         itemName: req.body.itemName,
+//         price: req.body.price,
+//         description: req.body.description
+//     }
+//     Post.findOneAndUpdate({'_id': req.body['_id']}, {$set: updatedPost}, {new: true})
+//         .then(post => res.json(post))
+//         .catch(err => console.log(err));
+// });
   
 router.delete('/delete/:id', (req, res) => {
-    Post.findOneAndDelete({_id: req.params.postId})
+    Post.findOneAndDelete({_id: req.params.id})
         .then(post => res.json(post))
         .catch((err) => (res.status(400).json({err})));
 });

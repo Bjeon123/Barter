@@ -76,4 +76,10 @@ router.delete('/:id', (req, res) => {
         .catch((err) => (res.status(400).json({ err })));
 });
 
+router.delete('/offer/:offerId', (req, res) => {
+    Item.deleteMany({ offerId: req.params.offerId })
+        .then(items => res.json(items))
+        .catch(err => res.status(404).json({ noofferfound: "No item found with that id" }))
+})
+
 module.exports = router;

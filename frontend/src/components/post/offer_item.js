@@ -61,7 +61,7 @@ class OfferItem extends React.Component{
         return(
             <div className="offer-item-container dimensions">
                 <input onChange={this.handleChange('name')} type="text" value={this.state.name} placeholder="item name"></input>
-                <textarea onChange={this.handleChange('description')} placeholder="description">{this.state.description}</textarea>
+                <textarea onChange={this.handleChange('description')} placeholder="description" defaultValue={this.state.description}></textarea>
                 {this.state.imageUrl ? 
                     <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${this.state.imageUrl}`} />:
                     null
