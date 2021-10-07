@@ -4,7 +4,7 @@ import {numToDollars} from '../../util/number_api_util'
 import {Image} from 'cloudinary-react'
 import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { fetchOfferItems } from '../../util/item_api_util'
 
 
@@ -161,14 +161,18 @@ class Profile extends React.Component{
                     <h1>{`${this.props.session.user.username}`}'s Profile</h1>
                     <div className="header">
                         <h2>Your Posts</h2>
-                        <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle"/></i>
+                        {this.state.postdrop ? <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>:
+                            <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        }
                     </div>
                     <div className={`${this.state.postdrop ? 'display_modal' : 'hide_modal' } items`}>
                         {postslis}
                     </div>
                     <div className="header">
                         <h2>Offers Made</h2>
-                        <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleDown} className="angle"/></i>
+                        {this.state.offerdrop ? <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
+                            <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        }
                     </div>
                     <div className={`${this.state.offerdrop ? 'display_modal' : 'hide_modal' } items`}>
                        {offerlis}
