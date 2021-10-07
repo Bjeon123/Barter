@@ -10,8 +10,7 @@ const ItemSchema = new Schema({
 
     offerId: {
         type: Schema.Types.ObjectId,
-        ref: 'offers',
-        required: true
+        ref: 'offers'
     },
 
     name: {

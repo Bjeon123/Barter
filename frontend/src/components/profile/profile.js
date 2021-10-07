@@ -169,6 +169,25 @@ class Profile extends React.Component{
                 )
             }
         }
+        let transactionlis = [];
+        if (transactions.length !== 0) {
+            for (let i = 0; i < transactions.length; i++) {
+                const transaction = this.state.transactions[i];
+                let transactiondiv = [];
+                transactionlis.push(
+                    <div className="offer-container">
+                        <div className="offer-details">
+                            <h3>Transaction Id:</h3> <p>{transaction._id}</p>
+                            <h3>Cash offered:</h3> <p>{numToDollars.format(transaction.cash)}</p>
+                            <h3>Post description: </h3><p>{(transaction.postDescription).replace(/^"(.*)"$/, '$1')}</p>
+                        </div>
+                        <div className="image-container">
+                            <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${transaction.imageUrl}`} />
+                        </div>
+                    </div>
+                )
+            }
+        }
         return(
             <div className="profile-background">
                 <NavBar/>
@@ -197,6 +216,9 @@ class Profile extends React.Component{
                         {this.state.transactiondrop ? <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
                             <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
                         }
+                    </div>
+                    <div className={`${this.state.transactiondrop ? 'display_modal' : 'hide_modal'} items`}>
+                        {transactionlis}
                     </div>
                     <div className="user-options">
                         <button className="profile-settings-btn" onClick={this.handleAccountSettings}>User Options</button>
