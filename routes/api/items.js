@@ -48,7 +48,7 @@ router.post('/create', (req, res) => {
     newItem.save().then(item => res.json(item)).catch(err => res.status(400).json(err));
 });
 
-router.patch('/update/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     const { errors, isValid } = validateItem(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -58,11 +58,16 @@ router.patch('/update/:id', (req, res) => {
         userId: req.body.userId,
         offerId: req.body.offerId,
         description: req.body.description,
-        itemUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl
     }
-    Item.findOneAndUpdate({ '_id': req.body['_id'] }, { $set: updatedItem }, { new: true })
-        .then(item => res.json(item))
-        .catch(err => console.log(err));
+    Item.findOneAndUpdate({ _id: req.params.id }, updatedItem, { new: true }, (err, item) => {
+        if (err) {
+            return res.status(400).json(["Invalid Item"])
+        }
+        else {
+            return res.json(item)
+        }
+    })
 });
 
 router.delete('/delete/:id', (req, res) => {

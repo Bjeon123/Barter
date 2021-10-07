@@ -348,3 +348,7 @@ textarea{
 .offer-details {
     margin-left: 5%;
 }
+
+button:hover{
+    cursor: pointer;
+}

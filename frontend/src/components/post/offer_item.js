@@ -64,7 +64,7 @@ class OfferItem extends React.Component{
                 <textarea onChange={this.handleChange('description')} placeholder="description">{this.state.description}</textarea>
                 <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${this.state.imageUrl}`} />
                 <input type="file" onChange={(e)=>this.handleImageUpload(e.target.files[0])}></input>
-                {/* <i onClick={()=>this.props.removeItem(this.props.index)} className="far fa-trash-alt"></i> */}
+                <i className="far fa-trash-alt"></i>
             </div>
         )
     }

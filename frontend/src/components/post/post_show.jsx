@@ -1,9 +1,9 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
-import {createItem,fetchOfferItems} from '../../util/item_api_util'
+import {createItem,fetchOfferItems,updateItem} from '../../util/item_api_util'
 import { Image } from 'cloudinary-react'
-import { deleteOffer } from '../../util/offer_api_util'
+import { deleteOffer, updateOffer } from '../../util/offer_api_util'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -13,6 +13,7 @@ class PostShow extends React.Component {
             items: [],
             itemsToRender : [],
             editingOffer: {offer_description: "", cash: ""},
+            editingOfferId: null,
             offersData : [],
             text: "",
             modal: [false,null] 
@@ -78,7 +79,61 @@ class PostShow extends React.Component {
 
     handleEditSubmit(e){
         e.preventDefault();
-        
+        this.setState({ modal: [false, null] })
+        const updatedOffer = {
+            id: this.state.editingOfferId,
+            user: this.props.currentUser.id,
+            text: this.state.text,
+            receiver: this.props.post.data.userId,
+            price: parseInt(this.state.price),
+            postId: this.props.post.data._id
+        }
+        updateOffer(updatedOffer).then(
+            (offer)=> {
+                const offerData = offer.data;
+                let offerWithItems = {
+                    userId: this.props.currentUser.id,
+                    cash: offerData.price,
+                    offer_description: offerData.text,
+                    offerId: offerData._id,
+                    items: []
+                };
+                return offerWithItems
+            }
+        ).then(
+            async (offerWithItems)=> {
+                let offer = Object.assign({},offerWithItems)
+                for(let i=0;i< this.state.items.length;i++){
+                    const item = this.state.items[i];
+                    const itemFormatted = {
+                        userId: this.props.currentUser.id,
+                        offerId: offerWithItems.offerId,
+                        name: item.name,
+                        description: item.description,
+                        imageUrl: item.imageUrl
+                    }
+                    if(item.id){
+                        await updateItem(item.id, itemFormatted).then(
+                            (item) => offer.items.push(item.data)
+                        )
+                    }
+                    else{
+                        await createItem(itemFormatted).then(
+                            (item) => offer.items.push(item.data)
+                        )
+                    }
+                }
+                let offersDataCopy = [...this.state.offersData]
+                for(let i=0;i<offersDataCopy.length;i++){
+                    if (offersDataCopy[i].offerId === this.state.editingOfferId){
+                        offersDataCopy[i] = offer;
+                        break;
+                    }
+                }
+                console.log(offersDataCopy)
+                this.setState({ offersData: offersDataCopy })
+            }
+        )
     }
 
     handleOfferSubmit(e){
@@ -179,7 +234,7 @@ class PostShow extends React.Component {
                     editingOffer = this.state.offersData[i]
                 }
             }
-            this.setState({text: editingOffer.offer_description, price: editingOffer.cash},
+            this.setState({ text: editingOffer.offer_description, price: editingOffer.cash, editingOfferId: editingOffer.offerId},
                 async ()=>{
                     const itemsArr= Object.values(editingOffer.items)
                     for (let i = 0; i < itemsArr.length; i++){
@@ -233,7 +288,6 @@ class PostShow extends React.Component {
             offersDataRender.push(offerDiv)
         }
         const formType = this.state.modal[1];
-        console.log(this.state)
         return (
             <div>
                 <NavBar/>
@@ -254,7 +308,12 @@ class PostShow extends React.Component {
                                 <div className="post-row">
                                     <h3>Description:</h3><p>{this.props.post.data.description}</p>
                                 </div>
-                                {ownPost ? null : <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>}
+                                {ownPost ? null : 
+                                    <div>
+                                        <button onClick={this.handleCreateOffer(true)}>Make an Offer</button>
+                                        <button>Buy Now</button>
+                                    </div>
+                                }
                                 {offersDataRender}
                             </div>
                         </div>

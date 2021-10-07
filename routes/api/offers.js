@@ -47,20 +47,26 @@ router.post('/', (req, res) => {
 })
 
 router.patch('/:id', (req, res) => {
+    console.log(req.body)
     const { errors, isValid } = validateOffer(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    const updatedPost = {
+    const updatedOffer = {
         user: req.body.user,
         text: req.body.text,
         receiver: req.body.receiver,
         price: req.body.price,
         postId: req.body.postId
     }
-    Post.findOneAndUpdate({ id: req.body.id}, { $set: updatedPost })
-        .then(post => res.json(post))
-        .catch(err => console.log(err));
+    Offer.findOneAndUpdate({ _id: req.params.id }, updatedOffer, { new: true }, (err, offer) => {
+        if (err) {
+            return res.status(400).json(["Invalid Offer"])
+        }
+        else {
+            return res.json(offer)
+        }
+    })
 });
 
 router.delete('/:id', (req, res) => {
