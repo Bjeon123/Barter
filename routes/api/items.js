@@ -70,7 +70,7 @@ router.patch('/:id', (req, res) => {
     })
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     Item.findOneAndDelete({ _id: req.params.id })
         .then(item => res.json(item))
         .catch((err) => (res.status(400).json({ err })));

@@ -1,9 +1,10 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
-import {createItem,fetchOfferItems,updateItem} from '../../util/item_api_util'
+import {createItem,fetchOfferItems,updateItem,deleteItem} from '../../util/item_api_util'
 import { Image } from 'cloudinary-react'
 import { deleteOffer, updateOffer } from '../../util/offer_api_util'
+import { randomInt } from '../../util/number_api_util'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -14,12 +15,13 @@ class PostShow extends React.Component {
             itemsToRender : [],
             editingOffer: {offer_description: "", cash: ""},
             editingOfferId: null,
+            deleteItemQueue:[],
             offersData : [],
             text: "",
             modal: [false,null] 
         }
         this.handleOfferSubmit = this.handleOfferSubmit.bind(this);
-        // this.removeItem = this.removeItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
         this.addItem=this.addItem.bind(this);
         this.addItemtoState=this.addItemtoState.bind(this);
         this.handleAccept=this.handleAccept.bind(this);
@@ -46,7 +48,7 @@ class PostShow extends React.Component {
                                 const itemsData = items.data;
                                 let addItemsData = {};
                                 for(let j = 0; j<itemsData.length ; j++){
-                                    addItemsData[j] = itemsData[j]
+                                    addItemsData[itemsData[j]._id] = itemsData[j]
                                 }
                                 offerItemsData['items'] = addItemsData
                             }
@@ -105,23 +107,28 @@ class PostShow extends React.Component {
                 let offer = Object.assign({},offerWithItems)
                 for(let i=0;i< this.state.items.length;i++){
                     const item = this.state.items[i];
-                    const itemFormatted = {
-                        userId: this.props.currentUser.id,
-                        offerId: offerWithItems.offerId,
-                        name: item.name,
-                        description: item.description,
-                        imageUrl: item.imageUrl
+                    if(item !== null){
+                        const itemFormatted = {
+                            userId: this.props.currentUser.id,
+                            offerId: offerWithItems.offerId,
+                            name: item.name,
+                            description: item.description,
+                            imageUrl: item.imageUrl
+                        }
+                        if (item.id) {
+                            await updateItem(item.id, itemFormatted).then(
+                                (item) => offer.items.push(item.data)
+                            )
+                        }
+                        else {
+                            await createItem(itemFormatted).then(
+                                (item) => offer.items.push(item.data)
+                            )
+                        }
                     }
-                    if(item.id){
-                        await updateItem(item.id, itemFormatted).then(
-                            (item) => offer.items.push(item.data)
-                        )
-                    }
-                    else{
-                        await createItem(itemFormatted).then(
-                            (item) => offer.items.push(item.data)
-                        )
-                    }
+                }
+                for(let i=0;i<this.state.deleteItemQueue.length;i++){
+                    deleteItem(this.state.deleteItemQueue[i])
                 }
                 let offersDataCopy = [...this.state.offersData]
                 for(let i=0;i<offersDataCopy.length;i++){
@@ -163,18 +170,20 @@ class PostShow extends React.Component {
                 let offer = Object.assign({},offerWithItems)
                 for (let i = 0; i < this.state.items.length; i++) {
                     const item = this.state.items[i];
-                    const itemFormatted = {
-                        userId: this.props.currentUser.id,
-                        offerId: offerWithItems.offerId,
-                        name: item.name,
-                        description: item.description,
-                        imageUrl: item.imageUrl
-                    }
-                    await createItem(itemFormatted).then(
-                        (item) => {
-                            offer.items.push(item.data)
+                    if(item !== null){
+                        const itemFormatted = {
+                            userId: this.props.currentUser.id,
+                            offerId: offerWithItems.offerId,
+                            name: item.name,
+                            description: item.description,
+                            imageUrl: item.imageUrl
                         }
-                    )
+                        await createItem(itemFormatted).then(
+                            (item) => {
+                                offer.items.push(item.data)
+                            }
+                        )
+                    }
                 }
                 this.setState({offersData: [...this.state.offersData, offer], items:[]})
             }
@@ -184,10 +193,10 @@ class PostShow extends React.Component {
     async addItem(props,index){
         const idx = this.state.itemsToRender.length
         if(props._reactName === "onClick"){
-            this.setState({ itemsToRender: [...this.state.itemsToRender, <OfferItem idx={idx} addItemtoState={this.addItemtoState} />] })
+            this.setState({ itemsToRender: [...this.state.itemsToRender, <OfferItem idx={idx} addItemtoState={this.addItemtoState} removeItem={this.removeItem}/>] })
         }
         else{
-            const offerItem = <OfferItem idx={index} addItemtoState={this.addItemtoState} item={props} />
+            const offerItem = <OfferItem idx={index} addItemtoState={this.addItemtoState} item={props} removeItem={this.removeItem} />
             this.setState({ itemsToRender: [...this.state.itemsToRender, offerItem] })
             return offerItem
         }
@@ -214,12 +223,21 @@ class PostShow extends React.Component {
         )
     }
 
-    // removeItem(idx) {
-    //     let itemsArr= [...this.state.items].splice(idx,1);
-    //     this.setState({
-    //         itemsArr: itemsArr
-    //     });
-    // }
+    removeItem(idx) {
+        let items= [...this.state.items];
+        let itemsToRender = [...this.state.itemsToRender]
+        if(items[idx].id){
+            this.setState({
+                deleteItemQueue: [...this.state.deleteItemQueue, items[idx].id]
+            })
+        }
+        items[idx]=null;
+        itemsToRender[idx]=null;
+        this.setState({
+            items: items,
+            itemsToRender: itemsToRender
+        });
+    }
 
     handleEditOffer(bool) {
         return e => {
@@ -254,9 +272,10 @@ class PostShow extends React.Component {
         let offersDataRender = []
         for(let i=0;i<this.state.offersData.length;i++){
             const offer = this.state.offersData[i];
+            const items=Object.values(offer.items)
             let itemsdiv=[];
             for(let j=0;j<Object.keys(offer.items).length;j++){
-                let item = offer.items[j]
+                let item = items[j]
                 const itemRender=
                 <div className="dimensions">
                     <div className="item-details">
@@ -287,6 +306,7 @@ class PostShow extends React.Component {
                 </div>
             offersDataRender.push(offerDiv)
         }
+        console.log(this.state)
         const formType = this.state.modal[1];
         return (
             <div>

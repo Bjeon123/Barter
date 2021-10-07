@@ -12,4 +12,4 @@ export const createItem = item => axios.post(`/api/items/create`, item);
 
 export const updateItem = (itemId,item) => axios.patch(`/api/items/${itemId}`,item);
 
-export const deleteItem = itemId => axios.delete(`/api/items/delete/${itemId}`);
+export const deleteItem = itemId => axios.delete(`/api/items/${itemId}`);
