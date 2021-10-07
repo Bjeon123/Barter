@@ -39,7 +39,7 @@
 .navbar-left{
     display: flex;
     align-items: center;
-    width: 33%;
+    width: 40%;
     /* justify-content: space-between; */
 }
 .navbar-left h1{

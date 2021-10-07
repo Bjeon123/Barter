@@ -10,15 +10,11 @@ import airmax from '../../assets/airmax.png'
 import ones from '../../assets/ones.jpeg'
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/dist/styles.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+
 
 
 class MainPage extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
+    
     componentDidMount(){
         this.props.fetchPosts();
     }
