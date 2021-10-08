@@ -117,8 +117,10 @@ class SellPage extends React.Component {
                                 <input type="file" onChange={(e) => this.setState({ image: e.target.files[0]})}/>
                             </label>
                         </div>
-                            <button className="create">Create Listing</button>
+                        <button className="create">Create Listing</button>
+                        <div className="offer-errors">
                             {this.renderErrors()}
+                        </div>
                     </form>
                 </div>
             </div>

@@ -6,9 +6,10 @@
 }
 
 .sell-page form{
-    margin-top: 10%;
+    /* margin-top: 10%; */
     width: 50%;
-    height: 60%;
+    /* height: 60%; */
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +21,7 @@
 
 .sell-page input {
     width: 50%;
-    height: 5%;
+    height: 50px;
 }
 
 .sell-page select {
