@@ -15,7 +15,7 @@ router.get('/user/:userId', (req, res) => {
         }, {
             "receiver": req.params.userId
         }]
-    })
+    }).limit(4)
     .then(transactions =>{res.json(transactions)})
     .catch(err => res.status(400).json(err))
 });

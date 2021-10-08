@@ -29,10 +29,18 @@ class SellPage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let imageUrl;
-        let formData = new FormData
+        let imageUrl = "";
         if (this.state.image) {
             imageUrl = `${randomInt().toString()}${this.state.image.name.split('.')[0]}`
+            let formData = new FormData
+            formData.append("file", this.state.image);
+            formData.append("upload_preset", "ys8sasql");
+            formData.append("public_id", imageUrl)
+            const options = {
+                method: 'POST',
+                body: formData,
+            };
+            fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options)
         }
         let post = {
             userId: this.props.userId,
@@ -42,37 +50,29 @@ class SellPage extends React.Component {
             description: this.state.description,
             imageUrl: imageUrl
         }
-        
-        formData.append("file", this.state.image);
-        formData.append("upload_preset", "ys8sasql");
-        formData.append("public_id",`${post['imageUrl']}` )
-        const options = {
-            method: 'POST',
-            body: formData,
-        };
-        fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options)
-        .then(
-            () => this.props.createPost(post)
+        this.props.createPost(post).then(
+            (post)=>{
+                if (!post.errors) {
+                    this.props.history.push(`/profile`)
+                }
+            }
         )
-        this.setState({ 
-            category: "",
-            itemName: "",
-            price: "",
-            description: "",
-            image: null
-        })
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ errors: nextProps.errors })
-        // this.props.history.push("/sell")
+        this.setState({ errors: nextProps.errors }, 
+            () => {
+                if (Object.keys(this.state.errors).length === 0) {
+                    this.props.history.push("/sell")
+                }
+            }
+        )
     }
 
     renderErrors() {
-        debugger 
         return (
             <ul>
-                {Object.keys(this.props.errors).map((error, i) => (
+                {Object.keys(this.state.errors).map((error, i) => (
                     <li key={`error-${i}`} className="errors">
                         {this.props.errors[error]}
                     </li>

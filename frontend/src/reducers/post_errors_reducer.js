@@ -1,4 +1,4 @@
-import { RECEIVE_POST_ERRORS } from "../actions/post_actions";
+import { RECEIVE_POST_ERRORS,CLEAR_POST_ERRORS } from "../actions/post_actions";
 
 const _nullErrors = [];
 const PostErrorsReducer = (state = _nullErrors, action) => {
@@ -6,6 +6,8 @@ const PostErrorsReducer = (state = _nullErrors, action) => {
     switch (action.type) {
         case RECEIVE_POST_ERRORS:
             return action.errors
+        case CLEAR_POST_ERRORS:
+            return {};
         default:
             return state;
     }
