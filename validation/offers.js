@@ -1,11 +1,11 @@
 const Validator = require('validator');
 const validText = require('./valid-text');
 
-module.exports = function validateOffer(data) {
+module.exports = function validateOffer(offer) {
     let errors = {};
 
-    if(Validator.isEmpty(data.text)){
-        errors.text = "Text is required";
+    if(Validator.isEmpty(offer.text)){
+        errors.text = "Offer description is required";
     }
 
     return {

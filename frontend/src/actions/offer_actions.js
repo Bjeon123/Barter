@@ -52,4 +52,9 @@ export const fetchPostOffers = (postId) => dispatch => (
         .then(Offers => dispatch(receiveOffers(Offers)))
 );
 
+export const updateOffer = offer => dispatch => (
+    OfferApiUtil.updateOffer(offer)
+        .then(offer => dispatch(receiveOffer(offer)))
+        .catch(err => dispatch(receiveOfferErrors(err.response.data)))
+)
 
