@@ -8,6 +8,8 @@ export const fetchUserItems = (userId) => axios.get(`/api/items/user/${userId}`)
 
 export const fetchOfferItems = (offerId) => axios.get(`/api/items/offer/${offerId}`)
 
+export const fetchTransactionItems = (transactionId) => axios.get(`/api/items/transaction/${transactionId}`)
+
 export const createItem = item => axios.post(`/api/items/create`, item);
 
 export const updateItem = (itemId,item) => axios.patch(`/api/items/${itemId}`,item);

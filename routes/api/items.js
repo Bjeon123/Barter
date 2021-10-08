@@ -21,6 +21,12 @@ router.get('/user/:userId', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+router.get('/transaction/:transactionId',(req,res)=>{
+    Item.find({transactionId: req.params.transactionId})
+        .then(items => res.json(items))
+        .catch(err => res.status(400).json(err))
+})
+
 router.get('/offer/:offerId', (req, res) => {
     Item.find({ offerId: req.params.offerId })
         .then(items => res.json(items))

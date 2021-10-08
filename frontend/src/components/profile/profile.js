@@ -5,7 +5,7 @@ import {Image} from 'cloudinary-react'
 import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { fetchOfferItems } from '../../util/item_api_util'
+import { fetchOfferItems, fetchTransactionItems } from '../../util/item_api_util'
 
 
 class Profile extends React.Component{
@@ -15,17 +15,20 @@ class Profile extends React.Component{
             userId: this.props.user.id,
             posts: null,
             transactions: null,
+            transactionsData: null,
             offersData: [],
             offers: null,
             postdrop: false,
             offerdrop: false,
             transactiondrop: false,
+            offerAcceptedDrop: false,
             username: this.props.user.username,
             account: false 
         }
         this.handlePostDrop = this.handlePostDrop.bind(this);
         this.handleOfferDrop = this.handleOfferDrop.bind(this);
         this.handleTransactionDrop = this.handleTransactionDrop.bind(this);
+        this.handleOfferAcceptedDrop = this.handleOfferAcceptedDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
         this.handleAccountSettings = this.handleAccountSettings.bind(this);
@@ -63,7 +66,18 @@ class Profile extends React.Component{
                 }
             ).then(
                 this.props.fetchTransactions(this.state.userId).then(
-                    transactions => this.setState({transactions: transactions.transactions.data})
+                    transactions => this.setState({transactions: transactions.transactions.data},
+                        async ()=>{
+                            let transactionsData=[];
+                            for(let i=0;i< this.state.transactions.length;i++){
+                                let transaction = this.state.transactions[i];
+                                const items= await fetchTransactionItems(transaction._id);
+                                transaction.items = items.data
+                                transactionsData.push(transaction)
+                            }
+                            this.setState({transactionsData: transactionsData})
+                        }
+                    )
                 )
             )
         )
@@ -86,6 +100,10 @@ class Profile extends React.Component{
 
     handleOfferDrop() {
         this.setState({ offerdrop: !this.state.offerdrop})
+    }
+
+    handleOfferAcceptedDrop() {
+        this.setState({ offerAcceptedDrop: !this.state.offerAcceptedDrop})
     }
 
     handleTransactionDrop() {
@@ -111,12 +129,12 @@ class Profile extends React.Component{
     }
 
     render(){
-        const {posts,offersData,transactions} = this.state
+        const {posts,offersData,transactions,transactionsData} = this.state
         const {user} = this.props.session
         if(posts === null){
             return null
         }
-        else if (transactions === null) {
+        else if (transactionsData === null) {
             return null
         }
         else if (user === undefined ){
@@ -170,24 +188,63 @@ class Profile extends React.Component{
             }
         }
         let transactionlis = [];
-        if (transactions.length !== 0) {
-            for (let i = 0; i < transactions.length; i++) {
+        let offersAcceptedlis=[];
+        if (transactionsData.length !== 0) {
+            for (let i = 0; i < transactionsData.length; i++) {
                 const transaction = this.state.transactions[i];
-                let transactiondiv = [];
-                transactionlis.push(
-                    <div className="offer-container">
+                let items = []
+                for(let j=0 ; j< transaction.items.length;j++){
+                    const item = transaction.items[j];
+                    items.push(
                         <div className="offer-details">
-                            <h3>Transaction Id:</h3> <p>{transaction._id}</p>
-                            <h3>Cash offered:</h3> <p>{numToDollars.format(transaction.cash)}</p>
-                            <h3>Post description: </h3><p>{(transaction.postDescription).replace(/^"(.*)"$/, '$1')}</p>
+                            <p>{item.name}</p>
+                            <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
                         </div>
-                        <div className="image-container">
-                            <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${transaction.imageUrl}`} />
+                    )
+                }
+                if (transaction.receiver === this.state.userId){
+                    transactionlis.push(
+                        <div className="offer-container">
+                            <div className="offer-details">
+                                <h3>You will receive:</h3>
+                                <p>{numToDollars.format(transaction.cash)}</p>
+                                <div className="image-container">
+                                    {items}
+                                </div>
+                            </div>
+                            <div className="offer-details">
+                                <h3>For: </h3>
+                                <p>{transaction.postName}</p>
+                                <div className="image-container">
+                                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${transaction.imageUrl}`} />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
+                else {
+                    offersAcceptedlis.push(
+                        <div className="offer-container">
+                            <div className="offer-details">
+                                <h3>Sending</h3>
+                                <p>{numToDollars.format(transaction.cash)}</p>
+                                <div className="image-container">
+                                    {items}
+                                </div>
+                            </div>
+                            <div className="offer-details">
+                                <h3>For: </h3>
+                                <p>{transaction.postName}</p>
+                                <div className="image-container">
+                                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${transaction.imageUrl}`} />
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             }
         }
+        console.log(this.state)
         return(
             <div className="profile-background">
                 <NavBar/>
@@ -212,13 +269,22 @@ class Profile extends React.Component{
                        {offerlis}
                     </div>
                     <div className="header">
-                        <h2>Transactions</h2>
+                        <h2>Item's Sold</h2>
                         {this.state.transactiondrop ? <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
                             <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
                         }
                     </div>
                     <div className={`${this.state.transactiondrop ? 'display_modal' : 'hide_modal'} items`}>
                         {transactionlis}
+                    </div>
+                    <div className="header">
+                        <h2>Offers Accepted</h2>
+                        {this.state.offerAcceptedDrop ? <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
+                            <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        }
+                    </div>
+                    <div className={`${this.state.offerAcceptedDrop ? 'display_modal' : 'hide_modal'} items`}>
+                        {offersAcceptedlis}
                     </div>
                     <div className="user-options">
                         <button className="profile-settings-btn" onClick={this.handleAccountSettings}>User Options</button>
@@ -233,7 +299,6 @@ class Profile extends React.Component{
                         <h1>Account Settings</h1>
                         <p>New Username</p>
                         <input onChange={(e) => this.setState({ username: e.target.value })} type="text"></input>
-                        
                         <div className="user-options2">
                             <button onClick={this.deleteAccount} className="profile-settings-btn2">Delete Account</button>
                             <button onClick={this.handleSubmit} className="profile-settings-btn2">Change Username</button>
