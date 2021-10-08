@@ -118,7 +118,7 @@ class SellPage extends React.Component {
                             </label>
                         </div>
                         <button className="create">Create Listing</button>
-                        <div className="offer-errors">
+                        <div className="sell-errors">
                             {this.renderErrors()}
                         </div>
                     </form>
