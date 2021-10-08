@@ -49,7 +49,6 @@ router.post('/', (req, res) => {
 })
 
 router.patch('/:id', (req, res) => {
-    console.log(req.body)
     const { errors, isValid } = validateOffer(req.body);
     if (!isValid) {
         return res.status(400).json(errors);

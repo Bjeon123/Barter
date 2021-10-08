@@ -20,6 +20,7 @@ class PostShow extends React.Component {
             deleteItemQueue:[],
             offersData : [],
             text: "",
+            errors: {},
             modal: [false,null] 
         }
         this.handleOfferSubmit = this.handleOfferSubmit.bind(this);
@@ -31,7 +32,8 @@ class PostShow extends React.Component {
         this.handleEditOffer = this.handleEditOffer.bind(this);
         this.handleEditSubmit = this.handleEditSubmit.bind(this);
         this.handleDeletePost = this.handleDeletePost.bind(this);
-        this.handleBuyNow = this.handleBuyNow.bind(this)
+        this.handleBuyNow = this.handleBuyNow.bind(this);
+        this.renderErrors= this.renderErrors.bind(this);
     }
 
     componentDidMount() {
@@ -62,6 +64,10 @@ class PostShow extends React.Component {
                 }
             )
         )
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ errors: nextProps.errors })
     }
 
     handleBuyNow(){
@@ -123,7 +129,7 @@ class PostShow extends React.Component {
         return e => {
             e.preventDefault()
             if(!bool){
-                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" }, price: 0, text: "" })
+                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" }, price: 0, text: "", errors:{} })
             }
             else{
                 this.setState({ modal: [bool, "createOffer"] })
@@ -139,7 +145,7 @@ class PostShow extends React.Component {
 
     handleEditSubmit(e){
         e.preventDefault();
-        this.setState({ modal: [false, null] })
+        // this.setState({ modal: [false, null] })
         const updatedOffer = {
             id: this.state.editingOfferId,
             user: this.props.currentUser.id,
@@ -202,7 +208,7 @@ class PostShow extends React.Component {
 
     handleOfferSubmit(e){
         e.preventDefault();
-        this.setState({ modal: [false,null] })
+        this.setState({errors:{}})
         const offerFormatted = {
             user: this.props.currentUser.id,
             text: this.state.text,
@@ -212,37 +218,51 @@ class PostShow extends React.Component {
         }
         this.props.createOffer(offerFormatted).then(
             offer => {
-                const offerData = offer.offer.data;
-                let offerWithItems = { 
-                    userId: this.props.currentUser.id,
-                    cash: offerData.price,
-                    offer_description: offerData.text,
-                    offerId: offerData._id,
-                    items: []
-                };
-                return offerWithItems
+                if(!offer.errors){
+                    const offerData = offer.offer.data;
+                    let offerWithItems = {
+                        userId: this.props.currentUser.id,
+                        cash: offerData.price,
+                        offer_description: offerData.text,
+                        offerId: offerData._id,
+                        items: []
+                    };
+                    return offerWithItems
+                }
             }
         ).then(
             async (offerWithItems) => {
-                let offer = Object.assign({},offerWithItems)
-                for (let i = 0; i < this.state.items.length; i++) {
-                    const item = this.state.items[i];
-                    if(item !== null){
-                        const itemFormatted = {
-                            userId: this.props.currentUser.id,
-                            offerId: offerWithItems.offerId,
-                            name: item.name,
-                            description: item.description,
-                            imageUrl: item.imageUrl
-                        }
-                        await createItem(itemFormatted).then(
-                            (item) => {
-                                offer.items.push(item.data)
+                let hasErrors = false;
+                if(offerWithItems === undefined){
+                    hasErrors = true;
+                }
+                else{
+                    let offer = Object.assign({}, offerWithItems)
+                    for (let i = 0; i < this.state.items.length; i++) {
+                        const item = this.state.items[i];
+                        if (item !== null) {
+                            const itemFormatted = {
+                                userId: this.props.currentUser.id,
+                                offerId: offerWithItems.offerId,
+                                name: item.name,
+                                description: item.description,
+                                imageUrl: item.imageUrl
                             }
-                        )
+                            const itemCreateResult = await this.props.createItem(itemFormatted)
+                            if (itemCreateResult.errors) {
+                                hasErrors = true;
+                                break;
+                            }
+                            offer.items.push(itemCreateResult.item.data)
+                        }
+                    }
+                    if(hasErrors){
+                        deleteOffer(offerWithItems.offerId)
+                    }
+                    else{
+                        this.setState({ offersData: [...this.state.offersData, offer], items: [],itemsToRender:[], modal: [false, null] })
                     }
                 }
-                this.setState({offersData: [...this.state.offersData, offer], items:[]})
             }
         ) 
     }
@@ -300,7 +320,7 @@ class PostShow extends React.Component {
         return e => {
             e.preventDefault();
             if (!bool) {
-                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" },price:0,text:""})
+                this.setState({ modal: [bool, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" },price:0,text:"",errors:{}})
                 return;
             }
             let editingOffer;
@@ -334,6 +354,18 @@ class PostShow extends React.Component {
             )
         ).then(
             ()=> this.props.history.push('/profile')
+        )
+    }
+
+    renderErrors() {
+        return (
+            <ul>
+                {Object.keys(this.state.errors).map((error, i) => (
+                    <li key={`error-${i}`} className="errors">
+                        {this.state.errors[error]}
+                    </li>
+                ))}
+            </ul>
         )
     }
 
@@ -437,6 +469,7 @@ class PostShow extends React.Component {
                             {this.state.itemsToRender}
                             </div>
                             {formType === "createOffer" ? <button>Create Offer</button> : <button>Edit Offer</button>}
+                            {this.renderErrors()}
                         </form>
                     </div>
                 </div>

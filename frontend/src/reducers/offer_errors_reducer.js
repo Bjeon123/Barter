@@ -7,7 +7,7 @@ const OfferErrorsReducer = (state = _nullErrors, action) => {
         case RECEIVE_OFFER_ERRORS:
             return action.errors
         default:
-            return state;
+            return {};
     }
 }
 

@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { fetchPosts, fetchPost, updatePost, deletePost } from '../../actions/post_actions';
 import { signup, login, logout } from '../../actions/session_actions';
 import { createOffer,fetchPostOffers} from '../../actions/offer_actions';
+import {createItem} from '../../actions/item_actions';
 //need to import fetchOffer from offer_actions
 
 const mapStateToProps = (state, ownProps) => ({
     post: state.posts[ownProps.match.params.postId],
     offers: state.offers,
     currentUser: state.session.user,
+    errors: { ...state.errors.items,...state.errors.offers}
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -19,8 +21,8 @@ const mapDispatchToProps = dispatch => ({
     updatePost: postId => dispatch(updatePost(postId)),
     deletePost: postId => dispatch(deletePost(postId)),
     createOffer: offer => dispatch(createOffer(offer)),
-    fetchPostOffers: postId => dispatch(fetchPostOffers(postId))
-    //need to dispatch offer here
+    fetchPostOffers: postId => dispatch(fetchPostOffers(postId)),
+    createItem: item => dispatch(createItem(item))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostShow)

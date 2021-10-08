@@ -24,7 +24,7 @@ class OfferItem extends React.Component{
                 postId: null,
                 name: "",
                 description:  "",
-                imageUrl: null
+                imageUrl: ""
             }
         }
         this.handleChange=this.handleChange.bind(this);
