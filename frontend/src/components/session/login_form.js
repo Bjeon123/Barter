@@ -70,7 +70,7 @@ class LoginForm extends React.Component {
                 <div className="login-form">
                     <form onSubmit={this.handleSubmit}>
                             <h1>Welcome back!</h1>
-                            <p>Email</p>
+                            <p>Username or Email</p>
                             <input 
                             type='text'
                             value={this.state.email}

@@ -297,7 +297,6 @@ class Profile extends React.Component{
                         <p>New Username</p>
                         <input onChange={(e) => this.setState({ username: e.target.value })} type="text"></input>
                         <div className="user-options2">
-                            <button onClick={this.deleteAccount} className="profile-settings-btn2">Delete Account</button>
                             <button onClick={this.handleSubmit} className="profile-settings-btn2">Change Username</button>
                         </div>
                     </form>
