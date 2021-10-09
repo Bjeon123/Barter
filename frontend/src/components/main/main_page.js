@@ -79,25 +79,25 @@ class MainPage extends React.Component {
                         <div className="column">
                             <h2>Jonathan Wong</h2>
                             <div className="row">
-                                <a href="https://github.com/jay5375" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
-                                <a href="https://www.linkedin.com/in/jonathan-wong-435a8b146/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="https://docs.google.com/document/d/1V0Y0HZvcfPiW93J_Y_bRNS07jfRTXbe7Sa-uQSB1l8Q/edit?usp=sharing" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                                <a href="https://github.com/jay5375" rel="noreferrer" target="_blank"><i className="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/jonathan-wong-435a8b146/" rel="noreferrer" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+                                <a href="https://docs.google.com/document/d/1V0Y0HZvcfPiW93J_Y_bRNS07jfRTXbe7Sa-uQSB1l8Q/edit?usp=sharing" rel="noreferrer" target="_blank"><i className="far fa-file-pdf"></i></a> 
                             </div>
                         </div>
                         <div className="column">
                             <h2>Sam Jeon</h2>
                             <div className="row">
-                                <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
-                                <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                                <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank"><i className="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+                                <a href="" rel="noreferrer" target="_blank"><i className="far fa-file-pdf"></i></a> 
                             </div>
                         </div>
                         <div className="column">
                             <h2>Long Chen</h2>
                             <div className="row">
-                                <a href="https://github.com/rinayumiho" rel="noreferrer" target="_blank"><i class="fab fa-github" ></i></a>
-                                <a href="https://www.linkedin.com/in/long-chen-5153a31b7/" rel="noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="https://rinayumiho.github.io/portfolio/assets/LongChen_resume_udel.pdf" rel="noreferrer" target="_blank"><i class="far fa-file-pdf"></i></a> 
+                                <a href="https://github.com/rinayumiho" rel="noreferrer" target="_blank"><i className="fab fa-github" ></i></a>
+                                <a href="https://www.linkedin.com/in/long-chen-5153a31b7/" rel="noreferrer" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+                                <a href="https://rinayumiho.github.io/portfolio/assets/LongChen_resume_udel.pdf" rel="noreferrer" target="_blank"><i className="far fa-file-pdf"></i></a> 
                             </div>
                         </div>
                     </div>

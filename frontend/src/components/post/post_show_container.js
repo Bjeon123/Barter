@@ -2,8 +2,8 @@ import PostShow from './post_show';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchPost, updatePost, deletePost } from '../../actions/post_actions';
 import { signup, login, logout } from '../../actions/session_actions';
-import { createOffer,fetchPostOffers} from '../../actions/offer_actions';
-import {createItem} from '../../actions/item_actions';
+import { createOffer,fetchPostOffers,updateOffer} from '../../actions/offer_actions';
+import {createItem,updateItem} from '../../actions/item_actions';
 //need to import fetchOffer from offer_actions
 
 const mapStateToProps = (state, ownProps) => ({
@@ -22,7 +22,9 @@ const mapDispatchToProps = dispatch => ({
     deletePost: postId => dispatch(deletePost(postId)),
     createOffer: offer => dispatch(createOffer(offer)),
     fetchPostOffers: postId => dispatch(fetchPostOffers(postId)),
-    createItem: item => dispatch(createItem(item))
+    createItem: item => dispatch(createItem(item)),
+    updateOffer: offer => dispatch(updateOffer(offer)),
+    updateItem: (itemId,item) => dispatch(updateItem(itemId,item))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostShow)

@@ -14,6 +14,12 @@ export const receiveItemErrors = errors => ({
     errors
 });
 
+export const updateItem = (itemId,item)=> dispatch=>(
+    ItemApiUtil.updateItem(itemId,item)
+        .then(item => dispatch(receiveItem(item)))
+        .catch(error => dispatch(receiveItemErrors(error.response.data)))
+)
+
 export const createItem = item => dispatch => (
     ItemApiUtil.createItem(item)
         .then(item => dispatch(receiveItem(item)))

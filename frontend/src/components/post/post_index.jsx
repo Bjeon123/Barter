@@ -22,7 +22,7 @@ class PostIndex extends React.Component {
                 <div className="posts-container">
                 {
                     dir.map((post, idx) => (
-                        <Link to={`/posts/${post._id}`}>
+                        <Link key ={idx} to={`/posts/${post._id}`}>
                             <div className="offer" >
                                 <div className="item-description">
                                     <div className="block"> 

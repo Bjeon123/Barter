@@ -145,7 +145,6 @@ class PostShow extends React.Component {
 
     handleEditSubmit(e){
         e.preventDefault();
-        // this.setState({ modal: [false, null] })
         const updatedOffer = {
             id: this.state.editingOfferId,
             user: this.props.currentUser.id,
@@ -154,54 +153,71 @@ class PostShow extends React.Component {
             price: parseInt(this.state.price),
             postId: this.props.post.data._id
         }
-        updateOffer(updatedOffer).then(
+        this.props.updateOffer(updatedOffer).then(
             (offer)=> {
-                const offerData = offer.data;
-                let offerWithItems = {
-                    userId: this.props.currentUser.id,
-                    cash: offerData.price,
-                    offer_description: offerData.text,
-                    offerId: offerData._id,
-                    items: []
-                };
-                return offerWithItems
+                if(!offer.errors){
+                    const offerData = offer.offer.data;
+                    let offerWithItems = {
+                        userId: this.props.currentUser.id,
+                        cash: offerData.price,
+                        offer_description: offerData.text,
+                        offerId: offerData._id,
+                        items: []
+                    };
+                    return offerWithItems
+                }
             }
         ).then(
             async (offerWithItems)=> {
-                let offer = Object.assign({},offerWithItems)
-                for(let i=0;i< this.state.items.length;i++){
-                    const item = this.state.items[i];
-                    if(item !== null){
-                        const itemFormatted = {
-                            userId: this.props.currentUser.id,
-                            offerId: offerWithItems.offerId,
-                            name: item.name,
-                            description: item.description,
-                            imageUrl: item.imageUrl
-                        }
-                        if (item.id) {
-                            await updateItem(item.id, itemFormatted).then(
-                                (item) => offer.items.push(item.data)
-                            )
-                        }
-                        else {
-                            await createItem(itemFormatted).then(
-                                (item) => offer.items.push(item.data)
-                            )
+            let hasErrors= false;
+                if(offerWithItems !== undefined){
+                    let offer = Object.assign({}, offerWithItems)
+                    for (let i = 0; i < this.state.items.length; i++) {
+                        const item = this.state.items[i];
+                        if (item !== null) {
+                            const itemFormatted = {
+                                userId: this.props.currentUser.id,
+                                offerId: offerWithItems.offerId,
+                                name: item.name,
+                                description: item.description,
+                                imageUrl: item.imageUrl
+                            }
+                            if (item.id) {
+                                const itemResult = await this.props.updateItem(item.id, itemFormatted)
+                                if (!itemResult.errors) {
+                                    offer.items.push(itemResult.item.data)
+                                }
+                                else {
+                                    hasErrors = true;
+                                    break;
+                                }
+                            }
+                            else {
+                                const itemResult = await this.props.createItem(itemFormatted)
+                                if (!itemResult.errors) {
+                                    offer.items.push(itemResult.item.data)
+                                }
+                                else {
+                                    hasErrors = true;
+                                    break;
+                                }
+                            }
                         }
                     }
-                }
-                for(let i=0;i<this.state.deleteItemQueue.length;i++){
-                    deleteItem(this.state.deleteItemQueue[i])
-                }
-                let offersDataCopy = [...this.state.offersData]
-                for(let i=0;i<offersDataCopy.length;i++){
-                    if (offersDataCopy[i].offerId === this.state.editingOfferId){
-                        offersDataCopy[i] = offer;
-                        break;
+                    if(!hasErrors){
+                        for (let i = 0; i < this.state.deleteItemQueue.length; i++) {
+                            deleteItem(this.state.deleteItemQueue[i])
+                        }
+                        let offersDataCopy = [...this.state.offersData]
+                        for (let i = 0; i < offersDataCopy.length; i++) {
+                            if (offersDataCopy[i].offerId === this.state.editingOfferId) {
+                                offersDataCopy[i] = offer;
+                                break;
+                            }
+                        }
+                        this.setState({ offersData: offersDataCopy, modal: [false, null], items: [], itemsToRender: [], deleteItemQueue: [] })
                     }
                 }
-                this.setState({ offersData: offersDataCopy })
             }
         )
     }

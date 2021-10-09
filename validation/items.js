@@ -9,15 +9,15 @@ module.exports = function validateItem(item) {
     }
 
     if (Validator.isEmpty(item.name)) {
-        errors.name = "Item Name is required";
+        errors.name = "Item name is required";
     }
 
     if (Validator.isEmpty(item.description)) {
-        errors.description = "Description is required";
+        errors.itemDescription = "Item description is required";
     }
 
     if (Validator.isEmpty(item.imageUrl)) {
-        errors.description = "Image is required";
+        errors.description = "Item image is required";
     }
 
     return {
