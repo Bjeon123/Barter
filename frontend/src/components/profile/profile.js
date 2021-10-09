@@ -116,7 +116,6 @@ class Profile extends React.Component{
             id: this.props.user.id, 
             username: this.state.username
         }
-        let updatedUser = Object.assign({},this.props.session)
         this.props.editUser(user).then(
             this.props.logout()
         )
@@ -129,7 +128,7 @@ class Profile extends React.Component{
     }
 
     render(){
-        const {posts,offersData,transactions,transactionsData} = this.state
+        const {posts,offersData,transactionsData} = this.state
         const {user} = this.props.session
         if(posts === null){
             return null
@@ -140,12 +139,11 @@ class Profile extends React.Component{
         else if (user === undefined ){
             return null
         }
-        console.log(this.state)
         let postslis = [];
         for (let i = 0; i < posts.length; i++){
             const post = posts[i];
             postslis.push(
-                <Link to={`posts/${posts[i]._id}`}>
+                <Link key={`${i}${posts[i]._id}`} to={`posts/${posts[i]._id}`}>
                     <div className="offer-container">
                         <div className="offer-details">
                             <h3>{(post.itemName).replace(/^"(.*)"$/, '$1')}</h3>
@@ -166,7 +164,7 @@ class Profile extends React.Component{
                 for(let j=0; j< Object.values(offer.items).length; j++){
                     let item = offer.items[j]
                     const itemRender =
-                    <div className="item-render">
+                    <div key={`${j}`} className="item-render">
                         <h3>Name: </h3><p>{item.name}</p>
                         <h3>Description: </h3><p>{item.description}</p>
                         <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
@@ -174,7 +172,7 @@ class Profile extends React.Component{
                     itemsdiv.push(itemRender)
                 }
                 offerlis.push(
-                    <Link to={`posts/${offersData[i].postId}`} className="offer-container">
+                    <Link key={`${i}${offersData[i].offerId}`} to={`posts/${offersData[i].postId}`} className="offer-container">
                         <div className="offer-details">
                             <h3>Offer Id:</h3> <p>{offersData[i].offerId}</p>
                             <h3>Cash offered:</h3> <p>{numToDollars.format(offersData[i].cash)}</p>
@@ -196,7 +194,7 @@ class Profile extends React.Component{
                 for(let j=0 ; j< transaction.items.length;j++){
                     const item = transaction.items[j];
                     items.push(
-                        <div className="offer-details">
+                        <div key={`${j}${item.name}`} className="offer-details">
                             <p>{item.name}</p>
                             <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${item.imageUrl}`} />
                         </div>
@@ -204,7 +202,7 @@ class Profile extends React.Component{
                 }
                 if (transaction.receiver === this.state.userId){
                     transactionlis.push(
-                        <div className="offer-container">
+                        <div key={`${i}${transaction._id}`} className="offer-container">
                             <div className="offer-details">
                                 <h3>You will receive:</h3>
                                 <p>{numToDollars.format(transaction.cash)}</p>
@@ -224,7 +222,7 @@ class Profile extends React.Component{
                 }
                 else {
                     offersAcceptedlis.push(
-                        <div className="offer-container">
+                        <div key={`${i}${transaction._id}`} className="offer-container">
                             <div className="offer-details">
                                 <h3>Sending</h3>
                                 <p>{numToDollars.format(transaction.cash)}</p>
@@ -244,7 +242,6 @@ class Profile extends React.Component{
                 }
             }
         }
-        console.log(this.state)
         return(
             <div className="profile-background">
                 <NavBar/>

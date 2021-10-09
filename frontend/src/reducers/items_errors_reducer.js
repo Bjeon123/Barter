@@ -1,4 +1,4 @@
-import { RECEIVE_ITEM_ERRORS,CLEAR_ITEM_ERRORS } from "../actions/item_actions";
+import { RECEIVE_ITEM_ERRORS } from "../actions/item_actions";
 
 const _nullErrors = [];
 const ItemErrorsReducer = (state = _nullErrors, action) => {

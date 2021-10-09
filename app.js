@@ -10,6 +10,7 @@ const posts = require("./routes/api/posts");
 const offers = require("./routes/api/offers");
 const items = require("./routes/api/items");
 const transactions = require("./routes/api/transactions");
+const allPosts = require("./routes/api/allPosts");
 
 mongoose
     .connect(db, { useNewUrlParser: true })
@@ -42,6 +43,7 @@ app.use("/api/posts", posts);
 app.use("/api/offers", offers);
 app.use("/api/items", items);
 app.use("/api/transactions", transactions)
+app.use("/api/allPosts", allPosts);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));

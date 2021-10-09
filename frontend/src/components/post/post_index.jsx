@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../nav_bar/nav_bar_container';
 import {Image} from 'cloudinary-react'
 import { Link } from 'react-router-dom';
-import { fetchPosts } from '../../actions/post_actions';
 
 class PostIndex extends React.Component {
     constructor(props) {

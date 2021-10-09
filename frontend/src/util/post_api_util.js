@@ -4,6 +4,8 @@ export const fetchPost = postId => axios.get(`/api/posts/show/${postId}`);
 
 export const fetchPosts = () => axios.get(`/api/posts`);
 
+export const fetchAllPosts = () => axios.get(`/api/allPosts`);
+
 export const fetchCategoryPosts = category => axios.get(`/api/posts/category/${category}`)
 
 export const fetchUserPosts = userId => axios.get(`/api/posts/user/${userId}`)

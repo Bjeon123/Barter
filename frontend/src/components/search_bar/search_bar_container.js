@@ -4,7 +4,7 @@ import { searchPosts, fetchPosts, fetchPost } from '../../actions/post_actions';
 
 const mapStateToProps = state =>({
   // posts: state.posts
-  posts: Object.values(state.posts)
+  allPosts: Object.values(state.allPosts)
 });
 
 const mapDispatchToProps = dispatch => ({

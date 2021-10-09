@@ -1,12 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar_container'
 import OfferItem from './offer_item'
-import {createItem,fetchOfferItems,updateItem,deleteItem, deleteOfferItems} from '../../util/item_api_util'
+import {fetchOfferItems,updateItem,deleteItem, deleteOfferItems} from '../../util/item_api_util'
 import {createTransaction} from '../../util/transaction_api_util'
 import {deletePost} from '../../util/post_api_util'
 import { Image } from 'cloudinary-react'
-import { deleteOffer, updateOffer,deletePostOffers } from '../../util/offer_api_util'
+import { deleteOffer,deletePostOffers } from '../../util/offer_api_util'
 
 class PostShow extends React.Component {
     constructor(props) {
@@ -389,8 +388,9 @@ class PostShow extends React.Component {
         if (!this.props.post){
             return null;
         }
-        if(Object.keys(this.props.currentUser).length===0){
+        if(this.props.currentUser === undefined || Object.keys(this.props.currentUser).length===0){
             this.props.history.push('/login')
+            return null;
         }
         const ownPost = this.props.post.data.userId === this.props.currentUser.id;
         let offersDataRender = []
@@ -481,7 +481,7 @@ class PostShow extends React.Component {
                                             <input onChange={this.handleChange('price')} type="number" value={this.state.price} />
                                     }                                    
                                 </label>
-                            <p onClick={this.addItem}><i class="fas fa-plus"></i> Add An Item</p>
+                            <p onClick={this.addItem}><i className="fas fa-plus"></i> Add An Item</p>
                             {this.state.itemsToRender}
                             </div>
                             {formType === "createOffer" ? <button>Create Offer</button> : <button>Edit Offer</button>}

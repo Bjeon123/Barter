@@ -5,7 +5,6 @@ import {fetchUserOffers} from '../../actions/offer_actions'
 import {fetchTransactions} from '../../actions/transaction_actions'
 import { logout} from '../../actions/session_actions'
 import { editUser,deleteUser} from '../../actions/user_actions'
-import { faDiceSix } from '@fortawesome/free-solid-svg-icons'
 
 const mSTP = state =>(
     {

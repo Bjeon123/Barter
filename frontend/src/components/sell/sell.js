@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../../styles/sell.css";
 import {randomInt} from '../../util/number_api_util'
 import NavBar from "../nav_bar/nav_bar_container";
-import axios from 'axios';
 
 class SellPage extends React.Component {
     constructor(props){
@@ -32,7 +30,7 @@ class SellPage extends React.Component {
         let imageUrl = "";
         if (this.state.image) {
             imageUrl = `${randomInt().toString()}${this.state.image.name.split('.')[0]}`
-            let formData = new FormData
+            let formData = new FormData()
             formData.append("file", this.state.image);
             formData.append("upload_preset", "ys8sasql");
             formData.append("public_id", imageUrl)
