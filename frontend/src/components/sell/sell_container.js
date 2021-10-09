@@ -6,7 +6,6 @@ import SellPage from './sell';
 const mSTP = state => {
     return {
         session: state.session,
-        userId: state.session.user.id,
         errors: state.errors.posts
     }
 }

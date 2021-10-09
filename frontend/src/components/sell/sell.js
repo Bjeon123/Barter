@@ -41,7 +41,7 @@ class SellPage extends React.Component {
             fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options)
         }
         let post = {
-            userId: this.props.userId,
+            userId: this.props.session.user.id,
             category: this.state.category,
             itemName: this.state.itemName,
             price: this.state.price,
