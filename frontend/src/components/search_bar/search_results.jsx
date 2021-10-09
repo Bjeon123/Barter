@@ -13,26 +13,8 @@ function SearchResults(props){
         )
     }
     const { posts } = props;
+    console.log(posts);
     return(
-        // <PostIndexContainer {...props} />
-        // <div>
-        //     {posts[0].map((post, idx) => (
-        //         <div>
-        //             <div className="block"> 
-        //                 <h3>Item: </h3><p key={idx}>{post.itemName}</p>
-        //             </div>
-        //             <div className="block"> 
-        //                 <h3>Category: </h3><p key={idx}>{post.category}</p>
-        //             </div>
-        //             <div className="block"> 
-        //                 <h3>Price: </h3><p key={idx}>${post.price}</p>
-        //             </div>
-        //             <div className="block"> 
-        //                 <h3>Description: </h3><p key={idx}>{post.description}</p>
-        //             </div>
-        //         </div>
-        //     ))}
-        // </div>
         <PostIndex posts={posts[0]} action="search"/>
     );
 }

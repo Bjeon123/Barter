@@ -2,6 +2,7 @@ import * as PostApiUtil from '../util/post_api_util';
 
 export const RECEIVE_POST = "RECEIVE_POST";
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export const RECEIVE_ALL_POSTS = "RECEIVE_ALL_POSTS";
 export const REMOVE_POST = "REMOVE_POST";
 export const RECEIVE_POST_ERRORS = "RECEIVE_POST_ERRORS";
 export const CLEAR_POST_ERRORS = "CLEAR_POST_ERRORS";
@@ -14,6 +15,11 @@ const receivePost = post => ({
 const receivePosts = posts => ({
     type: RECEIVE_POSTS,
     posts
+});
+
+const receiveAllPosts = allPosts => ({
+    type: RECEIVE_ALL_POSTS,
+    allPosts
 });
 
 const removePost = postId => ({
@@ -33,6 +39,11 @@ export const clearPostErrors = ()=>({
 export const fetchPosts = () => dispatch => (
     PostApiUtil.fetchPosts()
         .then(posts => dispatch(receivePosts(posts)))
+);
+
+export const fetchAllPosts = () => dispatch => (
+    PostApiUtil.fetchAllPosts()
+        .then(allPosts => dispatch(receiveAllPosts(allPosts)))
 );
 
 export const fetchUserPosts = (userId) => dispatch =>(

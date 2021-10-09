@@ -24,7 +24,7 @@ function SearchBar(props){
     }
 
     let matchedItemNames = [];
-    let posts = props.posts;
+    let posts = props.allPosts;
     if(posts != undefined && posts.length != 0 && Array.isArray(posts[0])){
         matchedItemNames = posts[0].filter(post => (
             (post.itemName.toLowerCase().slice(0, searchContent.length) === searchContent.toLowerCase())

@@ -8,6 +8,10 @@ class NavBar extends React.Component {
         super(props);
     }
 
+    componentDidMount(){
+        this.props.fetchAllPosts();
+    }
+
     render() {
         const navRight = (this.props.session != undefined && this.props.session.isAuthenticated) ?
             <div className="navbar-right">

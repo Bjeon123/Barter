@@ -373,8 +373,9 @@ class PostShow extends React.Component {
         if (!this.props.post){
             return null;
         }
-        if(Object.keys(this.props.currentUser).length===0){
+        if(this.props.currentUser === undefined || Object.keys(this.props.currentUser).length===0){
             this.props.history.push('/login')
+            return null;
         }
         const ownPost = this.props.post.data.userId === this.props.currentUser.id;
         let offersDataRender = []
