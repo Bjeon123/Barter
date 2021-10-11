@@ -15,7 +15,8 @@ class NavBar extends React.Component {
     render() {
         const navRight = (this.props.session != undefined && this.props.session.isAuthenticated) ?
             <div className="navbar-right">
-                <Link to={"/sell"}><button>Sell</button></Link>
+                {this.props.action && this.props.action === "offer" ? "" : <Link to={"/sell"}><button>Sell</button></Link>}
+                {/* <Link to={"/sell"}><button>Sell</button></Link> */}
                 <Link to={'/home'}><button onClick={this.props.logout}>Sign out</button></Link>
                 <Link to ={'/profile'}><i className="fas fa-user"></i></Link>
             </div> :
