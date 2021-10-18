@@ -38,7 +38,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/category/:category', (req, res) => {
-    console.log(req.params.id)
     Post.find({ category: req.params.category })
         .then(posts => res.json(posts))
         .catch(err => console.log(err))
