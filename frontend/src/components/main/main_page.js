@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from '../nav_bar/nav_bar_container'
 import { Link } from "react-router-dom";
 import '../../styles/home.css'
+import { fetchPopular } from "../../util/post_api_util";
 import mario from '../../assets/mario.jpg'
 import gow from '../../assets/gow.jpeg'
 import sacai from '../../assets/sacais.jpeg'
@@ -10,17 +11,45 @@ import airmax from '../../assets/airmax.png'
 import ones from '../../assets/ones.jpeg'
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/dist/styles.css';
+import { Image } from 'cloudinary-react'
 
 
 
 class MainPage extends React.Component {
+    constructor(props){
+        super(props)
+        this.state= {
+            popularPosts: null
+        }
+    }
     
     componentDidMount(){
-        this.props.fetchPosts();
+        fetchPopular().then(
+            posts =>{
+                this.setState({popularPosts: posts})
+            }
+        )
     }
     
     render() {
- 
+        if(!this.state.popularPosts){
+            return null;
+        }
+        let popularPosts= [];
+        const posts = this.state.popularPosts.data;
+        for(let i=0;i<posts.length;i++){
+            const post = posts[i];
+            popularPosts.push(
+                <div className="slide" id={`slide-${i}`}>
+                    <div className="description">
+                        <h1>Popular Item</h1>
+                        <p>{post.itemName}</p>
+                        <Link to={`posts/${post._id}`}><button>Make an offer</button></Link>
+                    </div>
+                    <Image cloudName="dhdeqhzvx" publicId={`https://res.cloudinary.com/dhdeqhzvx/image/upload/v1632404523/${post.imageUrl}`} />
+                </div>
+            )
+        }
         return (
             <div className="grid">
                 <NavBar/>
@@ -29,38 +58,7 @@ class MainPage extends React.Component {
                     <p>Barter is a place where users can trade unwanted items for <br/>cash or other items. Check out our featured selections below!</p>
                 </div>
                 <AwesomeSlider cssModule={AwsSliderStyles}>
-                    <div className="slide" id="slide-1">
-                        <div className="description">
-                            <h1>Popular Item</h1>
-                            <p>Nike LD waffle sacai Black</p>
-                            <Link to='posts/614d5e1e9448ebfaf6dc300a'><button>Make an offer</button></Link>
-                        </div>
-                        <img src={sacai}></img>
-                    </div>
-                     <div className="slide" id="slide-2">
-                        <div className="description">
-                            <h1>Popular Item</h1>
-                            <p>God of War</p>
-                            <Link to='posts/614d615c9448ebfaf6dc302d'><button>Make an offer</button></Link>
-                        </div>
-                        <img src={gow} className="gow"></img>
-                    </div>
-                     <div className="slide" id="slide-3">
-                        <div className="description">
-                            <h1>Popular Item</h1>
-                            <p>Nike Air Max</p>
-                            <Link to='posts/614d61019448ebfaf6dc3027'><button>Make an offer</button></Link>
-                        </div>
-                        <img src={airmax}></img>
-                    </div>
-                    <div className="slide" id="slide-4">
-                        <div className="description">
-                            <h1>Popular Item</h1>
-                            <p>Clockwork Orange</p>
-                            <Link to='posts/614d5eed9448ebfaf6dc3010'><button>Make an offer</button></Link>
-                        </div>
-                        <img src={clock} className="gow"></img>
-                    </div>
+                    {popularPosts}
                 </AwesomeSlider>
                 <div className="featured">
                     <div className="description">

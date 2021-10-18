@@ -25,6 +25,12 @@ router.get('/test', (req, res) => {
     res.json({ msg: "This is the post route" });
 });
 
+router.get('/featured',(req,res)=>{
+    Post.find().limit(3)
+        .then(posts=>res.json(posts))
+        .catch(err => res.status(400).json(err));
+});
+
 router.get('/', (req, res) => {
     Post.find()
         .then(posts => res.json(posts))
