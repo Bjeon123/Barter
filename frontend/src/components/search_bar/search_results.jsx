@@ -1,9 +1,6 @@
 import React from 'react';
-import PostIndexContainer from '../post/post_index_container';
 import PostIndex from '../post/post_index';
 import { connect } from 'react-redux';
-// import NavBar from '../nav_bar/nav_bar';
-import NavBar from '../nav_bar/nav_bar_container';
 
 function SearchResults(props){
 
@@ -13,7 +10,6 @@ function SearchResults(props){
         )
     }
     const { posts } = props;
-    console.log(posts);
     return(
         <PostIndex posts={posts[0]} action="search"/>
     );

@@ -19,6 +19,7 @@
     align-items: center;
     scroll-snap-align: start;
     background-color: white;
+    border: none;
 }
 
 .grid {
@@ -132,13 +133,14 @@
     background-color: white;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     margin-left: 1%;
-    border-radius: 5px;
+    border-radius: 3px;
     font-weight: bold;
 }
 
 .searchbar {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 ::placeholder {
@@ -146,12 +148,15 @@
 }
 
 .searchbar input {
+    outline: none;
     border-radius: 10px;
     background-color: #2f3137;
     color: white;
     width: 200px;
     height: 25px;
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
 }
 
 .search:hover {

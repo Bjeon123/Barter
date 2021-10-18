@@ -7,7 +7,6 @@ class OfferItem extends React.Component{
     constructor(props){
         super(props);
         const {item} = this.props;
-        console.log(this.props)
         if(item){
             this.state = {
                 userId: null,
@@ -41,10 +40,6 @@ class OfferItem extends React.Component{
             body: formData,
         };
         fetch("https://api.cloudinary.com/v1_1/dhdeqhzvx/image/upload", options).then(
-            response => {
-                console.log(response)
-            }
-        ).then(
             ()=> this.setState({imageUrl: imageUrl})
         )
     }

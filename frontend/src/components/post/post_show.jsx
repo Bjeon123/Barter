@@ -401,7 +401,7 @@ class PostShow extends React.Component {
             for(let j=0;j<Object.keys(offer.items).length;j++){
                 let item = items[j]
                 const itemRender=
-                <div className="dimensions">
+                <div key={`${i}${item.name}`} className="dimensions">
                     <div className="item-details">
                         <h4>Item: {item.name}</h4>
                         {/* <p>{item.description}</p> */}
@@ -412,7 +412,7 @@ class PostShow extends React.Component {
             }
             const ownOffer = offer.userId === this.props.currentUser.id;
             let offerDiv =
-                <div className="offer-post">
+                <div key={`${i}${offer.offerId}`} className="offer-post">
                     {/* <p>User: {offer.user}</p> */}
                     <h4>Description: {offer.offer_description}</h4>
                     <h4>Cash offered: ${offer.cash}</h4>

@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { fetchOfferItems, fetchTransactionItems } from '../../util/item_api_util'
+import LoadingPage from '../loading_page/loading_page'
 
 
 class Profile extends React.Component{

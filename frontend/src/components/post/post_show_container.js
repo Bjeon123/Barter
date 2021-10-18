@@ -1,6 +1,6 @@
 import PostShow from './post_show';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchPost, updatePost, deletePost } from '../../actions/post_actions';
+import { fetchPost, updatePost, deletePost } from '../../actions/post_actions';
 import { signup, login, logout } from '../../actions/session_actions';
 import { createOffer,fetchPostOffers,updateOffer} from '../../actions/offer_actions';
 import {createItem,updateItem} from '../../actions/item_actions';

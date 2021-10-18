@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import '../../styles/home.css'
 import { fetchPopular } from "../../util/post_api_util";
 import mario from '../../assets/mario.jpg'
-import gow from '../../assets/gow.jpeg'
-import sacai from '../../assets/sacais.jpeg'
 import clock from '../../assets/clock.jpeg'
-import airmax from '../../assets/airmax.png'
 import ones from '../../assets/ones.jpeg'
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/dist/styles.css';
@@ -40,7 +37,7 @@ class MainPage extends React.Component {
         for(let i=0;i<posts.length;i++){
             const post = posts[i];
             popularPosts.push(
-                <div className="slide" id={`slide-${i}`}>
+                <div key={`${i}${post._id}`} className="slide" id={`slide-${i}`}>
                     <div className="description">
                         <h1>Popular Item</h1>
                         <p>{post.itemName}</p>
@@ -64,9 +61,9 @@ class MainPage extends React.Component {
                     <div className="description">
                         <h1>Featured categories</h1>
                     </div>
-                    <Link to="/category/Shoes"><img src={ones}/></Link>
-                    <Link to ="/category/Games"><img src={mario}/></Link>
-                    <Link to ="/category/Books"><img src={clock}/></Link>
+                    <Link to="/category/Shoes"><img src={ones} alt="shoes"/></Link>
+                    <Link to ="/category/Games"><img src={mario} alt="games"/></Link>
+                    <Link to ="/category/Books"><img src={clock} alt="books"/></Link>
                 </div>
                 <footer className="home-footer">
                     <div className="footer-left">
@@ -87,7 +84,7 @@ class MainPage extends React.Component {
                             <div className="row">
                                 <a href="https://github.com/Bjeon123" rel="noreferrer" target="_blank"><i className="fab fa-github" ></i></a>
                                 <a href="https://www.linkedin.com/in/byung-sam-jeon-01a68812a/" rel="noreferrer" target="_blank"><i className="fab fa-linkedin-in"></i></a>
-                                <a href="" rel="noreferrer" target="_blank"><i className="far fa-file-pdf"></i></a> 
+                                <a href="https://docs.google.com/document/d/1TkgxqUMUMiAEXBCleRICOHvIURWvBvRtVhgw7L_AWrU/edit?usp=sharing" rel="noreferrer" target="_blank"><i className="far fa-file-pdf"></i></a> 
                             </div>
                         </div>
                         <div className="column">

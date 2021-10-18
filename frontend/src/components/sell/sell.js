@@ -111,7 +111,7 @@ class SellPage extends React.Component {
                             <option value="Books">Books</option>
                         </select>
                         <div className="sell-buttons">
-                            <label for="file-upload" className="custom">
+                            <label className="custom">
                                 <input type="file" onChange={(e) => this.setState({ image: e.target.files[0]})}/>
                             </label>
                         </div>
