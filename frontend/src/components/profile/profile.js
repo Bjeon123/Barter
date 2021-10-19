@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { fetchOfferItems, fetchTransactionItems } from '../../util/item_api_util'
-import LoadingPage from '../loading_page/loading_page'
 
 
 class Profile extends React.Component{
@@ -250,8 +249,8 @@ class Profile extends React.Component{
                     <h1>{`${this.props.session.user.username}`}'s Profile</h1>
                     <div className="header">
                         <h2>Your Posts</h2>
-                        {this.state.postdrop ? <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>:
-                            <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        {this.state.postdrop ? <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>:
+                            <i onClick={this.handlePostDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>
                         }
                     </div>
                     <div className={`${this.state.postdrop ? 'display_modal' : 'hide_modal' } items`}>
@@ -259,8 +258,8 @@ class Profile extends React.Component{
                     </div>
                     <div className="header">
                         <h2>Offers Made</h2>
-                        {this.state.offerdrop ? <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
-                            <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        {this.state.offerdrop ? <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i> :
+                            <i onClick={this.handleOfferDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>
                         }
                     </div>
                     <div className={`${this.state.offerdrop ? 'display_modal' : 'hide_modal' } items`}>
@@ -268,8 +267,8 @@ class Profile extends React.Component{
                     </div>
                     <div className="header">
                         <h2>Item's Sold</h2>
-                        {this.state.transactiondrop ? <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
-                            <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        {this.state.transactiondrop ? <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i> :
+                            <i onClick={this.handleTransactionDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>
                         }
                     </div>
                     <div className={`${this.state.transactiondrop ? 'display_modal' : 'hide_modal'} items`}>
@@ -277,8 +276,8 @@ class Profile extends React.Component{
                     </div>
                     <div className="header">
                         <h2>Offers Accepted</h2>
-                        {this.state.offerAcceptedDrop ? <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i> :
-                            <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i>
+                        {this.state.offerAcceptedDrop ? <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleDown} className="angle" /></i> :
+                            <i onClick={this.handleOfferAcceptedDrop}><FontAwesomeIcon icon={faAngleUp} className="angle" /></i>
                         }
                     </div>
                     <div className={`${this.state.offerAcceptedDrop ? 'display_modal' : 'hide_modal'} items`}>

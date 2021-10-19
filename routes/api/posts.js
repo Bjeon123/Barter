@@ -48,13 +48,11 @@ router.get('/user/:userId', (req, res) => {
     .then(posts => res.json(posts))
     .catch(err => res.status(400).json(err));
 });
-
 router.get('/show/:id', (req, res) => {
     Post.findById(req.params.id)
         .then(post => res.json(post))
         .catch(err => res.status(400).json(err));
 });
-
 router.post('/create',(req, res) => {
     const { errors, isValid } = validatePost(req.body);
     console.log(errors)
