@@ -3,9 +3,9 @@
 https://barter-mern.herokuapp.com/#/
 
 ## Team Members
-* Sam Jeon
-* Jonathan Wong
-* Long Chen
+* [Sam Jeon](https://github.com/bjeon123)
+* [Jonathan Wong](https://github.com/jay5375)
+* [Long Chen](https://github.com/rinayumiho)
 
 ## Overview
 Barter is an ecommerce website that allows users to either trade or buy items that other users post as well as post their own items. A motivation for creating the website was for users to get more value out of their used items where they otherwise couldn't. For example people that trade games back to GameStop are given significantly less cash than what was paid for the game. Another motivation was to prevent meetups for trading items such as shoes, which is very typical in NYC and can often be dangerous as many times the people trading are usually complete strangers met on a listing board. The three categories that are present in the website are games, books, and shoes.
@@ -19,13 +19,13 @@ Barter is an ecommerce website that allows users to either trade or buy items th
 * Cloudinary API
 
 ## Features
-#### Search
+### Search
 Users can browse through all posts or search for posts based on category or item name
 <img src ="frontend/src/assets/search.png"/>
-#### Post
+### Posts
 Users that are signed in and viewing their own posts can delete their post or accept and decline offers on their posts. Signed in users can also make offers on other listings. These offers can be eddited or deleted if the user that created the offer feels that they are offering too much, too little, or would like to take the offer back. 
 <img src ="frontend/src/assets/offers.png"/>
-#### Profile
+### Profile
 Signed in users on their profile page can view thier posts made, offers made, offers accepted, and items sold. Items sold and offers accepted are the most recent transactions and are limited to 3 shown per dropdown.
 <img src ="frontend/src/assets/profile.png"/>
 
