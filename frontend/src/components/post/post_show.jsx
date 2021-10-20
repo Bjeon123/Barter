@@ -214,7 +214,7 @@ class PostShow extends React.Component {
                                 break;
                             }
                         }
-                        this.setState({ offersData: offersDataCopy, modal: [false, null], items: [], itemsToRender: [], deleteItemQueue: [] })
+                        this.setState({ offersData: offersDataCopy,  modal: [false, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" },price:0,text:"",errors:{} })
                     }
                 }
             }
@@ -275,7 +275,7 @@ class PostShow extends React.Component {
                         deleteOffer(offerWithItems.offerId)
                     }
                     else{
-                        this.setState({ offersData: [...this.state.offersData, offer], items: [],itemsToRender:[], modal: [false, null] })
+                        this.setState({ offersData: [...this.state.offersData, offer],  modal: [false, null], items: [], itemsToRender: [], editingOffer: { offer_description: "", cash: "" },price:0,text:"",errors:{} })
                     }
                 }
             }
@@ -305,7 +305,7 @@ class PostShow extends React.Component {
         deleteOffer(e.target.id).then(
             (offer) => {
                 const offersdata = [...this.state.offersData];
-                for(let i=0;i<this.state.offersData.length;i++){
+                for(let i=0;i<offersdata.length;i++){
                     if(offersdata[i].offerId === offer.data._id){
                         offersdata.splice(i,1);
                     }

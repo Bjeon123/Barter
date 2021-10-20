@@ -31,7 +31,7 @@ class SignupForm extends React.Component {
     });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     let user = {
       email: this.state.email,
@@ -39,8 +39,10 @@ class SignupForm extends React.Component {
       password: this.state.password,
       password2: this.state.password2
     };
-
-    this.props.signup(user, this.props.history); 
+    let success = await this.props.signup(user)
+    if(!success.errors){
+      this.props.login(user)
+    }
   }
 
   renderErrors() {

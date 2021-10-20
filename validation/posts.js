@@ -25,7 +25,7 @@ module.exports = function validatePost(post) {
 
     if(post.price === null){
         post.price = "";
-    }else if(!regPos.test(post.price) || post.price < 0 || post.price > 1000){
+    }else if(!regPos.test(post.price) || post.price < 0 || post.price > 10000){
         errors.price = "Invalid price";
     }
 

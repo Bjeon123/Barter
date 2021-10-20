@@ -44,7 +44,7 @@ class SellPage extends React.Component {
             userId: this.props.session.user.id,
             category: this.state.category,
             itemName: this.state.itemName,
-            price: parseInt(this.state.price),
+            price: parseFloat(this.state.price).toFixed(2),
             description: this.state.description,
             imageUrl: imageUrl
         }
@@ -58,13 +58,7 @@ class SellPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ errors: nextProps.errors }, 
-            () => {
-                if (Object.keys(this.state.errors).length === 0) {
-                    this.props.history.push("/sell")
-                }
-            }
-        )
+        this.setState({ errors: nextProps.errors })
     }
 
     renderErrors() {
