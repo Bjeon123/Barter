@@ -44,7 +44,7 @@ class SellPage extends React.Component {
             userId: this.props.session.user.id,
             category: this.state.category,
             itemName: this.state.itemName,
-            price: this.state.price,
+            price: parseInt(this.state.price),
             description: this.state.description,
             imageUrl: imageUrl
         }
@@ -105,7 +105,7 @@ class SellPage extends React.Component {
                             onChange={this.handleChange("price")}
                         />
                         <p>Category</p>
-                        <select value={this.state.category} onChange={this.handleChange("category")}>
+                        <select value={this.state.category} onChange={()=>this.handleChange("category")}>
                             <option value="Games">Games</option>
                             <option value="Shoes">Shoes</option>
                             <option value="Books">Books</option>
