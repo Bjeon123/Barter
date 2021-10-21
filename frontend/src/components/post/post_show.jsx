@@ -33,13 +33,15 @@ class PostShow extends React.Component {
         this.handleDeletePost = this.handleDeletePost.bind(this);
         this.handleBuyNow = this.handleBuyNow.bind(this);
         this.renderErrors= this.renderErrors.bind(this);
+        this.updateComponent = this.updateComponent.bind(this)
     }
 
-    componentDidMount() {
+    updateComponent(){
         const id = this.props.match.params.postid;
         this.props.fetchPost(id).then(
             (post) => this.props.fetchPostOffers(post.post.data._id).then(
-                (offers) => {
+                async (offers) => {
+                    let offersData =[];
                     for (let i = 0; i < offers.offers.data.length;i++){
                         const offerData = offers.offers.data[i];
                         let offerItemsData={};
@@ -47,7 +49,7 @@ class PostShow extends React.Component {
                         offerItemsData.cash = offerData.price;
                         offerItemsData.offer_description = offerData.text;
                         offerItemsData.offerId = offerData._id
-                        fetchOfferItems(offerItemsData.offerId).then(
+                        await fetchOfferItems(offerItemsData.offerId).then(
                             (items)=>{
                                 const itemsData = items.data;
                                 let addItemsData = {};
@@ -57,9 +59,42 @@ class PostShow extends React.Component {
                                 offerItemsData['items'] = addItemsData
                             }
                         ).then(
-                            () => this.setState({ offersData: [...this.state.offersData, offerItemsData] })
+                            offersData.push(offerItemsData)
                         )
-                    }   
+                    }
+                    this.setState({offersData: offersData})   
+                }
+            )
+        )
+    }
+
+    componentDidMount(){
+        const id = this.props.match.params.postid;
+        this.props.fetchPost(id).then(
+            (post) => this.props.fetchPostOffers(post.post.data._id).then(
+                async (offers) => {
+                    let offersData =[];
+                    for (let i = 0; i < offers.offers.data.length;i++){
+                        const offerData = offers.offers.data[i];
+                        let offerItemsData={};
+                        offerItemsData.userId = offerData.user;
+                        offerItemsData.cash = offerData.price;
+                        offerItemsData.offer_description = offerData.text;
+                        offerItemsData.offerId = offerData._id
+                        await fetchOfferItems(offerItemsData.offerId).then(
+                            (items)=>{
+                                const itemsData = items.data;
+                                let addItemsData = {};
+                                for(let j = 0; j<itemsData.length ; j++){
+                                    addItemsData[itemsData[j]._id] = itemsData[j]
+                                }
+                                offerItemsData['items'] = addItemsData
+                            }
+                        ).then(
+                            offersData.push(offerItemsData)
+                        )
+                    }
+                    this.setState({offersData: offersData})   
                 }
             )
         )
@@ -68,6 +103,27 @@ class PostShow extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({ errors: nextProps.errors })
     }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     if(!props.post.data){
+    //         return {};
+    //     }
+    //     else if(props.post.data._id !== props.match.params.postid){
+    //         return{
+    //             price: 0,
+    //             items: [],
+    //             itemsToRender : [],
+    //             editingOffer: {offer_description: "", cash: ""},
+    //             editingOfferId: null,
+    //             deleteItemQueue:[],
+    //             offersData : [],
+    //             text: "",
+    //             errors: {},
+    //             modal: [false,null] 
+    //         }
+    //     }
+    
+    // }
 
     handleBuyNow(){
         const transaction = {
@@ -385,12 +441,15 @@ class PostShow extends React.Component {
     }
 
     render() {
-        if (!this.props.post){
+        if (!Object.keys(this.props.post).length){
             return null;
         }
         if(this.props.currentUser === undefined || Object.keys(this.props.currentUser).length===0){
             this.props.history.push('/login')
             return null;
+        }
+        if(this.props.post.data._id !== this.props.match.params.postid){
+            this.updateComponent()
         }
         const ownPost = this.props.post.data.userId === this.props.currentUser.id;
         let offersDataRender = []

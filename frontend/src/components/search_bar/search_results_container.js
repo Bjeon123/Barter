@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import SearchResults from './search_results';
 
-const mapStateToProps = (state, ownProps) => ({
-    posts: Object.values(state.posts)
-    // posts: state.posts
-});
+const mSTP = state =>({
+    searchedPosts: state.searchedPosts
+})
 
-export default connect(mapStateToProps)(SearchResults);
+export default connect(mSTP,null)(SearchResults)

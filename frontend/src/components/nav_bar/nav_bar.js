@@ -5,10 +5,6 @@ import SearchBarContainer from '../search_bar/search_bar_container';
 
 class NavBar extends React.Component {
 
-    componentDidMount(){
-        this.props.fetchAllPosts();
-    }
-
     render() {
         const navRight = (this.props.session !== undefined && this.props.session.isAuthenticated) ?
             <div className="navbar-right">

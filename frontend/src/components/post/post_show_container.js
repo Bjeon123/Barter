@@ -7,7 +7,8 @@ import {createItem,updateItem} from '../../actions/item_actions';
 //need to import fetchOffer from offer_actions
 
 const mapStateToProps = (state, ownProps) => ({
-    post: state.posts[ownProps.match.params.postId],
+    post: state.posts,
+    postId: ownProps.match.params.postId,
     offers: state.offers,
     currentUser: state.session.user,
     errors: { ...state.errors.items,...state.errors.offers}

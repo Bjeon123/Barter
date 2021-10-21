@@ -4,7 +4,7 @@ import session from './session_api_reducer';
 import offers from './offers_reducer'
 import errors from './errors_reducer'
 import postsReducer from './posts_reducer';
-import allPostsReducer from './allPosts_reducer';
+import searchedPosts from './searchedPosts_reducer'
 import user from './users_reducer';
 import transactions from './transaction_reducer'
 
@@ -15,7 +15,7 @@ const RootReducer = combineReducers({
   errors,
   user,
   transactions,
-  allPosts: allPostsReducer
+  searchedPosts
 });
 
 export default RootReducer;
