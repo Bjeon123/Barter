@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {searchPosts} from '../../util/post_api_util';
-import PostIndex from '../post/post_index';
 import {Link} from 'react-router-dom'
 
 class SearchBar extends React.Component{
@@ -10,10 +9,16 @@ class SearchBar extends React.Component{
         this.state={
             searchContent: "",
             matchedPosts: [],
-            redirect: false
+            opened: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleWindowClick = this.handleWindowClick.bind(this);
+    }
+
+    handleWindowClick(e){
+        e.stopPropagation();
+        this.setState({opened: false})
     }
 
     handleChange(e){
@@ -21,7 +26,7 @@ class SearchBar extends React.Component{
             ()=>{
                 searchPosts(this.state.searchContent).then(
                     posts => 
-                        this.setState({matchedPosts: posts.data})
+                        this.setState({matchedPosts: posts.data, opened: true})
                 )
             }
         )
@@ -35,22 +40,21 @@ class SearchBar extends React.Component{
 
     render(){
         let matchedPosts=[];
-        console.log(this.state)
-        for(let i=0;i < this.state.matchedPosts.length;i++){
-            if(i===10){
-                break;
+        if(this.state.matchedPosts.length){
+            window.addEventListener("click", this.handleWindowClick)
+            for(let i=0;i < this.state.matchedPosts.length;i++){
+                if(i===10){
+                    break;
+                }
+                const post = this.state.matchedPosts[i]
+                matchedPosts.push(
+                    <Link key={`${i}`} to={`/posts/${post._id}`}>
+                        <li className="partial-match">
+                            {post.itemName}
+                        </li>
+                    </Link>
+                )
             }
-            const post = this.state.matchedPosts[i]
-            matchedPosts.push(
-                <Link to ={`/posts/${post._id}`}>
-                    <li className="partial-match">
-                        {post.itemName}
-                    </li>
-                </Link>
-            )
-        }
-        if(this.state.redirect){
-            return <PostIndex posts={this.state.matchedPosts} action="search"/>
         }
         return(
             <div>
@@ -60,7 +64,7 @@ class SearchBar extends React.Component{
                         <input id="search-icon" type="image" src="https://i.ibb.co/B45HM6R/search-icon.png" alt="Submit" autoComplete="off" />
                     </div>
                 </form>
-                {this.state.matchedPosts.length ? 
+                {this.state.matchedPosts.length && this.state.opened ? 
                     <ul className="show-partial-matches">
                         {matchedPosts}
                     </ul> : 

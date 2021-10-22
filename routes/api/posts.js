@@ -55,7 +55,6 @@ router.get('/show/:id', (req, res) => {
 });
 router.post('/create',(req, res) => {
     const { errors, isValid } = validatePost(req.body);
-    console.log(errors)
     if (!isValid) {
         return res.status(400).json(errors);
     }         
