@@ -22,14 +22,19 @@ class SearchBar extends React.Component{
     }
 
     handleChange(e){
-        this.setState({searchContent: e.target.value},
-            ()=>{
-                searchPosts(this.state.searchContent).then(
-                    posts => 
-                        this.setState({matchedPosts: posts.data, opened: true})
-                )
-            }
-        )
+        if(e.target.value === ""){
+            this.setState({matchedPosts:[],searchContent:""})
+        }
+        else{
+            this.setState({searchContent: e.target.value},
+                ()=>{
+                    searchPosts(this.state.searchContent).then(
+                        posts => 
+                            this.setState({matchedPosts: posts.data, opened: true})
+                    )
+                }
+            )
+        }
     }
   
     async handleSubmit(e){
@@ -60,8 +65,8 @@ class SearchBar extends React.Component{
             <div>
                 <form onSubmit={this.handleSubmit} className="searchform">
                     <div className="searchbar">
-                        <input type="text" name="search" placeholder="Search" onChange={this.handleChange} value={this.state.searchContent}/>
-                        <input id="search-icon" type="image" src="https://i.ibb.co/B45HM6R/search-icon.png" alt="Submit" autoComplete="off" />
+                        <input id="searchbar" type="text" autoComplete="off" name="search" placeholder="Search" onChange={this.handleChange} value={this.state.searchContent}/>
+                        <i onClick={this.handleSubmit} className="fas fa-search"></i>
                     </div>
                 </form>
                 {this.state.matchedPosts.length && this.state.opened ? 
